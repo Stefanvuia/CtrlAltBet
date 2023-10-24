@@ -27,6 +27,7 @@ Entities:
 
 - Deck:
   - deckid: String
+  - cards: List<Card>
   - remaining: int
   + shuffle(): void
   + draw(n: int): List<Card>
@@ -38,6 +39,7 @@ Entities:
   - suit: String
  
 - Game:
+  - deck: Deck
   - player: Account
   - bet: Double
   + startGame(): void
