@@ -7,6 +7,11 @@ public class BlackjackGame implements Game {
     Player dealer;
     String deckId;
 
+    public BlackjackGame(Player user, Player dealer, String deckId){
+        this.user = user;
+        this.dealer = dealer;
+        this.deckId = deckId;
+    }
     @Override
     public int sumHand(Player player) {
         List<Card> hand = player.getHand();
