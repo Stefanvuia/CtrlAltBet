@@ -16,6 +16,9 @@ public class Main {
         Player dealer = new BlackjackDealer(a.draw(b, 2));
         Game game = new BlackjackGame(user, dealer, b);
 
+        for (Card c: ((BlackjackPlayer) user).getHand()){
+            System.out.print(c.getValue() +  " - ");
+        }
         System.out.println(game.sumHand(game.getPlayer()) + " is the current deck value - press any key to hit");
         System.in.read();
         BlackJackInputGameData gameData = new BlackJackInputGameData(game);

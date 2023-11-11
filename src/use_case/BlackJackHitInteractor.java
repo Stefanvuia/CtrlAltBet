@@ -1,6 +1,8 @@
 package use_case;
 
 import api.CardsAPIObject;
+import entity.BlackjackPlayer;
+import entity.Card;
 import entity.Game;
 
 import java.io.IOException;
@@ -12,7 +14,12 @@ public class BlackJackHitInteractor implements BlackJackHitInputBoundary{
     @Override
     public void execute(BlackJackInputGameData blackJackInputGameData) throws IOException {
         Game game = blackJackInputGameData.getGame();
-        game.addToHand(game.getPlayer(), cardsA.draw(game.getDeck()));
+        Card card = cardsA.draw(game.getDeck());
+        game.addToHand(game.getPlayer(), card);
+
+        for (Card c: game.getPlayer().getHand()){
+            System.out.print(c.getValue() +  " - ");
+        }
         if (game.sumHand(game.getPlayer()) > 21){
             // If player Busts
             System.out.println("bust: "+ game.sumHand(game.getPlayer()));
