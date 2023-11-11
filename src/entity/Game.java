@@ -6,4 +6,10 @@ public interface Game {
     void addToHand(Player player, Card card);
 
     boolean userWin();
+
+    Player getPlayer();
+
+    Player getDealer();
+
+    String getDeck();
 }
