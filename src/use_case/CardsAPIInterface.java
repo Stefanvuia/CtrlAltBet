@@ -1,4 +1,4 @@
-package api;
+package use_case;
 
 import org.json.JSONArray;
 
