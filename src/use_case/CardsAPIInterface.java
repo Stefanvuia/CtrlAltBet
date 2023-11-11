@@ -1,9 +1,14 @@
 package use_case;
 
+import entity.Card;
 import org.json.JSONArray;
 
+import java.util.List;
+
 public interface CardsAPIInterface {
-    JSONArray draw(String id, int cards);
+    List<Card> draw(String deckId, int cards);
+
+    Card draw(String deckId);
 
     String shuffleNew(int decks);
 }
