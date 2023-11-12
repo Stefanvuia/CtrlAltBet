@@ -1,10 +1,11 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BlackjackDealer extends Player {
-    public BlackjackDealer(List<Card> hands) {
-        this.hands = hands;
+    public BlackjackDealer() {
+        this.hands = new ArrayList<Card>();;
     }
 
     public List<Card> getHand() {

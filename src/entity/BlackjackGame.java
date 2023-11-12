@@ -46,6 +46,13 @@ public class BlackjackGame implements Game {
     }
 
     @Override
+    public void addToHand(Player player, List<Card> cards) {
+        for (Card card : cards) {
+            player.addToHand(card);
+        }
+    }
+
+    @Override
     public boolean userWin() {
         return (sumHand(user) > sumHand(dealer) && sumHand(user) <= 21) || sumHand(dealer) > 21;
     }
