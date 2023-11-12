@@ -84,25 +84,6 @@ public class UserDataAccessObject implements BlackJackDataAccessInterface {
     @Override
     public void editFund(String username, int amount) {
         accounts.get(username).editFunds(amount);
-    }
-
-    public static void main(String[] args) {
-        AccountFactory accountFactory = new CommonAccountFactory();
-        UserDataAccessObject userDataAccessObject;
-        try{
-            userDataAccessObject = new UserDataAccessObject("./users.csv", accountFactory);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Account a = accountFactory.create("cakev", "ilovemen");
-        userDataAccessObject.save(a);
-        System.out.println(userDataAccessObject.existsByName("cakev"));
-        System.out.println(userDataAccessObject.getFund("cakev"));
-        userDataAccessObject.editFund("cakev", 3000);
-        System.out.println(userDataAccessObject.getFund("cakev"));
-        Account b = accountFactory.create("stefa", "compulsivegambling<3");
-        userDataAccessObject.save(b);
-        System.out.println(userDataAccessObject.getFund("stefa"));
+        save(accounts.get(username));
     }
 }
