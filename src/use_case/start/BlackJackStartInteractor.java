@@ -26,6 +26,7 @@ public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
         int bet = blackJackStartData.getBet();
 
         if (dataAccess.getFund(username) >= bet) {
+            dataAccess.editFund(username, -bet);
             String deckId = cardsAPI.shuffleNew(6);
             Player player = new BlackjackPlayer(bet, username);
             Player dealer = new BlackjackDealer();
