@@ -1,30 +1,45 @@
 package app;
 
 import api.CardsAPIObject;
+import data_access.UserDataAccessObject;
 import entity.*;
+import interface_adapter.start.TestPresenter;
+import interface_adapter.start.TestViewModel;
+import use_case.BlackJackDataAccessInterface;
 import use_case.BlackJackHitInteractor;
 import use_case.BlackJackInputGameData;
 import use_case.CardsAPIInterface;
+import use_case.start.BlackJackStartInputBoundary;
+import use_case.start.BlackJackStartInputData;
+import use_case.start.BlackJackStartInteractor;
+import use_case.start.BlackJackStartOutputBoundary;
 
 import java.io.IOException;
 
 public class Main {
     static CardsAPIInterface a = new CardsAPIObject();
-    public static void main(String[] args) throws IOException {
-        String b = a.shuffleNew(5);
-        Player user = new BlackjackPlayer(100, "stefan", a.draw(b, 2));
-        Player dealer = new BlackjackDealer(a.draw(b, 2));
-        Game game = new BlackjackGame(user, dealer, b);
 
-        for (Card c: ((BlackjackPlayer) user).getHand()){
-            System.out.print(c.getValue() +  " - ");
+    public static void main(String[] args) throws IOException {
+        AccountFactory accountFactory = new CommonAccountFactory();
+        UserDataAccessObject userDataAccessObject;
+        try{
+            userDataAccessObject = new UserDataAccessObject("./users.csv", accountFactory);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        System.out.println(game.sumHand(game.getPlayer()) + " is the current deck value - press any key to hit");
-        System.in.read();
+
+        TestViewModel viewModel = new TestViewModel();
+        BlackJackStartOutputBoundary testPresenter = new TestPresenter(viewModel);
+
+        BlackJackStartInputBoundary startInteractor = new BlackJackStartInteractor(a, userDataAccessObject, testPresenter);
+        startInteractor.execute(new BlackJackStartInputData("cakev", 0));
+
+        Game game = ((TestPresenter) testPresenter).getTestViewModel().getState().getGame();
         BlackJackInputGameData gameData = new BlackJackInputGameData(game);
         BlackJackHitInteractor hitInteractor = new BlackJackHitInteractor();
         hitInteractor.execute(gameData);
 
 
+//        TODO now you can pass game into hit and stand
     }
 }
