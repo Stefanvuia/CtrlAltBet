@@ -1,7 +1,6 @@
 package use_case;
 
 import entity.Card;
-import org.json.JSONArray;
 
 import java.util.List;
 
