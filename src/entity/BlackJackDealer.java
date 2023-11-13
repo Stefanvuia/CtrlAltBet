@@ -3,8 +3,8 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackjackDealer extends Player {
-    public BlackjackDealer() {
+public class BlackJackDealer extends Player {
+    public BlackJackDealer() {
         this.hands = new ArrayList<Card>();;
     }
 

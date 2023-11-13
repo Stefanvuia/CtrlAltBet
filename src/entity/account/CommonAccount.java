@@ -1,6 +1,8 @@
-package entity;
+package entity.account;
 
-public class CommonAccount implements Account{
+import entity.account.Account;
+
+public class CommonAccount implements Account {
     private final String username;
     private final String password;
     private int funds;

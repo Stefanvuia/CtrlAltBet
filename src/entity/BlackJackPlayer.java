@@ -3,11 +3,11 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackjackPlayer extends Player {
+public class BlackJackPlayer extends Player {
     private final int bet;
     private final String username;
 
-    public BlackjackPlayer(int bet, String username) {
+    public BlackJackPlayer(int bet, String username) {
         this.hands = new ArrayList<Card>();
         this.bet = bet;
         this.username = username;

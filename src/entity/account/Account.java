@@ -1,4 +1,4 @@
-package entity;
+package entity.account;
 
 public interface Account {
     void editFunds(int amount);

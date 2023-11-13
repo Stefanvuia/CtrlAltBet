@@ -1,12 +1,10 @@
 package data_access;
 
-import entity.Account;
-import entity.AccountFactory;
-import entity.CommonAccountFactory;
-import use_case.BlackJackDataAccessInterface;
+import entity.account.Account;
+import entity.account.AccountFactory;
+import use_case.blackjack.BlackJackDataAccessInterface;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class UserDataAccessObject implements BlackJackDataAccessInterface {

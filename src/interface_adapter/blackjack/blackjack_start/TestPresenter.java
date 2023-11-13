@@ -1,8 +1,8 @@
-package interface_adapter.start;
+package interface_adapter.blackjack.blackjack_start;
 
 import entity.Game;
-import use_case.start.BlackJackStartOutputBoundary;
-import use_case.start.BlackJackStartOutputData;
+import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
+import use_case.blackjack.blackjack_start.BlackJackStartOutputData;
 
 public class TestPresenter implements BlackJackStartOutputBoundary {
 

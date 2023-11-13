@@ -1,4 +1,4 @@
-package use_case.start;
+package use_case.blackjack.blackjack_start;
 
 public class BlackJackStartInputData {
     private String username;

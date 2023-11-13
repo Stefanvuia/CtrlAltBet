@@ -1,6 +1,5 @@
-package use_case;
+package use_case.blackjack.blackjack_logic;
 
-import entity.BlackjackGame;
 import entity.Game;
 
 public class BlackJackOutputGameData {

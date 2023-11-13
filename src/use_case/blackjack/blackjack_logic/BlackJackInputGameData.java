@@ -1,8 +1,7 @@
-package use_case;
+package use_case.blackjack.blackjack_logic;
 
-import entity.BlackjackGame;
+import entity.BlackJackGame;
 import entity.Game;
-import entity.Player;
 
 public class BlackJackInputGameData {
     private Game game;
@@ -11,5 +10,5 @@ public class BlackJackInputGameData {
         this.game = game;
     }
 
-    BlackjackGame getGame(){ return (BlackjackGame) this.game; }
+    BlackJackGame getGame(){ return (BlackJackGame) this.game; }
 }

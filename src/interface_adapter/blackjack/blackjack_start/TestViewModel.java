@@ -1,6 +1,4 @@
-package interface_adapter.start;
-
-import interface_adapter.TestState;
+package interface_adapter.blackjack.blackjack_start;
 
 public class TestViewModel {
     private TestState state = new TestState();

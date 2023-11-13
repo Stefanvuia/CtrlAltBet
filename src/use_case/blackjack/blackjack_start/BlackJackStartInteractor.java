@@ -1,8 +1,8 @@
-package use_case.start;
+package use_case.blackjack.blackjack_start;
 
 import entity.*;
-import use_case.BlackJackDataAccessInterface;
-import use_case.CardsAPIInterface;
+import use_case.blackjack.BlackJackDataAccessInterface;
+import use_case.blackjack.CardsAPIInterface;
 
 import java.io.IOException;
 
@@ -21,17 +21,17 @@ public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
         this.blackJackStartPresenter = blackJackStartPresenter;
     }
     @Override
-    public void execute(BlackJackStartInputData blackJackStartData) throws IOException {
+    public void execute(BlackJackStartInputData blackJackStartData) {
         String username = blackJackStartData.getUsername();
         int bet = blackJackStartData.getBet();
 
         if (dataAccess.getFund(username) >= bet) {
             dataAccess.editFund(username, -bet);
             String deckId = cardsAPI.shuffleNew(6);
-            Player player = new BlackjackPlayer(bet, username);
-            Player dealer = new BlackjackDealer();
+            Player player = new BlackJackPlayer(bet, username);
+            Player dealer = new BlackJackDealer();
 
-            Game game = new BlackjackGame(player, dealer, deckId);
+            Game game = new BlackJackGame(player, dealer, deckId);
             game.addToHand(player, cardsAPI.draw(game.getDeck(), 2));
             game.addToHand(dealer, cardsAPI.draw(game.getDeck(), 2));
 

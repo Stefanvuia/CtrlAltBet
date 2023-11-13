@@ -2,12 +2,12 @@ package entity;
 
 import java.util.List;
 
-public class BlackjackGame implements Game {
+public class BlackJackGame implements Game {
     Player user;
     Player dealer;
     String deckId;
 
-    public BlackjackGame(Player user, Player dealer, String deckId){
+    public BlackJackGame(Player user, Player dealer, String deckId){
         this.user = user;
         this.dealer = dealer;
         this.deckId = deckId;

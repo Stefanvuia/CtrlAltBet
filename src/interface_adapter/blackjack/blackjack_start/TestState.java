@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.blackjack.blackjack_start;
 
 import entity.Game;
 
