@@ -2,79 +2,65 @@ package app;
 
 import api.CardsAPIObject;
 import data_access.UserDataAccessObject;
-import entity.*;
-import entity.account.AccountFactory;
 import entity.account.CommonAccountFactory;
-import interface_adapter.blackjack.blackjack_logic.TestLogicPresenter;
-import interface_adapter.blackjack.blackjack_logic.TestLogicViewModel;
-import interface_adapter.blackjack.blackjack_start.TestPresenter;
-import interface_adapter.blackjack.blackjack_start.TestViewModel;
-import use_case.blackjack.blackjack_logic.BlackJackHitInteractor;
-import use_case.blackjack.blackjack_logic.BlackJackInputGameData;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.blackjack.blackjack_logic.BlackJackIngameViewModel;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+import use_case.blackjack.BlackJackDataAccessInterface;
 import use_case.blackjack.CardsAPIInterface;
-import use_case.blackjack.blackjack_logic.BlackJackStandInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
-import use_case.blackjack.blackjack_start.BlackJackStartInputData;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
+import view.BlackJackStartView;
+import view.ViewManager;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main {
-    static CardsAPIInterface a = new CardsAPIObject();
+    public static void main(String[] args) {
+        JFrame application = new JFrame("A");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        boolean play = true;
-        while(play) {
-            gameRunner();
-            System.out.println("Play again? (Y/N)");
-            if(scanner.nextLine().equals("N")) {
-                play = false;
-            }
-        }
-    }
+        CardLayout cardLayout = new CardLayout();
 
-    public static void gameRunner() {
-        AccountFactory accountFactory = new CommonAccountFactory();
-        UserDataAccessObject userDataAccessObject;
-        try{
-            userDataAccessObject = new UserDataAccessObject("./users.csv", accountFactory);
+        // The various View objects. Only one view is visible at a time.
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        // This keeps track of and manages which view is currently showing.
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
+        BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
+
+        BlackJackDataAccessInterface blackJackDAO;
+        try {
+            blackJackDAO = new UserDataAccessObject("./users.csv", new CommonAccountFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        TestViewModel viewModel = new TestViewModel();
-        BlackJackStartOutputBoundary testPresenter = new TestPresenter(viewModel);
+        CardsAPIInterface blackJackAPI = new CardsAPIObject();
 
-        BlackJackStartInputBoundary startInteractor = new BlackJackStartInteractor(a, userDataAccessObject, testPresenter);
-        startInteractor.execute(new BlackJackStartInputData("cakev", 2));
+        BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(blackJackStartViewModel,
+                blackJackIngameViewModel,
+                viewManagerModel);
 
-        Game game = ((TestPresenter) testPresenter).getTestViewModel().getState().getGame();
-        BlackJackInputGameData gameData = new BlackJackInputGameData(game);
+        BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(blackJackAPI, blackJackDAO, blackJackStartPresenter);
+        BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter H to hit, S to stand");
-        String choice = scanner.nextLine();
+        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, startController);
+        views.add(startView, startView.viewName);
 
-        TestLogicViewModel viewModel2 = new TestLogicViewModel();
-        BlackJackHitInteractor hitInteractor = new BlackJackHitInteractor(a, new TestLogicPresenter(viewModel2));
-        BlackJackStandInteractor standInteractor = new BlackJackStandInteractor(a, userDataAccessObject, new TestLogicPresenter(viewModel2));
+        viewManagerModel.setActiveView(startView.viewName);
+        viewManagerModel.firePropertyChanged();
 
-        if (choice.equals("H")) {
-            hitInteractor.execute(gameData);
-        } else {
-            standInteractor.execute(gameData);
-        }
-
-        while (!(viewModel2.getState().getEnd())) {
-            System.out.println("Enter H to hit, S to stand");
-            if(scanner.nextLine().equals("H")) {
-                hitInteractor.execute(new BlackJackInputGameData(viewModel2.getState().getGame()));
-            } else {
-                standInteractor.execute(new BlackJackInputGameData(viewModel2.getState().getGame()));
-            }
-        }
+        application.pack();
+        application.setVisible(true);
     }
 }
