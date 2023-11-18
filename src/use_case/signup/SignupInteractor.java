@@ -2,7 +2,6 @@ package use_case.signup;
 
 import entity.User;
 import entity.UserFactory;
-import users.UserSignupDsData;
 
 import java.time.LocalDateTime;
 
@@ -30,8 +29,7 @@ public class SignupInteractor implements SignupInputBoundary {
             LocalDateTime now = LocalDateTime.now();
 
             User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
-            UserSignupDsData userDsModel = new UserSignupDsData(user.getName(), user.getPassword(), now);
-            userDataAccessObject.save(userDsModel);
+            userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);

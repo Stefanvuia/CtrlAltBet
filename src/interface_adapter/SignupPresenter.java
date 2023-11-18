@@ -1,15 +1,15 @@
 package interface_adapter;
 
-import users.UserSignupOutputBoundary;
-import users.UserSignupOutputData;
+import users.SignupOutputBoundary;
+import users.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class UserSignupPresenter implements UserSignupOutputBoundary {
+public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
-    public void prepareSuccessView(UserSignupOutputData response) {
+    public void prepareSuccessView(SignupOutputData response) {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
     }

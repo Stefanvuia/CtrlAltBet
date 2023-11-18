@@ -1,12 +1,12 @@
 package users;
 
-public class UserSignupInputData {
+public class SignupInputData {
 
     final private String name;
     final private String password;
     final private String repeatPassword;
 
-    public UserSignupInputData(String name, String password, String repeatPassword) {
+    public SignupInputData(String name, String password, String repeatPassword) {
         this.name = name;
         this.password = password;
         this.repeatPassword = repeatPassword;

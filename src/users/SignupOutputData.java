@@ -1,11 +1,11 @@
 package users;
 
-public class UserSignupOutputData {
+public class SignupOutputData {
 
     private final String user;
     private String creationTime;
 
-    public UserSignupOutputData(String user, String creationTime) {
+    public SignupOutputData(String user, String creationTime) {
         this.user = user;
         this.creationTime = creationTime;
     }

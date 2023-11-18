@@ -7,7 +7,7 @@ import entity.*;
 import entity.account.AccountFactory;
 import entity.account.CommonAccountFactory;
 import interface_adapter.UserSignupController;
-import interface_adapter.UserSignupPresenter;
+import interface_adapter.SignupPresenter;
 import interface_adapter.UserViewModel;
 import interface_adapter.blackjack.blackjack_logic.TestLogicPresenter;
 import interface_adapter.blackjack.blackjack_logic.TestLogicViewModel;
@@ -21,10 +21,10 @@ import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
 import use_case.blackjack.blackjack_start.BlackJackStartInputData;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import users.UserSignupDataAccessInterface;
-import users.UserSignupInputBoundary;
-import users.UserSignupInteractor;
-import users.UserSignupOutputBoundary;
+import users.SignupUserDataAccessInterface;
+import users.SignupInputBoundary;
+import users.SignupInteractor;
+import users.SignupOutputBoundary;
 import view.*;
 
 
@@ -101,16 +101,16 @@ public class Main {
     }
 
     private static UserSignupController createUserSignupUseCase() {
-        UserSignupDataAccessInterface user;
+        SignupUserDataAccessInterface user;
         try {
-            user = new FileUserDataAccessObject("./users.csv");
+            user = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
-        UserSignupOutputBoundary userSignupOutputBoundary = new UserSignupPresenter();
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter();
         UserFactory userFactory = new CommonUserFactory();
-        UserSignupInputBoundary userSignupInteractor = new UserSignupInteractor(
-                user, userSignupOutputBoundary, userFactory);
+        SignupInputBoundary userSignupInteractor = new SignupInteractor(
+                user, signupOutputBoundary, userFactory);
         return new UserSignupController(userSignupInteractor);
     }
 
