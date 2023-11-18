@@ -32,8 +32,7 @@ public class UserSignupInteractor implements UserSignupInputBoundary {
             userPresenter.prepareFailView("User password must have more than 5 characters.");
         }
 
-        UserSignupDsData userDsModel = new UserSignupDsData(user.getName(), user.getPassword(), user.getCreationTime());
-        userDsGateway.save(userDsModel);
+        userDsGateway.save(user);
 
         UserSignupOutputData accountResponseModel = new UserSignupOutputData(user.getName(), now.toString());
         userPresenter.prepareSuccessView(accountResponseModel);

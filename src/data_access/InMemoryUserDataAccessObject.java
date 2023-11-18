@@ -2,14 +2,13 @@ package data_access;
 
 import entity.User;
 import use_case.signup.SignupUserDataAccessInterface;
-import users.UserSignupDsData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface {
 
-    private final Map<String, UserSignupDsData> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     /**
      * @param identifier the user's username
@@ -24,7 +23,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      * @param user the data to save
      */
     @Override
-    public void save(UserSignupDsData user) {
+    public void save(User user) {
         users.put(user.getName(), user);
     }
 }

@@ -1,6 +1,5 @@
 package entity;
 
-import users.UserSignupDsData;
 
 import java.time.LocalDateTime;
 

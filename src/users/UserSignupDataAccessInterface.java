@@ -1,7 +1,9 @@
 package users;
 
+import entity.User;
+
 public interface UserSignupDataAccessInterface {
     boolean existsByName(String identifier);
 
-    void save(UserSignupDsData requestModel);
+    void save(User requestModel);
 }

@@ -1,8 +1,8 @@
 package data_access;
 
+import entity.User;
 import entity.UserFactory;
 import users.UserSignupDataAccessInterface;
-import users.UserSignupDsData;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -16,10 +16,12 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, UserSignupDsData> accounts = new HashMap<>();
+    private final Map<String, User> accounts = new HashMap<>();
 
+    private UserFactory userFactory;
 
-    public FileUserDataAccessObject(String csvPath) throws IOException {
+    public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+        this.userFactory = userFactory;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -43,7 +45,7 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
                     String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    UserSignupDsData user = new UserSignupDsData(username, password, ldt);
+                    User user = userFactory.create(username, password, ldt);
                     accounts.put(username, user);
                 }
             }
@@ -58,7 +60,7 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (UserSignupDsData user : accounts.values()) {
+            for (User user : accounts.values()) {
                 String line = String.format("%s,%s,%s",
                         user.getName(), user.getPassword(), user.getCreationTime());
                 writer.write(line);
@@ -84,7 +86,7 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
     }
 
     @Override
-    public void save(UserSignupDsData requestModel) {
+    public void save(User requestModel) {
         accounts.put(requestModel.getName(), requestModel);
         this.save();
     }

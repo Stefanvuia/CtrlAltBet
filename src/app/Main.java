@@ -103,7 +103,7 @@ public class Main {
     private static UserSignupController createUserSignupUseCase() {
         UserSignupDataAccessInterface user;
         try {
-            user = new FileUserDataAccessObject("./users.csv");
+            user = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
