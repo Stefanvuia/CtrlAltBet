@@ -25,15 +25,15 @@ public class Main {
     static CardsAPIInterface a = new CardsAPIObject();
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        boolean play = true;
-        while(play) {
-            gameRunner();
-            System.out.println("Play again? (Y/N)");
-            if(scanner.nextLine().equals("N")) {
-                play = false;
-            }
-        }
+//        Scanner scanner = new Scanner(System.in);
+//        boolean play = true;
+//        while(play) {
+//            gameRunner();
+//            System.out.println("Play again? (Y/N)");
+//            if(scanner.nextLine().equals("N")) {
+//                play = false;
+//            }
+//        }
     }
 
     public static void gameRunner() {
