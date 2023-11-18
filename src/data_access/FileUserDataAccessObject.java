@@ -2,7 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
-import users.UserSignupDataAccessInterface;
+import users.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface {
 
     private final File csvFile;
 

@@ -1,20 +1,20 @@
 package interface_adapter;
 
-import users.UserSignupInputBoundary;
-import users.UserSignupInputData;
+import users.SignupInputBoundary;
+import users.SignupInputData;
 
 public class UserSignupController {
 
-    final UserSignupInputBoundary userInput;
+    final SignupInputBoundary userInput;
 
-    public UserSignupController(UserSignupInputBoundary accountGateway) {
+    public UserSignupController(SignupInputBoundary accountGateway) {
         this.userInput = accountGateway;
     }
 
     public void create(String username, String password1, String password2) {
-        UserSignupInputData userSignupInputData = new UserSignupInputData(
+        SignupInputData signupInputData = new SignupInputData(
                 username, password1, password2);
 
-        userInput.createUser(userSignupInputData);
+        userInput.createUser(signupInputData);
     }
 }
