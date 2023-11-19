@@ -12,6 +12,12 @@ public class BlackJackStartViewModel extends ViewModel {
 
     public final String INFO_LABEL = "info";
 
+    public final String MIN_BET_LABEL = "min: 0";
+
+    public final String MAX_BET_LABEL = "max: ";
+
+    public final String HALF_BET_LABEL = "1/2: ";
+
     private StartState state = new StartState();
 
     public BlackJackStartViewModel() {

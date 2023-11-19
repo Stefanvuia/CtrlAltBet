@@ -1,4 +1,4 @@
-package view;
+package view.custom_swing_elements;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -7,13 +7,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
-import java.awt.geom.RoundRectangle2D;
 
-public class CustomButton extends JButton {
+public class GreenCustomButton extends JButton {
     private Color darkGreen = new Color(53, 70, 62);
     private Color lightGreen = new Color(144, 227, 154);
-    public CustomButton(String text) {
+    public GreenCustomButton(String text) {
         super(text);
         this.setContentAreaFilled(false);
         this.setFont(new Font("Courier", Font.BOLD, 28));
