@@ -6,9 +6,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class BlackJackStartViewModel extends ViewModel {
+    public final String BET_LABEL = "start";
 
-    public final String TITLE_LABEL = "Start Game";
-    public final String BET_LABEL = "Enter Bet";
+    public final String EXIT_LABEL = "exit";
+
+    public final String INFO_LABEL = "info";
 
     private StartState state = new StartState();
 
