@@ -5,11 +5,17 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BlackJackIngameViewModel extends ViewModel {
+public class BlackJackStandViewModel extends ViewModel {
     private GameState state = new GameState();
 
-    public BlackJackIngameViewModel() {
-        super("in blackjack");
+    public String STAND_LABEL = "stand";
+
+    public String EXIT_LABEL = "exit";
+
+    public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
+
+    public BlackJackStandViewModel() {
+        super("bj ingame");
     }
 
     public void setState(GameState state) {
@@ -24,7 +30,7 @@ public class BlackJackIngameViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("bj ingame", null, this.state);
+        support.firePropertyChange("bj stand", null, this.state);
     }
 
     @Override

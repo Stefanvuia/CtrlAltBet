@@ -40,6 +40,10 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
     final JButton half;
 
+    private int maxBet;
+
+    private int halfBet;
+
     private final BlackJackStartController blackJackStartController;
 
     public BlackJackStartView(BlackJackStartViewModel blackJackStartViewModel,
@@ -48,8 +52,8 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         this.blackJackStartController = blackJackStartController;
         this.blackJackStartViewModel.addPropertyChangeListener(this);
 
-        int halfBet = blackJackStartViewModel.getState().getFunds() / 2;
-        int maxBet = blackJackStartViewModel.getState().getFunds();
+        halfBet = blackJackStartViewModel.getState().getFunds() / 2;
+        maxBet = blackJackStartViewModel.getState().getFunds();
 
         betField = new BetField(setUpNumFormat(maxBet));
         betField.setColumns(5);
@@ -71,9 +75,9 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
                             System.out.println(currentState.getUsername());
                             System.out.println(currentState.getBet());
 
-//                            blackJackStartController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getBet());
+                            blackJackStartController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getBet());
                         }
                     }
                 }
@@ -160,11 +164,13 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
             public void changedUpdate(DocumentEvent e) {}
         });
 
+        // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
+        // exit button
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.weighty = 0.1;
@@ -173,6 +179,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         exitPanel.add(exit);
         this.add(exitPanel, gbc);
 
+        // betting fields
         gbc.gridx++;
         gbc.weightx = 0.75;
         GreenCustomPanel betPanel = new GreenCustomPanel();
@@ -182,18 +189,21 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         betPanel.add(max);
         this.add(betPanel, gbc);
 
+        // start button
         gbc.gridx++;
         gbc.weightx = 0.25;
         JPanel startPanel = new JPanel(new BorderLayout(0, 0));
         startPanel.add(start);
         this.add(startPanel, gbc);
 
+        // info button
         gbc.gridx++;
         gbc.weightx = 0.25;
         JPanel infoPanel = new JPanel(new BorderLayout(0, 0));
         infoPanel.add(info);
         this.add(infoPanel, gbc);
 
+        // table
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weighty = 0.9;
@@ -208,8 +218,18 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        StartState currentState = blackJackStartViewModel.getState();
-        JOptionPane.showMessageDialog(this, currentState.getBetError());
+        if (evt.getPropertyName().equals("bj start")) {
+            StartState currentState = blackJackStartViewModel.getState();
+            if (currentState.getBetError() != null) {
+                JOptionPane.showMessageDialog(this, currentState.getBetError());
+            } else {
+                halfBet = currentState.getFunds() / 2;
+                maxBet = currentState.getFunds();
+                half.setText(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
+                max.setText(blackJackStartViewModel.MAX_BET_LABEL + maxBet);
+                betField.setValue(halfBet);
+            }
+        }
     }
     private NumberFormatter setUpNumFormat(int max) {
         NumberFormat betFormat = NumberFormat.getIntegerInstance();

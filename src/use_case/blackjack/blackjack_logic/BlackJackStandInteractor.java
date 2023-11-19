@@ -28,29 +28,28 @@ public class BlackJackStandInteractor implements BlackJackStandInputBoundary{
         String deck = game.getDeck();
         Integer playerSum = game.sumHand(user);
         int dealerSum = game.sumHand(dealer);
+        int change;
 
         while (dealerSum < 17) {
             game.addToHand(dealer, cardsAPI.draw(deck));
             dealerSum = game.sumHand(dealer);
         }
 
-        BlackJackOutputGameData outputGameData = new BlackJackOutputGameData(game, true);
-
         if (game.userWin() && Integer.valueOf(user.getHand().size()).equals(2) && playerSum.equals(21)) {
             // Player blackjack
             dataAccessObject.editFund(user.getUsername(), (int) (user.getBet() * 2.5));
-            blackJackStandPresenter.prepareWinView(outputGameData);
+            blackJackStandPresenter.prepareWinView(new BlackJackOutputGameData(game, true, (int) (user.getBet() * 1.5)));
         } else if (game.userWin()) {
             // Player win
             dataAccessObject.editFund(user.getUsername(), (user.getBet() * 2));
-            blackJackStandPresenter.prepareWinView(outputGameData);
+            blackJackStandPresenter.prepareWinView(new BlackJackOutputGameData(game, true, user.getBet()));
         } else if (playerSum.equals(dealerSum)) {
             // Push
             dataAccessObject.editFund(user.getUsername(), user.getBet());
-            blackJackStandPresenter.preparePushView(outputGameData);
+            blackJackStandPresenter.preparePushView(new BlackJackOutputGameData(game, true, 0));
         } else {
             // Dealer win
-            blackJackStandPresenter.prepareLoseView(outputGameData);
+            blackJackStandPresenter.prepareLoseView(new BlackJackOutputGameData(game, true, -user.getBet()));
         }
     }
 }

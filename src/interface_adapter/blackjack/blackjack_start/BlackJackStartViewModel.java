@@ -21,7 +21,7 @@ public class BlackJackStartViewModel extends ViewModel {
     private StartState state = new StartState();
 
     public BlackJackStartViewModel() {
-        super("start blackjack");
+        super("bj start");
     }
 
     public void setState(StartState state) {
