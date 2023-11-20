@@ -1,4 +1,4 @@
-package view;
+package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
@@ -57,6 +57,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
         betField = new BetField(setUpNumFormat(maxBet));
         betField.setColumns(5);
+        betField.setValue(halfBet);
 
         start = new GreenCustomButton(blackJackStartViewModel.BET_LABEL);
         info = new GreenCustomButton(blackJackStartViewModel.INFO_LABEL);
@@ -66,86 +67,65 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         half = new GreenCustomButton(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
 
         start.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(start)) {
-                            StartState currentState = blackJackStartViewModel.getState();
+                e -> {
+                    if (e.getSource().equals(start)) {
+                        StartState currentState = blackJackStartViewModel.getState();
 
-                            System.out.println(currentState.getUsername());
-                            System.out.println(currentState.getBet());
-
-                            blackJackStartController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getBet());
-                        }
+                        blackJackStartController.execute(
+                                currentState.getUsername(),
+                                currentState.getBet());
                     }
                 }
         );
 
         info.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(info)) {
-                            System.out.println("info pressed");
-                        }
+                e -> {
+                    if (e.getSource().equals(info)) {
+                        System.out.println("info pressed");
                     }
                 }
         );
 
         exit.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(exit)) {
-                            System.out.println("exit pressed");
-                        }
+                e -> {
+                    if (e.getSource().equals(exit)) {
+                        System.out.println("exit pressed");
                     }
                 }
         );
 
         half.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(half)) {
-                            StartState currentState = blackJackStartViewModel.getState();
-                            currentState.setBet(halfBet);
-                            blackJackStartViewModel.setState(currentState);
+                e -> {
+                    if (e.getSource().equals(half)) {
+                        StartState currentState = blackJackStartViewModel.getState();
+                        currentState.setBet(halfBet);
+                        blackJackStartViewModel.setState(currentState);
 
-                            betField.setValue(halfBet);
-                        }
+                        betField.setValue(halfBet);
                     }
                 }
         );
 
         max.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(max)) {
-                            StartState currentState = blackJackStartViewModel.getState();
-                            currentState.setBet(maxBet);
-                            blackJackStartViewModel.setState(currentState);
+                e -> {
+                    if (e.getSource().equals(max)) {
+                        StartState currentState = blackJackStartViewModel.getState();
+                        currentState.setBet(maxBet);
+                        blackJackStartViewModel.setState(currentState);
 
-                            betField.setValue(maxBet);
-                        }
+                        betField.setValue(maxBet);
                     }
                 }
         );
 
         min.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(min)) {
-                            StartState currentState = blackJackStartViewModel.getState();
-                            currentState.setBet(0);
-                            blackJackStartViewModel.setState(currentState);
+                e -> {
+                    if (e.getSource().equals(min)) {
+                        StartState currentState = blackJackStartViewModel.getState();
+                        currentState.setBet(0);
+                        blackJackStartViewModel.setState(currentState);
 
-                            betField.setValue(0);
-                        }
+                        betField.setValue(0);
                     }
                 }
         );

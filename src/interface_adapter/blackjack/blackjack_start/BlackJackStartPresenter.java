@@ -13,7 +13,7 @@ public class BlackJackStartPresenter  implements BlackJackStartOutputBoundary {
 
     private final BlackJackStandViewModel blackJackStandViewModel;
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public BlackJackStartPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                    BlackJackHitViewModel blackJackHitViewModel,
@@ -39,7 +39,6 @@ public class BlackJackStartPresenter  implements BlackJackStartOutputBoundary {
         this.viewManagerModel.setActiveView(blackJackHitViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
 
-//        this.blackJackStandViewModel.firePropertyChanged();
         this.blackJackHitViewModel.firePropertyChanged();
     }
 

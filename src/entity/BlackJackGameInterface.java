@@ -2,7 +2,7 @@ package entity;
 
 import java.util.List;
 
-public interface Game {
+public interface BlackJackGameInterface {
     int sumHand(Player player);
 
     void addToHand(Player player, Card card);

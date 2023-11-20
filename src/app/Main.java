@@ -14,8 +14,8 @@ import use_case.blackjack.blackjack_logic.*;
 import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import view.BlackJackIngameView;
-import view.BlackJackStartView;
+import view.blackjack.BlackJackIngameView;
+import view.blackjack.BlackJackStartView;
 import view.ViewManager;
 
 import javax.swing.*;

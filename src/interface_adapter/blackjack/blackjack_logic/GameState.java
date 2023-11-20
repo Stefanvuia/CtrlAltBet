@@ -1,7 +1,7 @@
 package interface_adapter.blackjack.blackjack_logic;
 
 import entity.Card;
-import entity.Game;
+import entity.BlackJackGameInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class GameState {
 
     private int bet = 0;
 
-    private Game game = null;
+    private BlackJackGameInterface blackJackGameInterface = null;
 
     private String gameMessage = "";
 
@@ -20,7 +20,7 @@ public class GameState {
     public GameState(GameState copy) {
         username = copy.username;
         bet = copy.bet;
-        game = copy.game;
+        blackJackGameInterface = copy.blackJackGameInterface;
         gameMessage = copy.gameMessage;
         gameEnd = copy.gameEnd;
     }
@@ -43,17 +43,17 @@ public class GameState {
         this.bet = bet;
     }
 
-    public Game getGame() {
-        return game;
+    public BlackJackGameInterface getGame() {
+        return blackJackGameInterface;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGame(BlackJackGameInterface blackJackGameInterface) {
+        this.blackJackGameInterface = blackJackGameInterface;
     }
 
     public List<String> getPlayerHandImg() {
         ArrayList<String> imgs = new ArrayList<String>();
-        for (Card card : game.getPlayer().getHand()) {
+        for (Card card : blackJackGameInterface.getPlayer().getHand()) {
             imgs.add(card.getImg());
         }
 
@@ -62,7 +62,7 @@ public class GameState {
 
     public List<String> getDealerHandImg() {
         ArrayList<String> imgs = new ArrayList<String>();
-        for (Card card : game.getDealer().getHand()) {
+        for (Card card : blackJackGameInterface.getDealer().getHand()) {
             imgs.add(card.getImg());
         }
 

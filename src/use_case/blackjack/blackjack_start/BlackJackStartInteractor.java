@@ -4,8 +4,6 @@ import entity.*;
 import use_case.blackjack.BlackJackDataAccessInterface;
 import use_case.blackjack.CardsAPIInterface;
 
-import java.io.IOException;
-
 public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
     final CardsAPIInterface cardsAPI;
     final BlackJackDataAccessInterface dataAccess;
@@ -31,11 +29,11 @@ public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
             Player player = new BlackJackPlayer(bet, username);
             Player dealer = new BlackJackDealer();
 
-            Game game = new BlackJackGame(player, dealer, deckId);
-            game.addToHand(player, cardsAPI.draw(game.getDeck(), 2));
-            game.addToHand(dealer, cardsAPI.draw(game.getDeck(), 2));
+            BlackJackGameInterface blackJackGameInterface = new BlackJackGame(player, dealer, deckId);
+            blackJackGameInterface.addToHand(player, cardsAPI.draw(blackJackGameInterface.getDeck(), 2));
+            blackJackGameInterface.addToHand(dealer, cardsAPI.draw(blackJackGameInterface.getDeck(), 2));
 
-            blackJackStartPresenter.prepareSuccessView(new BlackJackStartOutputData(game));
+            blackJackStartPresenter.prepareSuccessView(new BlackJackStartOutputData(blackJackGameInterface));
         } else {
             blackJackStartPresenter.prepareFailView("insufficient funds");
         }

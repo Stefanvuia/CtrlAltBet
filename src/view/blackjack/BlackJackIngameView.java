@@ -1,4 +1,4 @@
-package view;
+package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_logic.*;
 import view.custom_swing_elements.BackgroundPanel;
@@ -9,11 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
 
     private final BlackJackHitController blackJackHitController;
 
-    private BackgroundPanel tablePanel;
+    private final BackgroundPanel tablePanel;
 
     public BlackJackIngameView(BlackJackHitController blackJackHitController,
                                BlackJackStandController blackJackStandController,
@@ -52,25 +50,19 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         stand = new GreenCustomButton(blackJackStandViewModel.STAND_LABEL);
 
         hit.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(hit)) {
-                            GameState currstate = blackJackHitViewModel.getState();
-                            blackJackHitController.execute(currstate.getGame());
-                        }
+                e -> {
+                    if (e.getSource().equals(hit)) {
+                        GameState currstate = blackJackHitViewModel.getState();
+                        blackJackHitController.execute(currstate.getGame());
                     }
                 }
         );
 
         stand.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(stand)) {
-                            GameState currstate = blackJackStandViewModel.getState();
-                            blackJackStandController.execute(currstate.getGame());
-                        }
+                e -> {
+                    if (e.getSource().equals(stand)) {
+                        GameState currstate = blackJackStandViewModel.getState();
+                        blackJackStandController.execute(currstate.getGame());
                     }
                 }
         );
@@ -108,7 +100,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weighty = 0.9;
-        gbc.gridwidth = gbc.REMAINDER;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         this.tablePanel = new BackgroundPanel("img/blackjacktable.png");
         this.add(tablePanel, gbc);
     }
