@@ -18,17 +18,19 @@ public class BlackJackStartViewModel extends ViewModel {
 
     public final String HALF_BET_LABEL = "1/2: ";
 
-    private StartState state = new StartState();
+    public final String IMG_PATH = "img/blackjacktable.png";
+
+    private BlackJackStartState state = new BlackJackStartState();
 
     public BlackJackStartViewModel() {
         super("bj start");
     }
 
-    public void setState(StartState state) {
+    public void setState(BlackJackStartState state) {
         this.state = state;
     }
 
-    public StartState getState() {
+    public BlackJackStartState getState() {
         return state;
     }
 

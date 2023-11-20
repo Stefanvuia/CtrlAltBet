@@ -1,18 +1,18 @@
 package use_case.blackjack.blackjack_start;
 
-import entity.*;
-import use_case.blackjack.BlackJackDataAccessInterface;
+import entity.game_logic.*;
+import use_case.blackjack.GameDataAccessInterface;
 import use_case.blackjack.CardsAPIInterface;
 
 public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
     final CardsAPIInterface cardsAPI;
-    final BlackJackDataAccessInterface dataAccess;
+    final GameDataAccessInterface dataAccess;
 
     final BlackJackStartOutputBoundary blackJackStartPresenter;
 
     public BlackJackStartInteractor(
             CardsAPIInterface cardsAPI,
-            BlackJackDataAccessInterface dataAccess,
+            GameDataAccessInterface dataAccess,
             BlackJackStartOutputBoundary blackJackStartPresenter) {
         this.cardsAPI = cardsAPI;
         this.dataAccess = dataAccess;

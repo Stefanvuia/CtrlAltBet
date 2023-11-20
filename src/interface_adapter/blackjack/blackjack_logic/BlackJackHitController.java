@@ -1,6 +1,6 @@
 package interface_adapter.blackjack.blackjack_logic;
 
-import entity.BlackJackGameInterface;
+import entity.game_logic.BlackJackGameInterface;
 import use_case.blackjack.blackjack_logic.BlackJackHitInputBoundary;
 import use_case.blackjack.blackjack_logic.BlackJackInputGameData;
 

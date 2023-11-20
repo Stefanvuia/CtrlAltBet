@@ -1,12 +1,12 @@
 package interface_adapter.blackjack.blackjack_logic;
 
 import entity.Card;
-import entity.BlackJackGameInterface;
+import entity.game_logic.BlackJackGameInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState {
+public class BlackJackGameState {
     private String username = "";
 
     private int bet = 0;
@@ -17,7 +17,7 @@ public class GameState {
 
     private boolean gameEnd = false;
 
-    public GameState(GameState copy) {
+    public BlackJackGameState(BlackJackGameState copy) {
         username = copy.username;
         bet = copy.bet;
         blackJackGameInterface = copy.blackJackGameInterface;
@@ -25,7 +25,7 @@ public class GameState {
         gameEnd = copy.gameEnd;
     }
 
-    public GameState(){}
+    public BlackJackGameState(){}
 
     public String getUsername() {
         return username;

@@ -1,7 +1,8 @@
-package entity;
+package entity.game_logic;
+
+import entity.Card;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class BaccaratGame implements BaccaratGameInterface {
@@ -10,13 +11,10 @@ public class BaccaratGame implements BaccaratGameInterface {
     private final Player banker;
     private final String deckId;
 
-    private final Map<String, Integer> bet;
-
-    public BaccaratGame(Player player, Player banker, String deckId, Map<String, Integer> bet) {
+    public BaccaratGame(Player player, Player banker, String deckId) {
         this.player = player;
         this.banker = banker;
         this.deckId = deckId;
-        this.bet = bet;
     }
 
     @Override
@@ -27,7 +25,6 @@ public class BaccaratGame implements BaccaratGameInterface {
             if (card.getValue().equals("ACE")) {
                 sum++;
             } else if (VALUES.contains(card.getValue())) {
-                break;
             } else {
                 sum += Integer.parseInt(card.getValue());
             }
@@ -45,11 +42,6 @@ public class BaccaratGame implements BaccaratGameInterface {
         for (Card card : cards) {
             player.addToHand(card);
         }
-    }
-
-    @Override
-    public Map<String, Integer> getBet() {
-        return bet;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package use_case.blackjack.blackjack_logic;
 
-import entity.BlackJackGameInterface;
+import entity.game_logic.BlackJackGameInterface;
 
 public class BlackJackOutputGameData {
     private BlackJackGameInterface blackJackGameInterface;

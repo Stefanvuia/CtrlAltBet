@@ -1,7 +1,7 @@
 package use_case.blackjack.blackjack_start;
 
-import entity.BlackJackPlayer;
-import entity.BlackJackGameInterface;
+import entity.game_logic.BlackJackPlayer;
+import entity.game_logic.BlackJackGameInterface;
 
 public class BlackJackStartOutputData {
     private BlackJackGameInterface blackJackGameInterface;

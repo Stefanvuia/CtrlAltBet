@@ -6,7 +6,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class BlackJackStandViewModel extends ViewModel {
-    private GameState state = new GameState();
+    private BlackJackGameState state = new BlackJackGameState();
+
+    public final String IMG_PATH = "img/blackjacktable.png";
 
     public String STAND_LABEL = "stand";
 
@@ -18,11 +20,11 @@ public class BlackJackStandViewModel extends ViewModel {
         super("bj ingame");
     }
 
-    public void setState(GameState state) {
+    public void setState(BlackJackGameState state) {
         this.state = state;
     }
 
-    public GameState getState() {
+    public BlackJackGameState getState() {
         return state;
     }
 

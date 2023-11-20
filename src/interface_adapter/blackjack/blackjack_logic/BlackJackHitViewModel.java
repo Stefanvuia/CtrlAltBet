@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class BlackJackHitViewModel extends ViewModel {
-    private GameState state = new GameState();
+    private BlackJackGameState state = new BlackJackGameState();
 
     public String HIT_LABEL = "hit";
 
@@ -14,11 +14,11 @@ public class BlackJackHitViewModel extends ViewModel {
         super("bj ingame");
     }
 
-    public void setState(GameState state) {
+    public void setState(BlackJackGameState state) {
         this.state = state;
     }
 
-    public GameState getState() {
+    public BlackJackGameState getState() {
         return state;
     }
 

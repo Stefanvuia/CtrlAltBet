@@ -2,7 +2,7 @@ package interface_adapter.blackjack.blackjack_logic;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
-import interface_adapter.blackjack.blackjack_start.StartState;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
 import use_case.blackjack.blackjack_logic.BlackJackOutputGameData;
 import use_case.blackjack.blackjack_logic.BlackJackStandOutputBoundary;
 
@@ -36,18 +36,18 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
     }
 
     private void gameFinishHelper(String message, int change) {
-        StartState newGameState = blackJackStartViewModel.getState();
-        GameState endingGameState = blackJackStandViewModel.getState();
+        BlackJackStartState newGameState = blackJackStartViewModel.getState();
+        BlackJackGameState endingBlackJackGameState = blackJackStandViewModel.getState();
 
-        endingGameState.setGameMessage(message);
-        endingGameState.setGameEnd(true);
+        endingBlackJackGameState.setGameMessage(message);
+        endingBlackJackGameState.setGameEnd(true);
 
-        newGameState.setUsername(endingGameState.getUsername());
+        newGameState.setUsername(endingBlackJackGameState.getUsername());
         newGameState.setBet(0);
         newGameState.setFunds(newGameState.getFunds() + change);
         newGameState.setBetError(null);
 
-        this.blackJackStandViewModel.setState(endingGameState);
+        this.blackJackStandViewModel.setState(endingBlackJackGameState);
         this.blackJackStandViewModel.firePropertyChanged();
 
         this.blackJackStartViewModel.setState(newGameState);

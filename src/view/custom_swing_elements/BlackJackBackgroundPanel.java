@@ -7,13 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class BackgroundPanel extends JPanel {
+public class BlackJackBackgroundPanel extends JPanel {
     private BufferedImage image;
     private JPanel top = new JPanel();
     private JPanel bottom = new JPanel();
 
     private GridBagConstraints gbc = new GridBagConstraints();
-    public BackgroundPanel(String path) throws IOException {
+    public BlackJackBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);

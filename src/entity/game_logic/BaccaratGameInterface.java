@@ -1,9 +1,10 @@
-package entity;
+package entity.game_logic;
+
+import entity.Card;
 
 import java.util.List;
-import java.util.Map;
 
-public interface BaccaratGameInterface {
+public interface BaccaratGameInterface extends Game{
         String getDeck();
 
         int sumHand(Player player);
@@ -11,6 +12,4 @@ public interface BaccaratGameInterface {
         void addToHand(Player player, Card card);
 
         void addToHand(Player player, List<Card> cards);
-
-        Map<String, Integer> getBet();
 }

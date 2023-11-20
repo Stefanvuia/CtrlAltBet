@@ -2,8 +2,8 @@ package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
-import interface_adapter.blackjack.blackjack_start.StartState;
-import view.custom_swing_elements.BackgroundPanel;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import view.custom_swing_elements.BlackJackBackgroundPanel;
 import view.custom_swing_elements.BetField;
 import view.custom_swing_elements.GreenCustomButton;
 import view.custom_swing_elements.GreenCustomPanel;
@@ -69,7 +69,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         start.addActionListener(
                 e -> {
                     if (e.getSource().equals(start)) {
-                        StartState currentState = blackJackStartViewModel.getState();
+                        BlackJackStartState currentState = blackJackStartViewModel.getState();
 
                         blackJackStartController.execute(
                                 currentState.getUsername(),
@@ -97,7 +97,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         half.addActionListener(
                 e -> {
                     if (e.getSource().equals(half)) {
-                        StartState currentState = blackJackStartViewModel.getState();
+                        BlackJackStartState currentState = blackJackStartViewModel.getState();
                         currentState.setBet(halfBet);
                         blackJackStartViewModel.setState(currentState);
 
@@ -109,7 +109,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         max.addActionListener(
                 e -> {
                     if (e.getSource().equals(max)) {
-                        StartState currentState = blackJackStartViewModel.getState();
+                        BlackJackStartState currentState = blackJackStartViewModel.getState();
                         currentState.setBet(maxBet);
                         blackJackStartViewModel.setState(currentState);
 
@@ -121,7 +121,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         min.addActionListener(
                 e -> {
                     if (e.getSource().equals(min)) {
-                        StartState currentState = blackJackStartViewModel.getState();
+                        BlackJackStartState currentState = blackJackStartViewModel.getState();
                         currentState.setBet(0);
                         blackJackStartViewModel.setState(currentState);
 
@@ -133,7 +133,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         betField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                StartState currentState = blackJackStartViewModel.getState();
+                BlackJackStartState currentState = blackJackStartViewModel.getState();
                 currentState.setBet(Integer.parseInt(betField.getText()));
                 blackJackStartViewModel.setState(currentState);
             }
@@ -188,7 +188,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         gbc.gridx = 0;
         gbc.weighty = 0.9;
         gbc.gridwidth = gbc.REMAINDER;
-        this.add(new BackgroundPanel("img/blackjacktable.png"), gbc);
+        this.add(new BlackJackBackgroundPanel(blackJackStartViewModel.IMG_PATH), gbc);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("bj start")) {
-            StartState currentState = blackJackStartViewModel.getState();
+            BlackJackStartState currentState = blackJackStartViewModel.getState();
             if (currentState.getBetError() != null) {
                 JOptionPane.showMessageDialog(this, currentState.getBetError());
             } else {

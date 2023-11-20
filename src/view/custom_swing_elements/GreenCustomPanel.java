@@ -14,6 +14,8 @@ public class GreenCustomPanel extends JPanel {
         this.setLayout(layout);
         layout.setConstraints(this, gbc);
 
+        this.setFont(new Font("Courier", Font.BOLD, 28));
+        this.setOpaque(true);
         this.setBorder(new CompoundBorder(
                 new LineBorder(new Color(144, 227, 154)),
                 new EmptyBorder(10, 10, 10, 10)));
