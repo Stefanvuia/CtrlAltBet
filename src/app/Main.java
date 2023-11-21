@@ -13,6 +13,8 @@ import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+import interface_adapter.update.UpdatePresenter;
+import interface_adapter.update.UserUpdateController;
 import use_case.blackjack.BlackJackDataAccessInterface;
 /*import interface_adapter.UserSignupController;
 import interface_adapter.SignupPresenter;
@@ -40,6 +42,10 @@ import users.signup.SignupInputBoundary;
 import users.signup.SignupInteractor;
 import users.signup.SignupOutputBoundary;
 import users.signup.SignupUserDataAccessInterface;
+import users.update.UpdateInputBoundary;
+import users.update.UpdateInteractor;
+import users.update.UpdateOutputBoundary;
+import users.update.UpdateUserDataAccessInterface;
 import view.*;
 import view.blackjack.BlackJackIngameView;
 import view.blackjack.BlackJackStartView;
@@ -84,10 +90,11 @@ public class Main {
         // The object that knows how to start a use case.
         UserSignupController userSignupController = createUserSignupUseCase(userDataAccessObject);
         UserLoginController userLoginController = loginUserUseCase(userDataAccessObject);
+        UserUpdateController userUpdateController = updateUserUseCase(userDataAccessObject);
 
 
         // Build the GUI, plugging in the screens.
-        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController);
+        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController, userUpdateController);
 
         // Show the first view.
 //        cardLayout.show(views, "welcome");
@@ -153,7 +160,7 @@ public class Main {
         application.setVisible(true);
     }
 
-    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController) {
+    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController) {
         WelcomeView welcomeView = new WelcomeView(userViewModel);
         views.add(welcomeView, ViewManager.WELCOME);
 
@@ -169,7 +176,7 @@ public class Main {
         AccountInfoView accountInfoView = new AccountInfoView(userViewModel);
         views.add(accountInfoView, ViewManager.ACCOUNT_INFO);
 
-        BalanceInfoView balanceInfoView = new BalanceInfoView(userViewModel);
+        BalanceInfoView balanceInfoView = new BalanceInfoView(userUpdateController, userViewModel);
         views.add(balanceInfoView, ViewManager.BALANCE_INFO);
     }
 
@@ -185,6 +192,12 @@ public class Main {
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
         LoginInputBoundary userLoginInteractor = new LoginInteractor(loginDao, loginOutputBoundary);
         return new UserLoginController(userLoginInteractor);
+    }
+
+    private static UserUpdateController updateUserUseCase(UpdateUserDataAccessInterface UpdateDao) {
+        UpdateOutputBoundary updateOutputBoundary = new UpdatePresenter();
+        UpdateInputBoundary userUpdateInteractor = new UpdateInteractor(UpdateDao, updateOutputBoundary);
+        return new UserUpdateController(userUpdateInteractor);
     }
 
     public static FileUserDataAccessObject getDAO() {

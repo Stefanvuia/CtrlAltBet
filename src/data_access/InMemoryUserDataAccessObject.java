@@ -3,11 +3,12 @@ package data_access;
 import entity.User;
 import users.login.LoginUserDataAccessInterface;
 import users.signup.SignupUserDataAccessInterface;
+import users.update.UpdateUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
+public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, UpdateUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

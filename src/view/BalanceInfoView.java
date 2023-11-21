@@ -3,6 +3,7 @@ package view;
 
 import entity.User;
 import interface_adapter.UserViewModel;
+import interface_adapter.update.UserUpdateController;
 import tools.Tools;
 
 import javax.swing.*;
@@ -25,12 +26,14 @@ public class BalanceInfoView extends JPanel implements ActionListener, PropertyC
     private final JTextField balance = new JTextField(15);
 
     private UserViewModel userViewModel;
+    private UserUpdateController userUpdateController;
     /**
      * A window with a title and a JButton.
      */
-    public BalanceInfoView(UserViewModel userViewModel) {
+    public BalanceInfoView(UserUpdateController userUpdateController,UserViewModel userViewModel) {
         this.userViewModel = userViewModel;
         this.userViewModel.addPropertyChangeListener(this);
+        this.userUpdateController = userUpdateController;
         JLabel title = new JLabel("BALANCE INFO");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -65,12 +68,16 @@ public class BalanceInfoView extends JPanel implements ActionListener, PropertyC
             //TODO: check value within balance boundary
             if (!Tools.isEmpty(value)) {
                 userViewModel.deposit(Integer.parseInt(value));
+                userUpdateController.updateUser(userViewModel.getCurrentUser(), userViewModel.getBalance());
+
             }
         } else if (evt.getSource().equals(withdraw)) {
             String value = JOptionPane.showInputDialog(this, "Enter withdraw amount");
             System.out.println("withdraw value:" + value);
             if (!Tools.isEmpty(value)) {
                 userViewModel.withdraw(Integer.parseInt(value));
+                userUpdateController.updateUser(userViewModel.getCurrentUser(), userViewModel.getBalance());
+
             } // TODO: verify value is number
         } else if (evt.getSource().equals(back)) {
             userViewModel.setState(UserViewModel.LoginState.ACCOUNT_INFO);
