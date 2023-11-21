@@ -102,10 +102,10 @@ public class Main {
 //        cardLayout.show(views, "log in");
 //        cardLayout.show(views, "logged in");
 
-        application.pack();
-        application.setVisible(true);
+//        application.pack();
+//        application.setVisible(true);
 
-
+//  ====================> Uncomment Below to see Game page
 //
 //        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
 //        BlackJackStandViewModel blackJackStandViewModel = new BlackJackStandViewModel();
@@ -113,7 +113,7 @@ public class Main {
 //
 //        BlackJackDataAccessInterface blackJackDAO;
 //        try {
-//            blackJackDAO = new UserDataAccessObject("./users.csv", new CommonAccountFactory());
+//            blackJackDAO = new UserDataAccessObject("./usersX.csv", new CommonAccountFactory());
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
@@ -154,7 +154,7 @@ public class Main {
 //
 //        viewManagerModel.setActiveView(startView.viewName);
 //        viewManagerModel.firePropertyChanged();
-
+// =============================================>  Uncomment above to see the game page
         application.pack();
         application.setSize(1280, 720);
         application.setVisible(true);
