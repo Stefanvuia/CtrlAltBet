@@ -1,19 +1,26 @@
 package use_case.blackjack.blackjack_logic;
 
-import entity.Game;
+import entity.BlackJackGameInterface;
 
 public class BlackJackOutputGameData {
-    private Game game;
+    private BlackJackGameInterface blackJackGameInterface;
     private boolean gameFinished;
 
-    public BlackJackOutputGameData(Game game, boolean gameFinished){
-        this.game = game;
+    private int change;
+
+    public BlackJackOutputGameData(BlackJackGameInterface blackJackGameInterface, boolean gameFinished, int change){
+        this.blackJackGameInterface = blackJackGameInterface;
         this.gameFinished = gameFinished;
+        this.change = change;
     }
 
     public boolean gameFinished(){return this.gameFinished;}
 
-    public Game getGame(){return this.game;}
+    public int getChange() {
+        return this.change;
+    }
+
+    public BlackJackGameInterface getGame(){return this.blackJackGameInterface;}
 
 
 }

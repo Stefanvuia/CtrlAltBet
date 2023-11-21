@@ -1,14 +1,14 @@
 package use_case.blackjack.blackjack_logic;
 
 import entity.BlackJackGame;
-import entity.Game;
+import entity.BlackJackGameInterface;
 
 public class BlackJackInputGameData {
-    private Game game;
+    private BlackJackGameInterface blackJackGameInterface;
 
-    public BlackJackInputGameData(Game game){
-        this.game = game;
+    public BlackJackInputGameData(BlackJackGameInterface blackJackGameInterface){
+        this.blackJackGameInterface = blackJackGameInterface;
     }
 
-    BlackJackGame getGame(){ return (BlackJackGame) this.game; }
+    BlackJackGame getGame(){ return (BlackJackGame) this.blackJackGameInterface; }
 }
