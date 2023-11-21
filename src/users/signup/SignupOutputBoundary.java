@@ -1,4 +1,4 @@
-package users;
+package users.signup;
 
 public interface SignupOutputBoundary {
     void prepareSuccessView(SignupOutputData user);

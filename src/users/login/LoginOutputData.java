@@ -1,6 +1,6 @@
 package users.login;
 
-import entities.User;
+import entity.User;
 
 // Sign up response body
 public class LoginOutputData {

@@ -1,4 +1,4 @@
-package users;
+package users.signup;
 
 import entity.User;
 import entity.UserFactory;

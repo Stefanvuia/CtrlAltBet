@@ -6,9 +6,7 @@ import data_access.UserDataAccessObject;
 import entity.*;
 import entity.account.AccountFactory;
 import entity.account.CommonAccountFactory;
-import interface_adapter.UserSignupController;
-import interface_adapter.SignupPresenter;
-import interface_adapter.UserViewModel;
+import interface_adapter.*;
 import interface_adapter.blackjack.blackjack_logic.TestLogicPresenter;
 import interface_adapter.blackjack.blackjack_logic.TestLogicViewModel;
 import interface_adapter.blackjack.blackjack_start.TestPresenter;
@@ -21,10 +19,14 @@ import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
 import use_case.blackjack.blackjack_start.BlackJackStartInputData;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import users.SignupUserDataAccessInterface;
-import users.SignupInputBoundary;
-import users.SignupInteractor;
-import users.SignupOutputBoundary;
+import users.login.LoginInputBoundary;
+import users.login.LoginInteractor;
+import users.login.LoginOutputBoundary;
+import users.login.LoginUserDataAccessInterface;
+import users.signup.SignupInputBoundary;
+import users.signup.SignupInteractor;
+import users.signup.SignupOutputBoundary;
+import users.signup.SignupUserDataAccessInterface;
 import view.*;
 
 
@@ -40,7 +42,7 @@ public class Main {
 
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
-        JFrame application = new JFrame("Casino");
+        JFrame application = new JFrame("Casino Game");
         CardLayout cardLayout = new CardLayout();
         JPanel views = new JPanel(cardLayout);
         application.add(views);
@@ -50,6 +52,8 @@ public class Main {
         // results from the use case. This is an observable, and will
         // be observed by the layout manager.
         UserViewModel userViewModel = new UserViewModel();
+        FileUserDataAccessObject userDataAccessObject = getDAO();
+
 
 
         /*
@@ -62,8 +66,11 @@ public class Main {
 
         // The object that knows how to start a use case.
         UserSignupController userSignupController = createUserSignupUseCase();
+        UserLoginController userLoginController = loginUserUseCase(userDataAccessObject);
+
+
         // Build the GUI, plugging in the screens.
-        createViewsAndAddToPanel(userViewModel, views, userSignupController);
+        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController);
 
         // Show the first view.
         cardLayout.show(views, "welcome");
@@ -86,14 +93,14 @@ public class Main {
 //        }
     }
 
-    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController) {
+    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController) {
         WelcomeView welcomeView = new WelcomeView(userViewModel);
         views.add(welcomeView, ViewManager.WELCOME);
 
         SignupView signupView = new SignupView(userSignupController, userViewModel);
         views.add(signupView, ViewManager.SIGN_UP);
 
-        LoginView loginView = new LoginView(userViewModel);
+        LoginView loginView = new LoginView(userLoginController, userViewModel);
         views.add(loginView, ViewManager.LOG_IN);
 
         LoggedInView loggedInView = new LoggedInView();
@@ -112,6 +119,21 @@ public class Main {
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 user, signupOutputBoundary, userFactory);
         return new UserSignupController(userSignupInteractor);
+    }
+    private static UserLoginController loginUserUseCase(LoginUserDataAccessInterface loginDao) {
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
+        LoginInputBoundary userLoginInteractor = new LoginInteractor(loginDao, loginOutputBoundary);
+        return new UserLoginController(userLoginInteractor);
+    }
+
+    public static FileUserDataAccessObject getDAO() {
+        FileUserDataAccessObject fileUserDataAccessObject;
+        try {
+            fileUserDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        return fileUserDataAccessObject;
     }
 
     public static void gameRunner() {

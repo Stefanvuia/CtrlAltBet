@@ -1,7 +1,7 @@
 package interface_adapter;
 
-import users.SignupOutputBoundary;
-import users.SignupOutputData;
+import users.signup.SignupOutputBoundary;
+import users.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

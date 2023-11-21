@@ -1,6 +1,6 @@
 package users.login;
 
-import entities.User;
+import entity.User;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +9,8 @@ public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface loginUserDataAccessInterface;
 
     final LoginOutputBoundary userPresenter;
+
+
 
     public LoginInteractor(LoginUserDataAccessInterface loginUserDataAccessInterface, LoginOutputBoundary userPresenter) {
         this.loginUserDataAccessInterface = loginUserDataAccessInterface;

@@ -6,11 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import interface_adapter.UserLoginController;
+import users.login.LoginOutputData;
 
 public class LoginView extends JPanel implements ActionListener {
     /**
      * The username chosen by the user
      */
+    private UserViewModel userViewModel;
     final JTextField username = new JTextField(15);
     /**
      * The password
@@ -20,10 +23,13 @@ public class LoginView extends JPanel implements ActionListener {
     final JButton logIn = new JButton("Log in");
     final JButton cancel = new JButton("Cancel");
 
+    private final UserLoginController userLoginController;
     /**
      * A window with a title and a JButton.
      */
-    public LoginView(UserViewModel userViewModel) {
+    public LoginView(UserLoginController userLoginController, UserViewModel userViewModel) {
+        this.userLoginController = userLoginController;
+        this.userViewModel = userViewModel;
 
         JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -53,6 +59,20 @@ public class LoginView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(cancel)) {
+            userViewModel.setState(UserViewModel.LoginState.WELCOME);
+        } else if (evt.getSource().equals(logIn)) {
+            //TODO: verify user
+            try {
+                LoginOutputData response = userLoginController.login(username.getText(), String.valueOf(password.getPassword()));
+                userViewModel.setCurrentUser(response.getUser().getName());
+                JOptionPane.showMessageDialog(this, "%s Login.".formatted(username.getText()));
+                userViewModel.setState(UserViewModel.LoginState.LOGGED_IN);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+
     }
 
 }

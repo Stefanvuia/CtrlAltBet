@@ -2,7 +2,8 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
-import users.SignupUserDataAccessInterface;
+import users.login.LoginUserDataAccessInterface;
+import users.signup.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -90,5 +91,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface {
         accounts.put(requestModel.getName(), requestModel);
         this.save();
     }
+    public User getUserByName(String username) {
+        return accounts.get(username);
+    }
+    public boolean validatePassword(String username, String password) {
+        User user = accounts.get(username);
+        return user.getPassword().equals(password);
+    }
+
 
 }
