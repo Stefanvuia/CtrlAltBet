@@ -4,16 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import interface_adapter.UserViewModel;
 
-public class LoggedInView extends JPanel implements ActionListener {
+public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
     /**
      * The username chosen by the user
      */
+
+
      private final JTextField username = new JTextField(15); // maybe a JLabel?
     /**
      * A window with a title and a JButton.
      */
-    public LoggedInView() {
+    private JButton logOut = new JButton("Log out");
+    private JButton changePassword = new JButton("Change password");
+    private UserViewModel userViewModel;
+    public LoggedInView(UserViewModel userViewModel) {
+        this.userViewModel = userViewModel;
+        this.userViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Logged-in Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,5 +54,18 @@ public class LoggedInView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(logOut)) {
+            userViewModel.setState(UserViewModel.LoginState.WELCOME);
+        } else if (evt.getSource().equals(changePassword)) {
+            System.out.println("change password");
+        }
+    }
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.print(evt);
+        if (evt.getPropertyName().equals("user")) {
+            String name = (String) evt.getNewValue();
+            username.setText(name);
+        }
     }
 }

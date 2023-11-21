@@ -104,7 +104,7 @@ public class Main {
         LoginView loginView = new LoginView(userLoginController, userViewModel);
         views.add(loginView, ViewManager.LOG_IN);
 
-        LoggedInView loggedInView = new LoggedInView();
+        LoggedInView loggedInView = new LoggedInView(userViewModel);
         views.add(loggedInView, ViewManager.LOGGED_IN);
     }
 
