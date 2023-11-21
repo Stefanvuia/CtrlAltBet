@@ -1,12 +1,13 @@
 package data_access;
 
 import entity.User;
-import use_case.signup.SignupUserDataAccessInterface;
+import users.login.LoginUserDataAccessInterface;
+import users.signup.SignupUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface {
+public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -19,6 +20,13 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return users.containsKey(identifier);
     }
 
+    public User getUserByName(String username) {
+        return users.get(username);
+    }
+    public boolean validatePassword(String username, String password) {
+        User user = users.get(username);
+        return user.getPassword().equals(password);
+    }
     /**
      * @param user the data to save
      */
