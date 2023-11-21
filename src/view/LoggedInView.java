@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+
 import interface_adapter.UserViewModel;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -86,6 +88,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         if (evt.getPropertyName().equals("user")) {
             String name = (String) evt.getNewValue();
             username.setText(name);
+        }
+
+        if (evt.getPropertyName().equals("balance")) {
+            int value = (int) evt.getNewValue();
+            balance.setText(String.valueOf(value));
         }
     }
 }

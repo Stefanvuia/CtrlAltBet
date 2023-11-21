@@ -65,6 +65,7 @@ public class LoginView extends JPanel implements ActionListener {
             try {
                 LoginOutputData response = userLoginController.login(username.getText(), String.valueOf(password.getPassword()));
                 userViewModel.setCurrentUser(response.getUser().getName());
+                userViewModel.setBalance(response.getUser().getBalance());
                 JOptionPane.showMessageDialog(this, "%s Login.".formatted(username.getText()));
                 userViewModel.setState(UserViewModel.LoginState.LOGGED_IN);
             } catch (Exception e) {

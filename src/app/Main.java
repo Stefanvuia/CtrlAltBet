@@ -169,7 +169,7 @@ public class Main {
         AccountInfoView accountInfoView = new AccountInfoView(userViewModel);
         views.add(accountInfoView, ViewManager.ACCOUNT_INFO);
 
-        BalanceInfoView balanceInfoView = new BalanceInfoView();
+        BalanceInfoView balanceInfoView = new BalanceInfoView(userViewModel);
         views.add(balanceInfoView, ViewManager.BALANCE_INFO);
     }
 
