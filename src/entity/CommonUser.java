@@ -1,5 +1,6 @@
 package entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 class CommonUser implements User {
@@ -7,11 +8,14 @@ class CommonUser implements User {
     private final String name;
     private final String password;
     private final LocalDateTime creationTime;
+    private int balance;
 
-    CommonUser(String name, String password, LocalDateTime creationTime) {
+
+    public CommonUser(String name, String password, LocalDateTime creationTime, int balance) {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
+        this.balance = balance;
     }
 
     @Override
@@ -33,4 +37,14 @@ class CommonUser implements User {
     public LocalDateTime getCreationTime() {
         return creationTime;
     }
+
+    @Override
+    public int getBalance() {
+        return balance;
+    }
+    @Override
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
 }

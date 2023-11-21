@@ -1,5 +1,6 @@
 package entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface User {
@@ -9,4 +10,6 @@ public interface User {
 
     LocalDateTime getCreationTime();
     String getPassword();
+    int getBalance();
+    void setBalance(int balance);
 }
