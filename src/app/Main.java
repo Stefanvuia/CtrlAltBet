@@ -2,6 +2,7 @@ package app;
 
 import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import data_access.UserDataAccessObject;
 import entity.*;
 import entity.account.AccountFactory;
@@ -65,7 +66,7 @@ public class Main {
         new ViewManager(views, cardLayout, userViewModel);
 
         // The object that knows how to start a use case.
-        UserSignupController userSignupController = createUserSignupUseCase();
+        UserSignupController userSignupController = createUserSignupUseCase(userDataAccessObject);
         UserLoginController userLoginController = loginUserUseCase(userDataAccessObject);
 
 
@@ -107,20 +108,15 @@ public class Main {
         views.add(loggedInView, ViewManager.LOGGED_IN);
     }
 
-    private static UserSignupController createUserSignupUseCase() {
-        SignupUserDataAccessInterface user;
-        try {
-            user = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
+    private static UserSignupController createUserSignupUseCase(SignupUserDataAccessInterface  signupDao) {
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter();
         UserFactory userFactory = new CommonUserFactory();
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                user, signupOutputBoundary, userFactory);
+                signupDao, signupOutputBoundary, userFactory);
         return new UserSignupController(userSignupInteractor);
     }
     private static UserLoginController loginUserUseCase(LoginUserDataAccessInterface loginDao) {
+
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
         LoginInputBoundary userLoginInteractor = new LoginInteractor(loginDao, loginOutputBoundary);
         return new UserLoginController(userLoginInteractor);

@@ -62,7 +62,6 @@ public class LoginView extends JPanel implements ActionListener {
         if (evt.getSource().equals(cancel)) {
             userViewModel.setState(UserViewModel.LoginState.WELCOME);
         } else if (evt.getSource().equals(logIn)) {
-            //TODO: verify user
             try {
                 LoginOutputData response = userLoginController.login(username.getText(), String.valueOf(password.getPassword()));
                 userViewModel.setCurrentUser(response.getUser().getName());
