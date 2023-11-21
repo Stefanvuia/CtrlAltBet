@@ -1,6 +1,6 @@
 package users.signup;
 
-import Constants.Constants;
+import constants.Constants;
 import entity.User;
 import entity.UserFactory;
 

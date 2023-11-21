@@ -3,6 +3,7 @@ package view;
 
 import entity.User;
 import interface_adapter.UserViewModel;
+import tools.Tools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +58,21 @@ public class BalanceInfoView extends JPanel implements ActionListener, PropertyC
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
 
-         if (evt.getSource().equals(back)) {
+        if (evt.getSource().equals(deposit)) {
+            String value = JOptionPane.showInputDialog(this, "Enter deposit amount");
+            System.out.println("deposit value:" + value);
+            //TODO: check value is only digits
+            //TODO: check value within balance boundary
+            if (!Tools.isEmpty(value)) {
+                userViewModel.deposit(Integer.parseInt(value));
+            }
+        } else if (evt.getSource().equals(withdraw)) {
+            String value = JOptionPane.showInputDialog(this, "Enter withdraw amount");
+            System.out.println("withdraw value:" + value);
+            if (!Tools.isEmpty(value)) {
+                userViewModel.withdraw(Integer.parseInt(value));
+            } // TODO: verify value is number
+        } else if (evt.getSource().equals(back)) {
             userViewModel.setState(UserViewModel.LoginState.ACCOUNT_INFO);
         }
     }
