@@ -2,10 +2,10 @@ package entity;
 
 import java.util.List;
 
-public class BlackJackGame implements Game {
-    Player user;
-    Player dealer;
-    String deckId;
+public class BlackJackGame implements BlackJackGameInterface {
+    private final Player user;
+    private final Player dealer;
+    private final String deckId;
 
     public BlackJackGame(Player user, Player dealer, String deckId){
         this.user = user;

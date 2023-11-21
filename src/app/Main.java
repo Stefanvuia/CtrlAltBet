@@ -3,10 +3,15 @@ package app;
 import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserDataAccessObject;
-import entity.*;
-import entity.account.AccountFactory;
 import entity.account.CommonAccountFactory;
-import interface_adapter.UserSignupController;
+
+import interface_adapter.ViewManagerModel;
+import interface_adapter.blackjack.blackjack_logic.*;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+import use_case.blackjack.BlackJackDataAccessInterface;
+/*import interface_adapter.UserSignupController;
 import interface_adapter.SignupPresenter;
 import interface_adapter.UserViewModel;
 import interface_adapter.blackjack.blackjack_logic.TestLogicPresenter;
@@ -14,30 +19,46 @@ import interface_adapter.blackjack.blackjack_logic.TestLogicViewModel;
 import interface_adapter.blackjack.blackjack_start.TestPresenter;
 import interface_adapter.blackjack.blackjack_start.TestViewModel;
 import use_case.blackjack.blackjack_logic.BlackJackHitInteractor;
-import use_case.blackjack.blackjack_logic.BlackJackInputGameData;
+import use_case.blackjack.blackjack_logic.BlackJackInputGameData;*/
+
+
+
 import use_case.blackjack.CardsAPIInterface;
-import use_case.blackjack.blackjack_logic.BlackJackStandInteractor;
+import use_case.blackjack.blackjack_logic.*;
 import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
-import use_case.blackjack.blackjack_start.BlackJackStartInputData;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import users.SignupUserDataAccessInterface;
+
+import view.blackjack.BlackJackIngameView;
+import view.blackjack.BlackJackStartView;
+import view.ViewManager;
+/*import users.SignupUserDataAccessInterface;
 import users.SignupInputBoundary;
 import users.SignupInteractor;
 import users.SignupOutputBoundary;
-import view.*;
-
+import view.*;*/
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main {
-    static CardsAPIInterface a = new CardsAPIObject();
-
     public static void main(String[] args) throws IOException {
 
+        JFrame application = new JFrame("A");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+
+        // The various View objects. Only one view is visible at a time.
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        // This keeps track of and manages which view is currently showing.
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+/*
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
         JFrame application = new JFrame("Casino");
@@ -52,12 +73,11 @@ public class Main {
         UserViewModel userViewModel = new UserViewModel();
 
 
-        /*
          The observer watching for changes in the userViewModel. It will
          react to changes in application state by changing which view
          is showing. This is an anonymous object because we don't need to
          refer to it later.
-        */
+        
         new ViewManager(views, cardLayout, userViewModel);
 
         // The object that knows how to start a use case.
@@ -113,46 +133,59 @@ public class Main {
                 user, signupOutputBoundary, userFactory);
         return new UserSignupController(userSignupInteractor);
     }
+*/
 
-    public static void gameRunner() {
-        AccountFactory accountFactory = new CommonAccountFactory();
-        UserDataAccessObject userDataAccessObject;
-        try{
-            userDataAccessObject = new UserDataAccessObject("./users.csv", accountFactory);
+
+        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
+        BlackJackStandViewModel blackJackStandViewModel = new BlackJackStandViewModel();
+        BlackJackHitViewModel blackJackHitViewModel = new BlackJackHitViewModel();
+
+        BlackJackDataAccessInterface blackJackDAO;
+        try {
+            blackJackDAO = new UserDataAccessObject("./users.csv", new CommonAccountFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        TestViewModel viewModel = new TestViewModel();
-        BlackJackStartOutputBoundary testPresenter = new TestPresenter(viewModel);
+        CardsAPIInterface blackJackAPI = new CardsAPIObject();
 
-        BlackJackStartInputBoundary startInteractor = new BlackJackStartInteractor(a, userDataAccessObject, testPresenter);
-        startInteractor.execute(new BlackJackStartInputData("cakev", 2));
+        BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(
+                blackJackStartViewModel,
+                blackJackHitViewModel,
+                viewManagerModel,
+                blackJackStandViewModel);
 
-        Game game = ((TestPresenter) testPresenter).getTestViewModel().getState().getGame();
-        BlackJackInputGameData gameData = new BlackJackInputGameData(game);
+        BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(
+                blackJackHitViewModel,
+                blackJackStartViewModel,
+                viewManagerModel,
+                blackJackStandViewModel);
+        BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(blackJackAPI, hitPresenter);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter H to hit, S to stand");
-        String choice = scanner.nextLine();
+        BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(
+                blackJackStartViewModel,
+                blackJackStandViewModel,
+                viewManagerModel
+        );
+        BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(blackJackAPI, blackJackDAO, standPresenter);
 
-        TestLogicViewModel viewModel2 = new TestLogicViewModel();
-        BlackJackHitInteractor hitInteractor = new BlackJackHitInteractor(a, new TestLogicPresenter(viewModel2));
-        BlackJackStandInteractor standInteractor = new BlackJackStandInteractor(a, userDataAccessObject, new TestLogicPresenter(viewModel2));
+        BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
+        BlackJackStandController standController = new BlackJackStandController(standInteractor);
 
-        if (choice.equals("H")) {
-            hitInteractor.execute(gameData);
-        } else {
-            standInteractor.execute(gameData);
-        }
+        BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(blackJackAPI, blackJackDAO, blackJackStartPresenter);
+        BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
 
-        while (!(viewModel2.getState().getEnd())) {
-            System.out.println("Enter H to hit, S to stand");
-            if(scanner.nextLine().equals("H")) {
-                hitInteractor.execute(new BlackJackInputGameData(viewModel2.getState().getGame()));
-            } else {
-                standInteractor.execute(new BlackJackInputGameData(viewModel2.getState().getGame()));
-            }
-        }
+        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, startController);
+        views.add(startView, startView.viewName);
+
+        BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, blackJackHitViewModel, blackJackStandViewModel);
+        views.add(ingameView, ingameView.viewName);
+
+        viewManagerModel.setActiveView(startView.viewName);
+        viewManagerModel.firePropertyChanged();
+
+        application.pack();
+        application.setSize(1280, 720);
+        application.setVisible(true);
     }
 }

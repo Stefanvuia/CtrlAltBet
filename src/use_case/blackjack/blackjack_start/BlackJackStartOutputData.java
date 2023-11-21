@@ -1,15 +1,26 @@
 package use_case.blackjack.blackjack_start;
 
-import entity.Game;
+import entity.BlackJackPlayer;
+import entity.BlackJackGameInterface;
 
 public class BlackJackStartOutputData {
-    private Game game;
+    private BlackJackGameInterface blackJackGameInterface;
 
-    public BlackJackStartOutputData(Game game) {
-        this.game = game;
+    public BlackJackStartOutputData(BlackJackGameInterface blackJackGameInterface) {
+        this.blackJackGameInterface = blackJackGameInterface;
     }
 
-    public Game getGame() {
-        return this.game;
+    public BlackJackGameInterface getGame() {
+        return this.blackJackGameInterface;
+    }
+
+    public String getUser() {
+        BlackJackPlayer user = (BlackJackPlayer) blackJackGameInterface.getPlayer();
+        return user.getUsername();
+    }
+
+    public int getBet() {
+        BlackJackPlayer user = (BlackJackPlayer) blackJackGameInterface.getPlayer();
+        return user.getBet();
     }
 }

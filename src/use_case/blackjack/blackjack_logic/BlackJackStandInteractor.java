@@ -1,7 +1,7 @@
 package use_case.blackjack.blackjack_logic;
 
 import entity.BlackJackPlayer;
-import entity.Game;
+import entity.BlackJackGameInterface;
 import entity.Player;
 import use_case.blackjack.BlackJackDataAccessInterface;
 import use_case.blackjack.CardsAPIInterface;
@@ -22,35 +22,33 @@ public class BlackJackStandInteractor implements BlackJackStandInputBoundary{
     }
     @Override
     public void execute(BlackJackInputGameData blackJackInputGameData) {
-        Game game = blackJackInputGameData.getGame();
-        Player dealer = game.getDealer();
-        BlackJackPlayer user = (BlackJackPlayer) game.getPlayer();
-        String deck = game.getDeck();
-        Integer playerSum = game.sumHand(user);
-        int dealerSum = game.sumHand(dealer);
+        BlackJackGameInterface blackJackGameInterface = blackJackInputGameData.getGame();
+        Player dealer = blackJackGameInterface.getDealer();
+        BlackJackPlayer user = (BlackJackPlayer) blackJackGameInterface.getPlayer();
+        String deck = blackJackGameInterface.getDeck();
+        Integer playerSum = blackJackGameInterface.sumHand(user);
+        int dealerSum = blackJackGameInterface.sumHand(dealer);
 
         while (dealerSum < 17) {
-            game.addToHand(dealer, cardsAPI.draw(deck));
-            dealerSum = game.sumHand(dealer);
+            blackJackGameInterface.addToHand(dealer, cardsAPI.draw(deck));
+            dealerSum = blackJackGameInterface.sumHand(dealer);
         }
 
-        BlackJackOutputGameData outputGameData = new BlackJackOutputGameData(game, true);
-
-        if (game.userWin() && Integer.valueOf(user.getHand().size()).equals(2) && playerSum.equals(21)) {
+        if (blackJackGameInterface.userWin() && Integer.valueOf(user.getHand().size()).equals(2) && playerSum.equals(21)) {
             // Player blackjack
             dataAccessObject.editFund(user.getUsername(), (int) (user.getBet() * 2.5));
-            blackJackStandPresenter.prepareWinView(outputGameData);
-        } else if (game.userWin()) {
+            blackJackStandPresenter.prepareWinView(new BlackJackOutputGameData(blackJackGameInterface, true, (int) (user.getBet() * 1.5)));
+        } else if (blackJackGameInterface.userWin()) {
             // Player win
             dataAccessObject.editFund(user.getUsername(), (user.getBet() * 2));
-            blackJackStandPresenter.prepareWinView(outputGameData);
+            blackJackStandPresenter.prepareWinView(new BlackJackOutputGameData(blackJackGameInterface, true, user.getBet()));
         } else if (playerSum.equals(dealerSum)) {
             // Push
             dataAccessObject.editFund(user.getUsername(), user.getBet());
-            blackJackStandPresenter.preparePushView(outputGameData);
+            blackJackStandPresenter.preparePushView(new BlackJackOutputGameData(blackJackGameInterface, true, 0));
         } else {
             // Dealer win
-            blackJackStandPresenter.prepareLoseView(outputGameData);
+            blackJackStandPresenter.prepareLoseView(new BlackJackOutputGameData(blackJackGameInterface, true, -user.getBet()));
         }
     }
 }
