@@ -10,6 +10,8 @@ public class UserViewModel {
         SIGNING_UP,
         LOGGING_IN,
         LOGGED_IN,
+        ACCOUNT_INFO,
+        BALANCE_INFO,
     }
 
     /** The username of the user who is currently logged in. Null if not logged in. */

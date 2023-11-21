@@ -165,6 +165,12 @@ public class Main {
 
         LoggedInView loggedInView = new LoggedInView(userViewModel);
         views.add(loggedInView, ViewManager.LOGGED_IN);
+
+        AccountInfoView accountInfoView = new AccountInfoView(userViewModel);
+        views.add(accountInfoView, ViewManager.ACCOUNT_INFO);
+
+        BalanceInfoView balanceInfoView = new BalanceInfoView();
+        views.add(balanceInfoView, ViewManager.BALANCE_INFO);
     }
 
     private static UserSignupController createUserSignupUseCase(SignupUserDataAccessInterface signupDao) {

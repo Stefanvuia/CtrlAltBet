@@ -20,12 +20,19 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
      */
     private JButton logOut = new JButton("Log out");
     private JButton changePassword = new JButton("Change password");
+
+    private JButton account = new JButton("Account");
+
+    private JButton blackJack = new JButton("Blackjack");
+    private JButton baccarat = new JButton("Baccarat");
+    private final JTextField balance = new JTextField(15);
+
     private UserViewModel userViewModel;
     public LoggedInView(UserViewModel userViewModel) {
         this.userViewModel = userViewModel;
         this.userViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Logged-in Screen");
+        JLabel title = new JLabel("Games");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOut = new JButton("Log out");
@@ -35,10 +42,20 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 new JLabel("Username"), username);
         username.setEditable(false);
 
+        LabelTextPanel balanceInfo = new LabelTextPanel(
+                new JLabel("Balance"), balance);
+        balance.setEditable(false);
+
         JPanel buttons = new JPanel();
+        buttons.add(account);
+        buttons.add(blackJack);
+        buttons.add(baccarat);
         buttons.add(logOut);
         buttons.add(changePassword);
 
+        account.addActionListener(this);
+        blackJack.addActionListener(this);
+        baccarat.addActionListener(this);
         logOut.addActionListener(this);
         changePassword.addActionListener(this);
 
@@ -46,6 +63,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
         this.add(title);
         this.add(usernameInfo);
+        this.add(balanceInfo);
         this.add(buttons);
     }
 
@@ -58,6 +76,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             userViewModel.setState(UserViewModel.LoginState.WELCOME);
         } else if (evt.getSource().equals(changePassword)) {
             System.out.println("change password");
+        } else if (evt.getSource().equals(account)) {
+            userViewModel.setState(UserViewModel.LoginState.ACCOUNT_INFO);
         }
     }
     @Override
