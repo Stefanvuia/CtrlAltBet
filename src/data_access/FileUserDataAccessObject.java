@@ -19,15 +19,14 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     private final Map<String, User> accounts = new HashMap<>();
 
-    private UserFactory userFactory;
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
-        this.userFactory = userFactory;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
         headers.put("password", 1);
         headers.put("creation_time", 2);
+        headers.put("balance", 3);
 
         if (csvFile.length() == 0) {
             save();
@@ -45,8 +44,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
+                    String balanceString = String.valueOf(col[headers.get("balance")]);
+                    int balance = Integer.parseInt(balanceString);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, ldt);
+                    User user = userFactory.create(username, password, ldt, balance);
                     accounts.put(username, user);
                 }
             }
@@ -62,8 +63,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s,%s",
-                        user.getName(), user.getPassword(), user.getCreationTime());
+                String line = String.format("%s,%s,%s,%s",
+                        user.getName(), user.getPassword(), user.getCreationTime(), user.getBalance());
                 writer.write(line);
                 writer.newLine();
             }

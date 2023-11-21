@@ -1,5 +1,6 @@
 package users.signup;
 
+import Constants.Constants;
 import entity.User;
 import entity.UserFactory;
 
@@ -27,7 +28,7 @@ public class SignupInteractor implements SignupInputBoundary {
         }
 
         LocalDateTime now = LocalDateTime.now();
-        User user = userFactory.create(signupInputData.getName(), signupInputData.getPassword(), now);
+        User user = userFactory.create(signupInputData.getName(), signupInputData.getPassword(), now, Constants.INITIAL_BALANCE);
         if (!user.passwordIsValid()) {
             userPresenter.prepareFailView("User password must have more than 5 characters.");
         }
