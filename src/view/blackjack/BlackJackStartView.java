@@ -4,6 +4,7 @@ import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
 import interface_adapter.menu.exit.ExitController;
+import view.GridBagUtils;
 import view.custom_elements.*;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ import java.net.URISyntaxException;
 import java.text.*;
 
 
-public class BlackJackStartView extends JPanel implements ActionListener, PropertyChangeListener {
+public class BlackJackStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "bj start";
 
     private final BlackJackStartViewModel blackJackStartViewModel;
@@ -68,141 +69,61 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         min = new GreenCustomButton(blackJackStartViewModel.MIN_BET_LABEL);
         half = new GreenCustomButton(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
 
-        start.addActionListener(
-                e -> {
-                    if (e.getSource().equals(start)) {
-                        BlackJackStartState currentState = blackJackStartViewModel.getState();
-
-                        blackJackStartController.execute(
-                                currentState.getUsername(),
-                                currentState.getBet());
-                    }
-                }
-        );
-
-        info.addActionListener(
-                e -> {
-                    if (e.getSource().equals(info)) {
-                        if (Desktop.isDesktopSupported()) {
-                            try {
-                                Desktop.getDesktop().browse(new URI(blackJackStartViewModel.INFO_PATH));
-                            } catch (IOException | URISyntaxException ex) {
-                                throw new RuntimeException(ex);}
-                        } else {
-                            JOptionPane.showMessageDialog(this,
-                                    "See game info here: " + blackJackStartViewModel.INFO_PATH);
-                        }
-                    }
-                }
-        );
-
-        exit.addActionListener(
-                e -> {
-                    if (e.getSource().equals(exit)) {
-                        exitController.execute();
-                    }
-                }
-        );
-
-        half.addActionListener(
-                e -> {
-                    if (e.getSource().equals(half)) {
-                        BlackJackStartState currentState = blackJackStartViewModel.getState();
-                        currentState.setBet(halfBet);
-                        blackJackStartViewModel.setState(currentState);
-
-                        betField.setValue(halfBet);
-                    }
-                }
-        );
-
-        max.addActionListener(
-                e -> {
-                    if (e.getSource().equals(max)) {
-                        BlackJackStartState currentState = blackJackStartViewModel.getState();
-                        currentState.setBet(maxBet);
-                        blackJackStartViewModel.setState(currentState);
-
-                        betField.setValue(maxBet);
-                    }
-                }
-        );
-
-        min.addActionListener(
-                e -> {
-                    if (e.getSource().equals(min)) {
-                        BlackJackStartState currentState = blackJackStartViewModel.getState();
-                        currentState.setBet(0);
-                        blackJackStartViewModel.setState(currentState);
-
-                        betField.setValue(0);
-                    }
-                }
-        );
-
-        betField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                BlackJackStartState currentState = blackJackStartViewModel.getState();
-                currentState.setBet(Integer.parseInt(betField.getText()));
-                blackJackStartViewModel.setState(currentState);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {}
-            @Override
-            public void changedUpdate(DocumentEvent e) {}
-        });
+        start.addActionListener(this);
+        info.addActionListener(this);
+        exit.addActionListener(this);
+        max.addActionListener(this);
+        min.addActionListener(this);
+        half.addActionListener(this);
+        betField.getDocument().addDocumentListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
+        GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
 
         // exit button
-        gbc.gridy = 1;
-        gbc.gridx = 0;
-        gbc.weighty = 0.1;
-        gbc.weightx = 0.25;
-        JPanel exitPanel = new JPanel(new BorderLayout(0, 0));
-        exitPanel.add(exit);
-        this.add(exitPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(exit, 0, 6, 2, 2, 1, 0);
+
+        // info button
+        gridBagUtils.addComponentWithConstraints(info, 6, 6, 2, 2, 1, 0);
 
         // betting fields
-        gbc.gridx++;
-        gbc.weightx = 0.75;
         GreenCustomPanel betPanel = new GreenCustomPanel();
         betPanel.add(betField);
         betPanel.add(min);
         betPanel.add(half);
         betPanel.add(max);
-        this.add(betPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(betPanel, 2, 6, 2, 2, 1, 0);
 
         // start button
-        gbc.gridx++;
-        gbc.weightx = 0.25;
-        JPanel startPanel = new JPanel(new BorderLayout(0, 0));
-        startPanel.add(start);
-        this.add(startPanel, gbc);
-
-        // info button
-        gbc.gridx++;
-        gbc.weightx = 0.25;
-        JPanel infoPanel = new JPanel(new BorderLayout(0, 0));
-        infoPanel.add(info);
-        this.add(infoPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(start, 4, 6, 2, 2, 1, 0);
 
         // table
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weighty = 0.9;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        this.add(new BlackJackBackgroundPanel(blackJackStartViewModel.IMG_PATH), gbc);
+        JPanel tablePanel = new BlackJackBackgroundPanel(blackJackStartViewModel.IMG_PATH);
+        gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, 8, 6, 1, 1);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+        BlackJackStartState currentState = blackJackStartViewModel.getState();
+
+        Object source = e.getSource();
+
+        if (source.equals(start)) {
+            blackJackStartController.execute(currentState.getUsername(), currentState.getBet());
+        } else if (source.equals(info)) {
+            openGameInfo();
+        } else if (source.equals(exit)) {
+            exitController.execute();
+        } else if (source.equals(half)) {
+            updateBetAndField(halfBet);
+        } else if (source.equals(max)) {
+            updateBetAndField(maxBet);
+        } else if (source.equals(min)) {
+            updateBetAndField(0);
+        }
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -210,13 +131,12 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
             BlackJackStartState currentState = blackJackStartViewModel.getState();
             if (currentState.getBetError() != null) {
                 JOptionPane.showMessageDialog(this, currentState.getBetError());
-            } else {
-                halfBet = currentState.getFunds() / 2;
-                maxBet = currentState.getFunds();
-                half.setText(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
-                max.setText(blackJackStartViewModel.MAX_BET_LABEL + maxBet);
-                betField.setValue(0);
             }
+            halfBet = currentState.getFunds() / 2;
+            maxBet = currentState.getFunds();
+            half.setText(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
+            max.setText(blackJackStartViewModel.MAX_BET_LABEL + maxBet);
+            betField.setValue(0);
         }
     }
 
@@ -227,4 +147,36 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
         betField = new BetField(formatter);
     }
+
+    private void openGameInfo() {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI(blackJackStartViewModel.INFO_PATH));
+            } catch (IOException | URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "See game info here: " + blackJackStartViewModel.INFO_PATH);
+        }
+    }
+
+    private void updateBetAndField(int newBet) {
+        BlackJackStartState currentState = blackJackStartViewModel.getState();
+        currentState.setBet(newBet);
+        blackJackStartViewModel.setState(currentState);
+        betField.setValue(newBet);
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        BlackJackStartState currentState = blackJackStartViewModel.getState();
+        currentState.setBet(Integer.parseInt(betField.getText()));
+        blackJackStartViewModel.setState(currentState);
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {}
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {}
 }

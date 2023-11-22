@@ -18,6 +18,12 @@ public class BaccaratStartViewModel extends ViewModel {
 
     public String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
 
+    public String PLAYER_BET = "player";
+
+    public String BANKER_BET = "banker";
+
+    public String TIE_BET = "tie";
+
     public BaccaratStartViewModel() {
         super("baccarat start");
     }

@@ -32,40 +32,41 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.launchViewModel = launchViewModel;
         this.launchViewModel.addPropertyChangeListener(this);
 
-        LaunchState currState = launchViewModel.getState();
-
         blackjack = new GreenCustomButton(launchViewModel.BLACKJACK_LABEL);
         baccarat = new GreenCustomButton(launchViewModel.BACCARAT_LABEL);
         war = new GreenCustomButton(launchViewModel.WAR_LABEL);
         account = new GreenCustomButton(launchViewModel.ACCOUNT_LABEL);
 
+        blackjack.addActionListener(this);
+        baccarat.addActionListener(this);
+
+        // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
+        GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
 
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
+        // blackjack button
+        gridBagUtils.addComponentWithConstraints(blackjack, 0, 0, 1, 1, 1, 1);
 
-        this.add(blackjack, gbc);
-        gbc.gridx++;
-        this.add(baccarat, gbc);
-        gbc.gridy++;
-        this.add(account, gbc);
-        gbc.gridx--;
-        this.add(war, gbc);
+        // baccarat button
+        gridBagUtils.addComponentWithConstraints(baccarat, 1, 0, 1, 1, 1, 1);
 
-        blackjack.addActionListener(e ->
-                launchController.execute(currState.getUsername(), launchViewModel.BLACKJACK_NAME));
+        // account button
+        gridBagUtils.addComponentWithConstraints(account, 1, 1, 1, 1, 1, 1);
 
-        baccarat.addActionListener(e ->
-                launchController.execute(currState.getUsername(), launchViewModel.BACCARAT_NAME));
+        // war button
+        gridBagUtils.addComponentWithConstraints(war, 0, 1, 1, 1, 1, 1);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+        LaunchState currState = launchViewModel.getState();
+        if (e.getSource().equals(blackjack)) {
+            launchController.execute(currState.getUsername(), launchViewModel.BLACKJACK_NAME);
+        } else if (e.getSource().equals(baccarat)) {
+            launchController.execute(currState.getUsername(), launchViewModel.BACCARAT_NAME);
+        }
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

@@ -4,6 +4,7 @@ import interface_adapter.baccarat.BaccaratController;
 import interface_adapter.baccarat.BaccaratStartState;
 import interface_adapter.baccarat.BaccaratStartViewModel;
 import interface_adapter.menu.exit.ExitController;
+import view.GridBagUtils;
 import view.custom_elements.*;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.NumberFormat;
 
-public class BaccaratStartView extends JPanel implements ActionListener, PropertyChangeListener {
+public class BaccaratStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "baccarat start";
     private final BaccaratStartViewModel baccaratStartViewModel;
     private final BaccaratController baccaratController;
@@ -55,144 +56,67 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
         makeBetFields();
 
-        exit.addActionListener(
-                e -> {
-                    if (e.getSource().equals(exit)) {
-                        exitController.execute();
-                    }
-                }
-        );
+        exit.addActionListener(this);
+        start.addActionListener(this);
+        info.addActionListener(this);
 
-        start.addActionListener(e -> {
-            if (e.getSource().equals(start)) {
-                BaccaratStartState currState = baccaratStartViewModel.getState();
-                baccaratController.execute(currState.getBet(), currState.getUsername());
-            }
-        });
-
-        info.addActionListener(
-                e -> {
-                    if (e.getSource().equals(info)) {
-                        if (Desktop.isDesktopSupported()) {
-                            try {
-                                Desktop.getDesktop().browse(new URI(baccaratStartViewModel.INFO_PATH));
-                            } catch (IOException | URISyntaxException ex) {
-                                throw new RuntimeException(ex);}
-                        } else {
-                            JOptionPane.showMessageDialog(this,
-                                    "See game info here: " + baccaratStartViewModel.INFO_PATH);
-                        }
-                    }
-                }
-        );
-
-        bankerBet.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                BaccaratStartState currentState = baccaratStartViewModel.getState();
-                currentState.setBet("banker", Integer.parseInt(bankerBet.getText()));
-                baccaratStartViewModel.setState(currentState);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {}
-            @Override
-            public void changedUpdate(DocumentEvent e) {}
-        });
-
-        tieBet.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                BaccaratStartState currentState = baccaratStartViewModel.getState();
-                currentState.setBet("tie", Integer.parseInt(tieBet.getText()));
-                baccaratStartViewModel.setState(currentState);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {}
-            @Override
-            public void changedUpdate(DocumentEvent e) {}
-        });
-
-        playerBet.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                BaccaratStartState currentState = baccaratStartViewModel.getState();
-                currentState.setBet("player", Integer.parseInt(playerBet.getText()));
-                baccaratStartViewModel.setState(currentState);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {}
-            @Override
-            public void changedUpdate(DocumentEvent e) {}
-        });
+        bankerBet.getDocument().addDocumentListener(this);
+        tieBet.getDocument().addDocumentListener(this);
+        playerBet.getDocument().addDocumentListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
+        GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
 
         // table
-        gbc.gridwidth = 8;
-        gbc.gridheight = 6;
-        this.add(new BlackJackBackgroundPanel(baccaratStartViewModel.IMG_PATH), gbc);
-        gbc.weightx = 0.25;
-        gbc.weighty = 0;
+        gridBagUtils.addComponentWithConstraints(new BlackJackBackgroundPanel(baccaratStartViewModel.IMG_PATH), 0, 0, 8, 6, 1, 1);
 
         // exit button
-        gbc.gridy = 6;
-        gbc.gridheight = 2;
-        gbc.gridwidth = 2;
-        JPanel exitPanel = new JPanel(new BorderLayout(0, 0));
-        exitPanel.add(exit);
-        this.add(exitPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(exit, 0, 6, 2, 2, 0.25, 0);
 
         // info button
-        gbc.gridy = 6;
-        gbc.gridx = 6;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 2;
-        JPanel infoPanel = new JPanel(new BorderLayout(0, 0));
-        infoPanel.add(info);
-        this.add(infoPanel, gbc);
-        gbc.weightx = 0.5;
-        gbc.weighty = 0;
+        gridBagUtils.addComponentWithConstraints(info, 6, 6, 2, 2, 0.25, 0);
 
         // betting fields
-        gbc.gridx = 2;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 4;
         JPanel betPanel = new GreenCustomPanel();
         betPanel.add(playerBet);
         betPanel.add(tieBet);
         betPanel.add(bankerBet);
-        this.add(betPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(betPanel, 2, 6, 4, 1, 0.5, 0);
 
         // current funds
-        gbc.gridy = 7;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 2;
         fundPanel = new GreenCustomPanel();
         makeFundsLabel();
-        this.add(fundPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(fundPanel, 2, 7, 2, 1, 0.25, 0);
 
         // start button
-        gbc.gridx = 4;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 2;
-        JPanel startPanel = new JPanel(new BorderLayout(0, 0));
-        startPanel.add(start);
-        this.add(startPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(start, 4, 7, 2, 1, 0.25, 0);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(exit)) {
+            exitController.execute();
+        } else if (e.getSource().equals(start)) {
+            BaccaratStartState currState = baccaratStartViewModel.getState();
+            baccaratController.execute(currState.getBet(), currState.getUsername());
+        } else if (e.getSource().equals(info)) {
+            openGameInfo(baccaratStartViewModel.INFO_PATH);
+        }
+    }
+
+    private void openGameInfo(String infoPath) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI(infoPath));
+            } catch (IOException | URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "See game info here: " + infoPath);
+        }
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -222,4 +146,27 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         JLabel newFundLabel = new GreenCustomJLabel("available: " + baccaratStartViewModel.getState().getFund());
         fundPanel.add(newFundLabel);
     }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        if (e.getDocument() == bankerBet.getDocument()) {
+            updateBet(bankerBet, baccaratStartViewModel.BANKER_BET);
+        } else if (e.getDocument() == tieBet.getDocument()) {
+            updateBet(tieBet, baccaratStartViewModel.TIE_BET);
+        } else if (e.getDocument() == playerBet.getDocument()) {
+            updateBet(playerBet, baccaratStartViewModel.PLAYER_BET);
+        }
+    }
+
+    private void updateBet(JTextField textField, String betType) {
+        BaccaratStartState currentState = baccaratStartViewModel.getState();
+        currentState.setBet(betType, Integer.parseInt(textField.getText()));
+        baccaratStartViewModel.setState(currentState);
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {}
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {}
 }

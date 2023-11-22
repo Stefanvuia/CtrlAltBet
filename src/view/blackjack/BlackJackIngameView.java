@@ -2,6 +2,7 @@ package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.menu.exit.ExitController;
+import view.GridBagUtils;
 import view.custom_elements.BlackJackBackgroundPanel;
 import view.custom_elements.GreenCustomButton;
 
@@ -47,71 +48,40 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         hit = new GreenCustomButton(BlackJackIngameView.this.blackJackIngameViewModel.HIT_LABEL);
         stand = new GreenCustomButton(blackJackIngameViewModel.STAND_LABEL);
 
-        exit.addActionListener(
-                e -> {
-                    if (e.getSource().equals(exit)) {
-                        exitController.execute();
-                    }
-                }
-        );
-
-        hit.addActionListener(
-                e -> {
-                    if (e.getSource().equals(hit)) {
-                        BlackJackGameState currstate = BlackJackIngameView.this.blackJackIngameViewModel.getState();
-                        blackJackHitController.execute(currstate.getGame());
-                    }
-                }
-        );
-
-        stand.addActionListener(
-                e -> {
-                    if (e.getSource().equals(stand)) {
-                        BlackJackGameState currstate = blackJackIngameViewModel.getState();
-                        blackJackStandController.execute(currstate.getGame());
-                    }
-                }
-        );
+        exit.addActionListener(this);
+        hit.addActionListener(this);
+        stand.addActionListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
+        GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
 
         // exit button
-        gbc.gridy = 1;
-        gbc.gridx = 0;
-        gbc.weighty = 0.1;
-        gbc.weightx = 0.25;
-        JPanel exitPanel = new JPanel(new BorderLayout(0, 0));
-        exitPanel.add(exit);
-        this.add(exitPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(exit, 0, 7, 2, 1, 0.25, 0.05);
 
         // hit button
-        gbc.gridx++;
-        gbc.weightx = 0.75;
-        JPanel hitPanel = new JPanel(new BorderLayout(0, 0));
-        hitPanel.add(hit);
-        this.add(hitPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(hit, 2, 7, 3, 1, 0.5, 0.05);
 
         // stand button
-        gbc.gridx++;
-        gbc.weightx = 0.75;
-        JPanel standPanel = new JPanel(new BorderLayout(0, 0));
-        standPanel.add(stand);
-        this.add(standPanel, gbc);
+        gridBagUtils.addComponentWithConstraints(stand, 5, 7, 3, 1, 0.5, 0.05);
 
         // table
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weighty = 0.9;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
         this.tablePanel = new BlackJackBackgroundPanel(blackJackIngameViewModel.IMG_PATH);
-        this.add(tablePanel, gbc);
+        gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, 8, 7, 1, 1);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        BlackJackGameState currstate = blackJackIngameViewModel.getState();
+        Object source = e.getSource();
+
+        if (source.equals(exit)) {
+            exitController.execute();
+        } else if (source.equals(hit)) {
+            blackJackHitController.execute(currstate.getGame());
+        } else if (source.equals(stand)) {
+            blackJackStandController.execute(currstate.getGame());
+        }
     }
 
     @Override

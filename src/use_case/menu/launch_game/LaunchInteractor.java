@@ -19,7 +19,6 @@ public class LaunchInteractor implements LaunchInputBoundary {
         String username = inputData.getUsername();
 
         int funds = launchDAO.getFund(username);
-        System.out.println(funds);
         launchPresenter.prepareGameView(new LaunchOutputData(username, game, funds));
     }
 }

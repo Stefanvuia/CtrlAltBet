@@ -2,18 +2,17 @@ package view.baccarat;
 
 import interface_adapter.baccarat.BaccaratGameState;
 import interface_adapter.baccarat.BaccaratGameViewModel;
+import view.GridBagUtils;
 import view.custom_elements.BaccaratBackgroundPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
 
-public class BaccaratGameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class BaccaratGameView extends JPanel implements PropertyChangeListener {
     public final String viewName = "baccarat during";
     private final BaccaratGameViewModel baccaratViewModel;
 
@@ -23,23 +22,15 @@ public class BaccaratGameView extends JPanel implements ActionListener, Property
         this.baccaratViewModel = baccaratViewModel;
         this.baccaratViewModel.addPropertyChangeListener(this);
 
+        // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
+        GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
 
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridheight = GridBagConstraints.REMAINDER;
+        // table
         this.tablePanel = new BaccaratBackgroundPanel(baccaratViewModel.IMG_PATH);
-        this.add(tablePanel, gbc);
+        gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, GridBagConstraints.REMAINDER, GridBagConstraints.REMAINDER, 1, 1);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
