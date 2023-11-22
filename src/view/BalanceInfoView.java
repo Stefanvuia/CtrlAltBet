@@ -1,7 +1,6 @@
 package view;
 
 
-import entity.User;
 import interface_adapter.UserViewModel;
 import interface_adapter.update.UserUpdateController;
 import tools.Tools;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
 
 public class BalanceInfoView extends JPanel implements ActionListener, PropertyChangeListener {
 

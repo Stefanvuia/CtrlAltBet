@@ -1,7 +1,7 @@
 package users.update;
 
 
-import entity.User;
+import entity.user.User;
 
 // Sign up response body
 public class UpdateOutputData {

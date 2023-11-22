@@ -1,6 +1,6 @@
 package users.login;
 
-import entity.User;
+import entity.user.User;
 
 import java.time.LocalDateTime;
 

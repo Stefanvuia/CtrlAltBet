@@ -1,8 +1,8 @@
 package users.signup;
 
 import constants.Constants;
-import entity.User;
-import entity.UserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
 
 
 import java.time.LocalDateTime;

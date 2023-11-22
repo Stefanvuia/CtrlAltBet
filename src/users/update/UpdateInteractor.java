@@ -1,7 +1,7 @@
 package users.update;
 
 
-import entity.User;
+import entity.user.User;
 
 public class UpdateInteractor implements UpdateInputBoundary {
 

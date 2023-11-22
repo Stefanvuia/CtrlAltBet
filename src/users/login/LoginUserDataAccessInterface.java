@@ -1,7 +1,7 @@
 package users.login;
 
 
-import entity.User;
+import entity.user.User;
 public interface LoginUserDataAccessInterface {
     boolean existsByName(String identifier);
 

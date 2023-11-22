@@ -4,7 +4,7 @@ import interface_adapter.baccarat.BaccaratController;
 import interface_adapter.baccarat.BaccaratStartState;
 import interface_adapter.baccarat.BaccaratStartViewModel;
 import interface_adapter.menu.exit.ExitController;
-import view.GridBagUtils;
+import tools.GridBagUtils;
 import view.custom_elements.*;
 
 import javax.swing.*;

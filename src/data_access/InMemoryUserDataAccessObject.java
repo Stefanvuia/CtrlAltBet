@@ -1,6 +1,6 @@
 package data_access;
 
-import entity.User;
+import entity.user.User;
 import users.login.LoginUserDataAccessInterface;
 import users.signup.SignupUserDataAccessInterface;
 import users.update.UpdateUserDataAccessInterface;

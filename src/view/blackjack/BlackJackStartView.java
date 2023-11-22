@@ -4,7 +4,7 @@ import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
 import interface_adapter.menu.exit.ExitController;
-import view.GridBagUtils;
+import tools.GridBagUtils;
 import view.custom_elements.*;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package view;
+package tools;
 import java.awt.*;
 
 public class GridBagUtils {

@@ -1,18 +1,10 @@
 package app;
 
-import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import data_access.UserDataAccessObject;
-import entity.CommonUserFactory;
-import entity.UserFactory;
-import entity.account.CommonAccountFactory;
+import entity.user.CommonUserFactory;
+import entity.user.UserFactory;
 
 import interface_adapter.*;
-import interface_adapter.blackjack.blackjack_logic.*;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 // <<<<<<< menu
 // import interface_adapter.menu.exit.ExitController;
 // import interface_adapter.menu.exit.ExitPresenter;
@@ -41,24 +33,6 @@ import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 // =======
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UserUpdateController;
-import use_case.blackjack.BlackJackDataAccessInterface;
-/*import interface_adapter.UserSignupController;
-import interface_adapter.SignupPresenter;
-import interface_adapter.UserViewModel;
-import interface_adapter.blackjack.blackjack_logic.TestLogicPresenter;
-import interface_adapter.blackjack.blackjack_logic.TestLogicViewModel;
-import interface_adapter.blackjack.blackjack_start.TestPresenter;
-import interface_adapter.blackjack.blackjack_start.TestViewModel;
-import use_case.blackjack.blackjack_logic.BlackJackHitInteractor;
-import use_case.blackjack.blackjack_logic.BlackJackInputGameData;*/
-
-
-
-import use_case.blackjack.CardsAPIInterface;
-import use_case.blackjack.blackjack_logic.*;
-import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
-import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
-import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
 
 import users.login.LoginInputBoundary;
 import users.login.LoginInteractor;
@@ -74,8 +48,6 @@ import users.update.UpdateOutputBoundary;
 import users.update.UpdateUserDataAccessInterface;
 import view.*;
 
-import view.blackjack.BlackJackIngameView;
-import view.blackjack.BlackJackStartView;
 /*import users.SignupUserDataAccessInterface;
 import users.SignupInputBoundary;
 import users.SignupInteractor;

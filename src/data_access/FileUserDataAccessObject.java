@@ -1,7 +1,9 @@
 package data_access;
 
-import entity.User;
-import entity.UserFactory;
+import entity.user.User;
+import entity.user.UserFactory;
+import use_case.games.GameDataAccessInterface;
+import use_case.menu.MenuDataAccessInterface;
 import users.login.LoginUserDataAccessInterface;
 import users.signup.SignupUserDataAccessInterface;
 import users.update.UpdateUserDataAccessInterface;
@@ -12,7 +14,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, UpdateUserDataAccessInterface {
+public class FileUserDataAccessObject implements
+        SignupUserDataAccessInterface, LoginUserDataAccessInterface,
+        UpdateUserDataAccessInterface, GameDataAccessInterface, MenuDataAccessInterface {
 
     private final File csvFile;
 
@@ -77,7 +81,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
     }
 
-
     /**
      * Return whether a user exists with username identifier.
      * @param identifier the username to check.
@@ -101,5 +104,14 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return user.getPassword().equals(password);
     }
 
+    @Override
+    public int getFund(String username) {
+        return accounts.get(username).getBalance();
+    }
 
+    @Override
+    public void editFund(String username, int amount) {
+        accounts.get(username).setBalance(amount);
+        save(accounts.get(username));
+    }
 }
