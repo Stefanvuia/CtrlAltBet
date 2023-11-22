@@ -2,8 +2,8 @@ package interface_adapter.baccarat;
 
 import entity.Card;
 import interface_adapter.ViewManagerModel;
-import use_case.baccarat.BaccaratOutputBoundary;
-import use_case.baccarat.BaccaratOutputData;
+import use_case.games.baccarat.BaccaratOutputBoundary;
+import use_case.games.baccarat.BaccaratOutputData;
 
 import java.awt.*;
 import java.awt.event.ActionListener;

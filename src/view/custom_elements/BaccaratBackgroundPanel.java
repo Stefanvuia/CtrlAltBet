@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class BaccaratBackgroundPanel extends JPanel {
-    private BufferedImage image;
-    private JPanel left = new JPanel();
-    private JPanel right = new JPanel();
+    private final BufferedImage image;
+    private final JPanel left = new JPanel();
+    private final JPanel right = new JPanel();
 
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final GridBagConstraints gbc = new GridBagConstraints();
     public BaccaratBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();

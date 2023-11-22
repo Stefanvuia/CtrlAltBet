@@ -9,8 +9,8 @@ import java.awt.*;
 import java.text.NumberFormat;
 
 public class BetField extends JFormattedTextField {
-    private Color darkGreen = new Color(53, 70, 62);
-    private Color lightGreen = new Color(144, 227, 154);
+    private final Color darkGreen = new Color(53, 70, 62);
+    private final Color lightGreen = new Color(144, 227, 154);
     public BetField (NumberFormatter format) {
         super(format);
         this.setFont(new Font("Courier", Font.BOLD, 28));

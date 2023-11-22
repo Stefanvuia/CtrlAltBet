@@ -16,6 +16,8 @@ public class BaccaratStartViewModel extends ViewModel {
 
     public String EXIT_LABEL = "exit";
 
+    public String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
+
     public BaccaratStartViewModel() {
         super("baccarat start");
     }

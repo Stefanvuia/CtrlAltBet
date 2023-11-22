@@ -4,8 +4,8 @@ import entity.Card;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import use_case.blackjack.blackjack_logic.BlackJackOutputGameData;
-import use_case.blackjack.blackjack_logic.BlackJackStandOutputBoundary;
+import use_case.games.blackjack.blackjack_logic.BlackJackOutputGameData;
+import use_case.games.blackjack.blackjack_logic.BlackJackStandOutputBoundary;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,25 +17,27 @@ import java.util.List;
 public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
     private final BlackJackStartViewModel blackJackStartViewModel;
 
-    private final BlackJackStandViewModel blackJackStandViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final BlackJackIngameViewModel blackJackIngameViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     public BlackJackStandPresenter(BlackJackStartViewModel blackJackStartViewModel,
-                                   BlackJackStandViewModel blackJackStandViewModel,
+                                   BlackJackIngameViewModel blackJackIngameViewModel,
                                    ViewManagerModel viewManagerModel) {
         this.blackJackStartViewModel = blackJackStartViewModel;
-        this.blackJackStandViewModel = blackJackStandViewModel;
+        this.blackJackIngameViewModel = blackJackIngameViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareWinView(BlackJackOutputGameData outputGameData) {
-        gameFinishHelper("You win " + outputGameData.getChange() + "!", outputGameData.getChange(), outputGameData);
+        gameFinishHelper("Player hand wins! You win " + outputGameData.getChange() + "!",
+                outputGameData.getChange(), outputGameData);
     }
 
     @Override
     public void prepareLoseView(BlackJackOutputGameData outputGameData) {
-        gameFinishHelper("Dealer hand wins!", outputGameData.getChange(),outputGameData);
+        gameFinishHelper("Dealer hand wins! You lose " + -outputGameData.getChange() + "!",
+                outputGameData.getChange(),outputGameData);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
 
     private void gameFinishHelper(String message, int change, BlackJackOutputGameData outputGameData) {
         BlackJackStartState newGameState = blackJackStartViewModel.getState();
-        BlackJackGameState endingBlackJackGameState = blackJackStandViewModel.getState();
+        BlackJackGameState endingBlackJackGameState = blackJackIngameViewModel.getState();
 
         endingBlackJackGameState.setGameMessage(message);
         endingBlackJackGameState.setGameEnd(true);
@@ -56,8 +58,8 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
         newGameState.setFunds(newGameState.getFunds() + change);
         newGameState.setBetError(null);
 
-        this.blackJackStandViewModel.setState(endingBlackJackGameState);
-        this.blackJackStandViewModel.firePropertyChanged();
+        this.blackJackIngameViewModel.setState(endingBlackJackGameState);
+        this.blackJackIngameViewModel.firePropertyChanged();
 
         this.blackJackStartViewModel.setState(newGameState);
         this.blackJackStartViewModel.firePropertyChanged();
@@ -73,8 +75,8 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
             Image image;
             try {
                 url = new URL(card.getImg());
-                image = ImageIO.read(url).getScaledInstance(blackJackStandViewModel.CARD_WIDTH,
-                        blackJackStandViewModel.CARD_HEIGHT,
+                image = ImageIO.read(url).getScaledInstance(blackJackIngameViewModel.CARD_WIDTH,
+                        blackJackIngameViewModel.CARD_HEIGHT,
                         Image.SCALE_SMOOTH);
             } catch (IOException e) {
                 throw new RuntimeException(e);

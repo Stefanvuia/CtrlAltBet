@@ -1,7 +1,7 @@
 package interface_adapter.baccarat;
 
-import use_case.baccarat.BaccaratInputBoundary;
-import use_case.baccarat.BaccaratInputData;
+import use_case.games.baccarat.BaccaratInputBoundary;
+import use_case.games.baccarat.BaccaratInputData;
 
 import java.util.Map;
 

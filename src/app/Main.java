@@ -12,16 +12,28 @@ import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
-import use_case.baccarat.BaccaratInputBoundary;
-import use_case.baccarat.BaccaratInteractor;
-import use_case.baccarat.BaccaratOutputBoundary;
-import use_case.GameDataAccessInterface;
-import use_case.CardsAPIInterface;
-import use_case.blackjack.blackjack_logic.*;
-import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
-import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
-import use_case.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import view.TempMainMenu;
+import interface_adapter.menu.exit.ExitController;
+import interface_adapter.menu.exit.ExitPresenter;
+import interface_adapter.menu.launch_game.LaunchController;
+import interface_adapter.menu.launch_game.LaunchPresenter;
+import interface_adapter.menu.launch_game.LaunchViewModel;
+import use_case.games.baccarat.BaccaratInputBoundary;
+import use_case.games.baccarat.BaccaratInteractor;
+import use_case.games.baccarat.BaccaratOutputBoundary;
+import use_case.games.GameDataAccessInterface;
+import use_case.games.CardsAPIInterface;
+import use_case.games.blackjack.blackjack_logic.*;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInteractor;
+import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
+import use_case.menu.MenuDataAccessInterface;
+import use_case.menu.exit.ExitInputBoundary;
+import use_case.menu.exit.ExitInteractor;
+import use_case.menu.exit.ExitOutputBoundary;
+import use_case.menu.launch_game.LaunchInputBoundary;
+import use_case.menu.launch_game.LaunchInteractor;
+import use_case.menu.launch_game.LaunchOutputBoundary;
+import view.MainMenuView;
 import view.baccarat.BaccaratGameView;
 import view.baccarat.BaccaratStartView;
 import view.blackjack.BlackJackIngameView;
@@ -48,15 +60,17 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
-        BlackJackStandViewModel blackJackStandViewModel = new BlackJackStandViewModel();
-        BlackJackHitViewModel blackJackHitViewModel = new BlackJackHitViewModel();
+        BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
 
         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
 
         GameDataAccessInterface gameDAO;
+        MenuDataAccessInterface launchDAO;
         try {
-            gameDAO = new UserDataAccessObject("./users.csv", new CommonAccountFactory());
+            UserDataAccessObject concreteDAO =  new UserDataAccessObject("./users.csv", new CommonAccountFactory());
+            gameDAO = concreteDAO;
+            launchDAO = concreteDAO;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,23 +85,31 @@ public class Main {
 
         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(
                 blackJackStartViewModel,
-                blackJackHitViewModel,
                 viewManagerModel,
-                blackJackStandViewModel);
+                blackJackIngameViewModel);
 
         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(
-                blackJackHitViewModel,
                 blackJackStartViewModel,
                 viewManagerModel,
-                blackJackStandViewModel);
+                blackJackIngameViewModel);
         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter);
 
         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(
                 blackJackStartViewModel,
-                blackJackStandViewModel,
+                blackJackIngameViewModel,
                 viewManagerModel
         );
         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, gameDAO, standPresenter);
+
+        LaunchViewModel launchViewModel = new LaunchViewModel();
+        LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
+
+        LaunchInputBoundary launchInteractor = new LaunchInteractor(launchDAO, launchPresenter);
+        LaunchController launchController = new LaunchController(launchInteractor);
+
+        ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
+        ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
+        ExitController exitController = new ExitController(exitInteractor);
 
         BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
         BlackJackStandController standController = new BlackJackStandController(standInteractor);
@@ -98,22 +120,22 @@ public class Main {
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, gameDAO, baccaratPresenter);
         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
 
-        BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController);
+        BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController, exitController);
         views.add(baccaratStartView, baccaratStartView.viewName);
 
-        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, startController);
+        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, exitController, startController);
         views.add(startView, startView.viewName);
 
         BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
         views.add(baccaratGameView, baccaratGameView.viewName);
 
-        BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, blackJackHitViewModel, blackJackStandViewModel);
+        BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
         views.add(ingameView, ingameView.viewName);
 
-        TempMainMenu tempMainMenu = new TempMainMenu(viewManagerModel);
-        views.add(tempMainMenu, tempMainMenu.viewName);
+        MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController);
+        views.add(mainMenuView, mainMenuView.viewName);
 
-        viewManagerModel.setActiveView(tempMainMenu.viewName);
+        viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

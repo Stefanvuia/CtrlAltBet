@@ -4,37 +4,33 @@ import entity.Card;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import use_case.blackjack.blackjack_logic.BlackJackHitOutputBoundary;
-import use_case.blackjack.blackjack_logic.BlackJackOutputGameData;
+import use_case.games.blackjack.blackjack_logic.BlackJackHitOutputBoundary;
+import use_case.games.blackjack.blackjack_logic.BlackJackOutputGameData;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
-    private final BlackJackHitViewModel blackJackHitViewModel;
     private final BlackJackStartViewModel blackJackStartViewModel;
 
-    private final BlackJackStandViewModel blackJackStandViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final BlackJackIngameViewModel blackJackIngameViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public BlackJackHitPresenter(BlackJackHitViewModel blackJackHitViewModel,
-                                 BlackJackStartViewModel blackJackStartViewModel,
+    public BlackJackHitPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                  ViewManagerModel viewManagerModel,
-                                 BlackJackStandViewModel blackJackStandViewModel) {
-        this.blackJackHitViewModel = blackJackHitViewModel;
+                                 BlackJackIngameViewModel blackJackIngameViewModel) {
         this.blackJackStartViewModel = blackJackStartViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.blackJackStandViewModel = blackJackStandViewModel;
+        this.blackJackIngameViewModel = blackJackIngameViewModel;
     }
 
     @Override
     public void prepareContinueView(BlackJackOutputGameData outputGameData) {
-        BlackJackGameState currentBlackJackGameState = blackJackHitViewModel.getState();
+        BlackJackGameState currentBlackJackGameState = blackJackIngameViewModel.getState();
 
         currentBlackJackGameState.setPlayerImages(makeImages(outputGameData.getGame().getPlayer().getHand()));
         List<Image> dealerImages = new ArrayList<>();
@@ -43,15 +39,15 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
             dealerImages.add(
                     ImageIO.read(
                             new URL(outputGameData.getGame().getDealer().getHand().get(0).getImg())).getScaledInstance(
-                            blackJackStandViewModel.CARD_WIDTH,
-                            blackJackStandViewModel.CARD_HEIGHT,
+                            blackJackIngameViewModel.CARD_WIDTH,
+                            blackJackIngameViewModel.CARD_HEIGHT,
                             Image.SCALE_SMOOTH)
             );
             dealerImages.add(
                     ImageIO.read(
-                            new URL(blackJackStandViewModel.CARD_BACK_URL)).getScaledInstance(
-                                    blackJackStandViewModel.CARD_WIDTH,
-                                    blackJackStandViewModel.CARD_HEIGHT,
+                            new URL(blackJackIngameViewModel.CARD_BACK_URL)).getScaledInstance(
+                                    blackJackIngameViewModel.CARD_WIDTH,
+                                    blackJackIngameViewModel.CARD_HEIGHT,
                                     Image.SCALE_SMOOTH)
             );
         } catch (IOException e) {
@@ -61,29 +57,28 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
         currentBlackJackGameState.setDealerImages(dealerImages);
         currentBlackJackGameState.setGame(outputGameData.getGame());
 
-        this.blackJackHitViewModel.setState(currentBlackJackGameState);
-        this.blackJackStandViewModel.setState(currentBlackJackGameState);
+        this.blackJackIngameViewModel.setState(currentBlackJackGameState);
 
-        this.blackJackHitViewModel.firePropertyChanged();
+        this.blackJackIngameViewModel.firePropertyChanged();
     }
 
     @Override
     public void prepareLoseView(BlackJackOutputGameData outputGameData) {
         BlackJackStartState newGameState = blackJackStartViewModel.getState();
-        BlackJackGameState endingBlackJackGameState = blackJackHitViewModel.getState();
+        BlackJackGameState endingBlackJackGameState = blackJackIngameViewModel.getState();
 
         endingBlackJackGameState.setDealerImages(makeImages(outputGameData.getGame().getDealer().getHand()));
         endingBlackJackGameState.setPlayerImages(makeImages(outputGameData.getGame().getPlayer().getHand()));
 
-        endingBlackJackGameState.setGameMessage("You bust!");
+        endingBlackJackGameState.setGameMessage("You bust! You lose " + -outputGameData.getChange());
         endingBlackJackGameState.setGameEnd(true);
+
+        this.blackJackIngameViewModel.setState(endingBlackJackGameState);
+        this.blackJackIngameViewModel.firePropertyChanged();
 
         newGameState.setBet(0);
         newGameState.setFunds(newGameState.getFunds() + outputGameData.getChange());
         newGameState.setBetError(null);
-
-        this.blackJackHitViewModel.setState(endingBlackJackGameState);
-        this.blackJackHitViewModel.firePropertyChanged();
 
         this.blackJackStartViewModel.setState(newGameState);
         this.blackJackStartViewModel.firePropertyChanged();
@@ -99,8 +94,8 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
             Image image;
             try {
                 url = new URL(card.getImg());
-                image = ImageIO.read(url).getScaledInstance(blackJackStandViewModel.CARD_WIDTH,
-                        blackJackStandViewModel.CARD_HEIGHT,
+                image = ImageIO.read(url).getScaledInstance(blackJackIngameViewModel.CARD_WIDTH,
+                        blackJackIngameViewModel.CARD_HEIGHT,
                         Image.SCALE_SMOOTH);
             } catch (IOException e) {
                 throw new RuntimeException(e);

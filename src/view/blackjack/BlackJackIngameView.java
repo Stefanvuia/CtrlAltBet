@@ -1,10 +1,10 @@
 package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_logic.*;
+import interface_adapter.menu.exit.ExitController;
 import view.custom_elements.BlackJackBackgroundPanel;
 import view.custom_elements.GreenCustomButton;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 public class BlackJackIngameView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -24,35 +23,42 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
 
     final JButton stand;
 
-    private final BlackJackHitViewModel blackJackHitViewModel;
-
-    private final BlackJackStandViewModel blackJackStandViewModel;
+    private final BlackJackIngameViewModel blackJackIngameViewModel;
 
     private final BlackJackStandController blackJackStandController;
 
     private final BlackJackHitController blackJackHitController;
 
+    private final ExitController exitController;
+
     private final BlackJackBackgroundPanel tablePanel;
 
     public BlackJackIngameView(BlackJackHitController blackJackHitController,
                                BlackJackStandController blackJackStandController,
-                               BlackJackHitViewModel blackJackHitViewModel,
-                               BlackJackStandViewModel blackJackStandViewModel) throws IOException {
+                               ExitController exitController,
+                               BlackJackIngameViewModel blackJackIngameViewModel) throws IOException {
         this.blackJackHitController = blackJackHitController;
         this.blackJackStandController = blackJackStandController;
-        this.blackJackHitViewModel = blackJackHitViewModel;
-        this.blackJackStandViewModel = blackJackStandViewModel;
-        this.blackJackHitViewModel.addPropertyChangeListener(this);
-        this.blackJackStandViewModel.addPropertyChangeListener(this);
+        this.exitController = exitController;
+        this.blackJackIngameViewModel = blackJackIngameViewModel;
+        this.blackJackIngameViewModel.addPropertyChangeListener(this);
 
-        exit = new GreenCustomButton(blackJackStandViewModel.EXIT_LABEL);
-        hit = new GreenCustomButton(blackJackHitViewModel.HIT_LABEL);
-        stand = new GreenCustomButton(blackJackStandViewModel.STAND_LABEL);
+        exit = new GreenCustomButton(blackJackIngameViewModel.EXIT_LABEL);
+        hit = new GreenCustomButton(BlackJackIngameView.this.blackJackIngameViewModel.HIT_LABEL);
+        stand = new GreenCustomButton(blackJackIngameViewModel.STAND_LABEL);
+
+        exit.addActionListener(
+                e -> {
+                    if (e.getSource().equals(exit)) {
+                        exitController.execute();
+                    }
+                }
+        );
 
         hit.addActionListener(
                 e -> {
                     if (e.getSource().equals(hit)) {
-                        BlackJackGameState currstate = blackJackHitViewModel.getState();
+                        BlackJackGameState currstate = BlackJackIngameView.this.blackJackIngameViewModel.getState();
                         blackJackHitController.execute(currstate.getGame());
                     }
                 }
@@ -61,7 +67,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         stand.addActionListener(
                 e -> {
                     if (e.getSource().equals(stand)) {
-                        BlackJackGameState currstate = blackJackStandViewModel.getState();
+                        BlackJackGameState currstate = blackJackIngameViewModel.getState();
                         blackJackStandController.execute(currstate.getGame());
                     }
                 }
@@ -101,7 +107,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         gbc.gridx = 0;
         gbc.weighty = 0.9;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        this.tablePanel = new BlackJackBackgroundPanel(blackJackStandViewModel.IMG_PATH);
+        this.tablePanel = new BlackJackBackgroundPanel(blackJackIngameViewModel.IMG_PATH);
         this.add(tablePanel, gbc);
     }
     @Override
@@ -110,16 +116,10 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("bj hit")) {
-            BlackJackGameState currState = blackJackHitViewModel.getState();
-            showPlayerHand(currState.getPlayerImages());
-            showDealerHand(currState.getDealerImages());
-            if (currState.isGameEnd()) {
-                JOptionPane.showMessageDialog(this, currState.getGameMessage());
-            }
-        } else if (evt.getPropertyName().equals("bj stand")) {
-            BlackJackGameState currState = blackJackStandViewModel.getState();
-            showDealerHand(currState.getDealerImages());
+        BlackJackGameState currState = blackJackIngameViewModel.getState();
+        showPlayerHand(currState.getPlayerImages());
+        showDealerHand(currState.getDealerImages());
+        if (currState.isGameEnd()) {
             JOptionPane.showMessageDialog(this, currState.getGameMessage());
         }
     }

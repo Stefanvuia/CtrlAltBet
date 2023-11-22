@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class BlackJackBackgroundPanel extends JPanel {
-    private BufferedImage image;
-    private JPanel top = new JPanel();
-    private JPanel bottom = new JPanel();
+    private final BufferedImage image;
+    private final JPanel top = new JPanel();
+    private final JPanel bottom = new JPanel();
 
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final GridBagConstraints gbc = new GridBagConstraints();
     public BlackJackBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();

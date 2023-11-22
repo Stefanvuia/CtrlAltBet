@@ -8,7 +8,7 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.CardsAPIInterface;
+import use_case.games.CardsAPIInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BlackJackDealer extends Player {
     public BlackJackDealer() {
-        this.hands = new ArrayList<Card>();;
+        this.hands = new ArrayList<Card>();
     }
 
     public List<Card> getHand() {

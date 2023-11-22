@@ -1,8 +1,8 @@
 package interface_adapter.blackjack.blackjack_logic;
 
 import entity.game_logic.BlackJackGameInterface;
-import use_case.blackjack.blackjack_logic.BlackJackInputGameData;
-import use_case.blackjack.blackjack_logic.BlackJackStandInputBoundary;
+import use_case.games.blackjack.blackjack_logic.BlackJackInputGameData;
+import use_case.games.blackjack.blackjack_logic.BlackJackStandInputBoundary;
 
 public class BlackJackStandController {
     final BlackJackStandInputBoundary standInteractor;

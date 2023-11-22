@@ -3,6 +3,7 @@ package view.baccarat;
 import interface_adapter.baccarat.BaccaratController;
 import interface_adapter.baccarat.BaccaratStartState;
 import interface_adapter.baccarat.BaccaratStartViewModel;
+import interface_adapter.menu.exit.ExitController;
 import view.custom_elements.*;
 
 import javax.swing.*;
@@ -15,12 +16,16 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.NumberFormat;
 
 public class BaccaratStartView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "baccarat start";
     private final BaccaratStartViewModel baccaratStartViewModel;
     private final BaccaratController baccaratController;
+
+    private final ExitController exitController;
 
     JFormattedTextField bankerBet;
 
@@ -36,8 +41,11 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
     final JPanel fundPanel;
 
-    public BaccaratStartView(BaccaratStartViewModel baccaratStartViewModel, BaccaratController baccaratController) throws IOException {
+    public BaccaratStartView(BaccaratStartViewModel baccaratStartViewModel,
+                             BaccaratController baccaratController,
+                             ExitController exitController) throws IOException {
         this.baccaratStartViewModel = baccaratStartViewModel;
+        this.exitController = exitController;
         this.baccaratController = baccaratController;
         this.baccaratStartViewModel.addPropertyChangeListener(this);
 
@@ -47,14 +55,36 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
         makeBetFields();
 
+        exit.addActionListener(
+                e -> {
+                    if (e.getSource().equals(exit)) {
+                        exitController.execute();
+                    }
+                }
+        );
+
         start.addActionListener(e -> {
             if (e.getSource().equals(start)) {
                 BaccaratStartState currState = baccaratStartViewModel.getState();
-
-                System.out.println(currState.getBet());
                 baccaratController.execute(currState.getBet(), currState.getUsername());
             }
         });
+
+        info.addActionListener(
+                e -> {
+                    if (e.getSource().equals(info)) {
+                        if (Desktop.isDesktopSupported()) {
+                            try {
+                                Desktop.getDesktop().browse(new URI(baccaratStartViewModel.INFO_PATH));
+                            } catch (IOException | URISyntaxException ex) {
+                                throw new RuntimeException(ex);}
+                        } else {
+                            JOptionPane.showMessageDialog(this,
+                                    "See game info here: " + baccaratStartViewModel.INFO_PATH);
+                        }
+                    }
+                }
+        );
 
         bankerBet.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -87,7 +117,6 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         playerBet.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                System.out.println(playerBet.getText());
                 BaccaratStartState currentState = baccaratStartViewModel.getState();
                 currentState.setBet("player", Integer.parseInt(playerBet.getText()));
                 baccaratStartViewModel.setState(currentState);
@@ -179,11 +208,9 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
     }
 
     private void makeBetFields() {
-        int max = baccaratStartViewModel.getState().getFund();
-
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format, max);
+        NumberFormatter formatter = new BetFieldFormatter(format);
 
         bankerBet = new BetField(formatter);
         tieBet = new BetField(formatter);

@@ -3,6 +3,7 @@ package view.blackjack;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import interface_adapter.menu.exit.ExitController;
 import view.custom_elements.*;
 
 import javax.swing.*;
@@ -15,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.*;
 
 
@@ -22,6 +25,8 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     public final String viewName = "bj start";
 
     private final BlackJackStartViewModel blackJackStartViewModel;
+
+    private final ExitController exitController;
 
     JFormattedTextField betField;
 
@@ -44,8 +49,10 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     private final BlackJackStartController blackJackStartController;
 
     public BlackJackStartView(BlackJackStartViewModel blackJackStartViewModel,
+                              ExitController exitController,
                               BlackJackStartController blackJackStartController) throws IOException {
         this.blackJackStartViewModel = blackJackStartViewModel;
+        this.exitController = exitController;
         this.blackJackStartController = blackJackStartController;
         this.blackJackStartViewModel.addPropertyChangeListener(this);
 
@@ -76,7 +83,15 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         info.addActionListener(
                 e -> {
                     if (e.getSource().equals(info)) {
-                        System.out.println("info pressed");
+                        if (Desktop.isDesktopSupported()) {
+                            try {
+                                Desktop.getDesktop().browse(new URI(blackJackStartViewModel.INFO_PATH));
+                            } catch (IOException | URISyntaxException ex) {
+                                throw new RuntimeException(ex);}
+                        } else {
+                            JOptionPane.showMessageDialog(this,
+                                    "See game info here: " + blackJackStartViewModel.INFO_PATH);
+                        }
                     }
                 }
         );
@@ -84,7 +99,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         exit.addActionListener(
                 e -> {
                     if (e.getSource().equals(exit)) {
-                        System.out.println("exit pressed");
+                        exitController.execute();
                     }
                 }
         );
@@ -206,11 +221,9 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     }
 
     private void makeBetFields() {
-        int max = blackJackStartViewModel.getState().getFunds();
-
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format, max);
+        NumberFormatter formatter = new BetFieldFormatter(format);
 
         betField = new BetField(formatter);
     }

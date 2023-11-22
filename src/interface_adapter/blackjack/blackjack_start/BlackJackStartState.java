@@ -1,13 +1,13 @@
 package interface_adapter.blackjack.blackjack_start;
 
 public class BlackJackStartState {
-    private String username = "cakev";
+    private String username = "";
 
     private int bet = 0;
 
     private String betError = null;
 
-    private int funds = 5000;
+    private int funds = 0;
 
     public BlackJackStartState(BlackJackStartState copy) {
         username = copy.username;

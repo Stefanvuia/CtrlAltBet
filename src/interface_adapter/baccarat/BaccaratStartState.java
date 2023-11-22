@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaccaratStartState {
-    private String username = "cakev";
+    private String username = "";
 
-    private Map<String, Integer> bet = initBetMap();
+    private final Map<String, Integer> bet = initBetMap();
 
-    private int fund = 5000;
+    private int fund = 0;
 
     private String errorMessage = "";
 
