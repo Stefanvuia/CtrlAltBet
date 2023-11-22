@@ -1,4 +1,4 @@
-package use_case.blackjack;
+package use_case;
 public interface GameDataAccessInterface {
     int getFund(String username);
 

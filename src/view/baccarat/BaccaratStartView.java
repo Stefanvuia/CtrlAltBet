@@ -1,13 +1,9 @@
 package view.baccarat;
 
 import interface_adapter.baccarat.BaccaratController;
-import interface_adapter.baccarat.BaccaratState;
-import interface_adapter.baccarat.BaccaratViewModel;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import view.custom_swing_elements.BetField;
-import view.custom_swing_elements.BlackJackBackgroundPanel;
-import view.custom_swing_elements.GreenCustomButton;
-import view.custom_swing_elements.GreenCustomPanel;
+import interface_adapter.baccarat.BaccaratStartState;
+import interface_adapter.baccarat.BaccaratStartViewModel;
+import view.custom_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -23,14 +19,14 @@ import java.text.NumberFormat;
 
 public class BaccaratStartView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "baccarat start";
-    private final BaccaratViewModel baccaratViewModel;
+    private final BaccaratStartViewModel baccaratStartViewModel;
     private final BaccaratController baccaratController;
 
-    final JFormattedTextField bankerBet;
+    JFormattedTextField bankerBet;
 
-    final JFormattedTextField playerBet;
+    JFormattedTextField playerBet;
 
-    final JFormattedTextField tieBet;
+    JFormattedTextField tieBet;
 
     final JButton start;
 
@@ -40,39 +36,32 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
     final JPanel fundPanel;
 
-    public BaccaratStartView(BaccaratViewModel baccaratViewModel, BaccaratController baccaratController) throws IOException {
-        this.baccaratViewModel = baccaratViewModel;
+    public BaccaratStartView(BaccaratStartViewModel baccaratStartViewModel, BaccaratController baccaratController) throws IOException {
+        this.baccaratStartViewModel = baccaratStartViewModel;
         this.baccaratController = baccaratController;
-        this.baccaratViewModel.addPropertyChangeListener(this);
+        this.baccaratStartViewModel.addPropertyChangeListener(this);
 
-        start = new GreenCustomButton(baccaratViewModel.START_LABEL);
-        info = new GreenCustomButton(baccaratViewModel.INFO_LABEL);
-        exit = new GreenCustomButton(baccaratViewModel.EXIT_LABEL);
+        start = new GreenCustomButton(baccaratStartViewModel.START_LABEL);
+        info = new GreenCustomButton(baccaratStartViewModel.INFO_LABEL);
+        exit = new GreenCustomButton(baccaratStartViewModel.EXIT_LABEL);
 
-        int max = baccaratViewModel.getState().getFund();
+        makeBetFields();
 
-        bankerBet = setUpNumFormat(max);
-        tieBet = setUpNumFormat(max);
-        playerBet = setUpNumFormat(max);
+        start.addActionListener(e -> {
+            if (e.getSource().equals(start)) {
+                BaccaratStartState currState = baccaratStartViewModel.getState();
 
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(start)) {
-                    BaccaratState currState = baccaratViewModel.getState();
-
-                    System.out.println(currState.getBet());
-                    baccaratController.execute(currState.getBet(), currState.getUsername());
-                }
+                System.out.println(currState.getBet());
+                baccaratController.execute(currState.getBet(), currState.getUsername());
             }
         });
 
         bankerBet.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                BaccaratState currentState = baccaratViewModel.getState();
+                BaccaratStartState currentState = baccaratStartViewModel.getState();
                 currentState.setBet("banker", Integer.parseInt(bankerBet.getText()));
-                baccaratViewModel.setState(currentState);
+                baccaratStartViewModel.setState(currentState);
             }
 
             @Override
@@ -84,9 +73,9 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         tieBet.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                BaccaratState currentState = baccaratViewModel.getState();
+                BaccaratStartState currentState = baccaratStartViewModel.getState();
                 currentState.setBet("tie", Integer.parseInt(tieBet.getText()));
-                baccaratViewModel.setState(currentState);
+                baccaratStartViewModel.setState(currentState);
             }
 
             @Override
@@ -98,9 +87,10 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         playerBet.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                BaccaratState currentState = baccaratViewModel.getState();
+                System.out.println(playerBet.getText());
+                BaccaratStartState currentState = baccaratStartViewModel.getState();
                 currentState.setBet("player", Integer.parseInt(playerBet.getText()));
-                baccaratViewModel.setState(currentState);
+                baccaratStartViewModel.setState(currentState);
             }
 
             @Override
@@ -122,7 +112,7 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         // table
         gbc.gridwidth = 8;
         gbc.gridheight = 6;
-        this.add(new BlackJackBackgroundPanel(baccaratViewModel.IMG_PATH), gbc);
+        this.add(new BlackJackBackgroundPanel(baccaratStartViewModel.IMG_PATH), gbc);
         gbc.weightx = 0.25;
         gbc.weighty = 0;
 
@@ -160,10 +150,7 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
         gbc.gridheight = 1;
         gbc.gridwidth = 2;
         fundPanel = new GreenCustomPanel();
-        JLabel fundLabel = new JLabel("available: " + max);
-        fundLabel.setFont(new Font("Courier", Font.BOLD, 26));
-        fundLabel.setForeground(new Color(144, 227, 154));
-        fundPanel.add(fundLabel);
+        makeFundsLabel();
         this.add(fundPanel, gbc);
 
         // start button
@@ -180,33 +167,32 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        BaccaratState currState = baccaratViewModel.getState();
-        if(currState.getPlayerHandImg().isEmpty()) {
-            JOptionPane.showMessageDialog(this, currState.getGameMessage());
+        BaccaratStartState currState = baccaratStartViewModel.getState();
+        if (!(currState.getErrorMessage().isEmpty())) {
+            JOptionPane.showMessageDialog(this, currState.getErrorMessage());
         }
-        fundPanel.removeAll();
-        JLabel newFundLabel = new JLabel("available: " + currState.getFund());
-        newFundLabel.setFont(new Font("Courier", Font.BOLD, 26));
-        newFundLabel.setForeground(new Color(144, 227, 154));
-        fundPanel.add(newFundLabel);
+        makeFundsLabel();
+
         bankerBet.setValue(0);
         tieBet.setValue(0);
         playerBet.setValue(0);
     }
 
-    private JFormattedTextField setUpNumFormat(int max) {
-        NumberFormat betFormat = NumberFormat.getIntegerInstance();
-        betFormat.setGroupingUsed(false);
-        NumberFormatter formatter = new NumberFormatter(betFormat);
-        formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0);
-        formatter.setMaximum(max);
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
-        JFormattedTextField field = new BetField(formatter);
-        field.setValue(0);
-        field.setColumns(10);
+    private void makeBetFields() {
+        int max = baccaratStartViewModel.getState().getFund();
 
-        return field;
+        NumberFormat format = NumberFormat.getIntegerInstance();
+        format.setGroupingUsed(false);
+        NumberFormatter formatter = new BetFieldFormatter(format, max);
+
+        bankerBet = new BetField(formatter);
+        tieBet = new BetField(formatter);
+        playerBet = new BetField(formatter);
+    }
+
+    private void makeFundsLabel() {
+        fundPanel.removeAll();
+        JLabel newFundLabel = new GreenCustomJLabel("available: " + baccaratStartViewModel.getState().getFund());
+        fundPanel.add(newFundLabel);
     }
 }

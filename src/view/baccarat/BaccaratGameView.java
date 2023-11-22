@@ -1,11 +1,9 @@
 package view.baccarat;
 
-import interface_adapter.baccarat.BaccaratState;
-import interface_adapter.baccarat.BaccaratViewModel;
-import view.custom_swing_elements.BaccaratBackgroundPanel;
-import view.custom_swing_elements.BlackJackBackgroundPanel;
+import interface_adapter.baccarat.BaccaratGameState;
+import interface_adapter.baccarat.BaccaratGameViewModel;
+import view.custom_elements.BaccaratBackgroundPanel;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,16 +11,15 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 public class BaccaratGameView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "baccarat during";
-    private final BaccaratViewModel baccaratViewModel;
+    private final BaccaratGameViewModel baccaratViewModel;
 
     private final BaccaratBackgroundPanel tablePanel;
 
-    public BaccaratGameView(BaccaratViewModel baccaratViewModel) throws IOException {
+    public BaccaratGameView(BaccaratGameViewModel baccaratViewModel) throws IOException {
         this.baccaratViewModel = baccaratViewModel;
         this.baccaratViewModel.addPropertyChangeListener(this);
 
@@ -42,13 +39,11 @@ public class BaccaratGameView extends JPanel implements ActionListener, Property
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
+    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        BaccaratState currState = baccaratViewModel.getState();
+        BaccaratGameState currState = baccaratViewModel.getState();
         if (!currState.getBankerHandImg().isEmpty() && !currState.getPlayerHandImg().isEmpty()) {
             try {
                 showHands(currState.getPlayerHandImg(), currState.getBankerHandImg());
@@ -59,44 +54,24 @@ public class BaccaratGameView extends JPanel implements ActionListener, Property
         }
     }
 
-    private void showHands(List<String>playerImgs, List<String>bankerImgs) throws IOException {
+    private void showHands(List<Image> playerImgs, List<Image> bankerImgs) throws IOException {
         tablePanel.getLeft().removeAll();
         tablePanel.getRight().removeAll();
+        JLabel label;
 
-        for (int i = 0; i < 3; i++) {
-            URL urlP;
-            URL urlB;
-            JLabel label;
-            Image imageP = null;
-            Image imageB = null;
-            if (i < 2) {
-                urlP = new URL(playerImgs.get(i));
-                urlB = new URL(bankerImgs.get(i));
-                imageP = ImageIO.read(urlP).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-                imageB = ImageIO.read(urlB).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-            } else if (playerImgs.size() > 2 && bankerImgs.size() > 2) {
-                urlP = new URL(playerImgs.get(i));
-                urlB = new URL(bankerImgs.get(i));
-                imageP = ImageIO.read(urlP).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-                imageB = ImageIO.read(urlB).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-            } else if (playerImgs.size() > 2) {
-                urlP = new URL(playerImgs.get(i));
-                imageP = ImageIO.read(urlP).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-            } else if (bankerImgs.size() > 2) {
-                urlB = new URL(bankerImgs.get(i));
-                imageB = ImageIO.read(urlB).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-            }
-
-            if (imageP != null) {
-                label = new JLabel();
-                label.setIcon(new ImageIcon(imageP));
-                tablePanel.getLeft().add(label);
-            }
-            if (imageB != null) {
-                label = new JLabel();
-                label.setIcon(new ImageIcon(imageB));
-                tablePanel.getRight().add(label);
-            }
+        for (Image image : playerImgs) {
+            label = new JLabel();
+            label.setIcon(new ImageIcon(image));
+            tablePanel.getLeft().add(label);
         }
+
+        for (Image image : bankerImgs) {
+            label = new JLabel();
+            label.setIcon(new ImageIcon(image));
+            tablePanel.getRight().add(label);
+        }
+
+        revalidate();
+        repaint();
     }
 }

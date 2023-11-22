@@ -1,4 +1,4 @@
-package view.custom_swing_elements;
+package view.custom_elements;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -15,7 +15,7 @@ public class GreenCustomButton extends JButton {
         super(text);
         this.setContentAreaFilled(false);
         this.setFont(new Font("Courier", Font.BOLD, 28));
-        this.setBorder(new CompoundBorder(new LineBorder(lightGreen), new EmptyBorder(10, 10, 10, 10)));
+        this.setBorder(new CompoundBorder(new LineBorder(lightGreen, 1), new EmptyBorder(10, 10, 10, 10)));
         this.setOpaque(true);
         this.setFocusPainted(false);
         this.setBackground(darkGreen);

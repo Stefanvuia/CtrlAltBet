@@ -1,8 +1,8 @@
 package use_case.blackjack.blackjack_start;
 
 import entity.game_logic.*;
-import use_case.blackjack.GameDataAccessInterface;
-import use_case.blackjack.CardsAPIInterface;
+import use_case.GameDataAccessInterface;
+import use_case.CardsAPIInterface;
 
 public class BlackJackStartInteractor implements BlackJackStartInputBoundary{
     final CardsAPIInterface cardsAPI;

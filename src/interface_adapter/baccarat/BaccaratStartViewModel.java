@@ -5,8 +5,8 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BaccaratViewModel extends ViewModel {
-    private BaccaratState state = new BaccaratState();
+public class BaccaratStartViewModel extends ViewModel {
+    private BaccaratStartState state = new BaccaratStartState();
 
     public String IMG_PATH = "img/baccarattable.png";
 
@@ -16,19 +16,15 @@ public class BaccaratViewModel extends ViewModel {
 
     public String EXIT_LABEL = "exit";
 
-    private String secondaryViewName = "baccarat during";
-
-    public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
-
-    public BaccaratViewModel() {
+    public BaccaratStartViewModel() {
         super("baccarat start");
     }
 
-    public void setState(BaccaratState state) {
+    public void setState(BaccaratStartState state) {
         this.state = state;
     }
 
-    public BaccaratState getState() {
+    public BaccaratStartState getState() {
         return state;
     }
 
@@ -36,15 +32,11 @@ public class BaccaratViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("baccarat", null, this.state);
+        support.firePropertyChange("baccarat start", null, this.state);
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    public String getSecondaryViewName() {
-        return secondaryViewName;
     }
 }

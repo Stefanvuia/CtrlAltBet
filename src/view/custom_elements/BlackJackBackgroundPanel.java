@@ -1,4 +1,4 @@
-package view.custom_swing_elements;
+package view.custom_elements;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

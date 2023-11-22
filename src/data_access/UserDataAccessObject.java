@@ -2,12 +2,13 @@ package data_access;
 
 import entity.account.Account;
 import entity.account.AccountFactory;
-import use_case.blackjack.GameDataAccessInterface;
+import use_case.GameDataAccessInterface;
+import use_case.launch_game.LaunchDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class UserDataAccessObject implements GameDataAccessInterface {
+public class UserDataAccessObject implements GameDataAccessInterface, LaunchDataAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, Account> accounts = new HashMap<>();

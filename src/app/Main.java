@@ -5,8 +5,9 @@ import data_access.UserDataAccessObject;
 import entity.account.CommonAccountFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.baccarat.BaccaratController;
+import interface_adapter.baccarat.BaccaratGameViewModel;
 import interface_adapter.baccarat.BaccaratPresenter;
-import interface_adapter.baccarat.BaccaratViewModel;
+import interface_adapter.baccarat.BaccaratStartViewModel;
 import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
@@ -14,8 +15,8 @@ import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import use_case.baccarat.BaccaratInputBoundary;
 import use_case.baccarat.BaccaratInteractor;
 import use_case.baccarat.BaccaratOutputBoundary;
-import use_case.blackjack.GameDataAccessInterface;
-import use_case.blackjack.CardsAPIInterface;
+import use_case.GameDataAccessInterface;
+import use_case.CardsAPIInterface;
 import use_case.blackjack.blackjack_logic.*;
 import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
 import use_case.blackjack.blackjack_start.BlackJackStartInteractor;
@@ -50,7 +51,8 @@ public class Main {
         BlackJackStandViewModel blackJackStandViewModel = new BlackJackStandViewModel();
         BlackJackHitViewModel blackJackHitViewModel = new BlackJackHitViewModel();
 
-        BaccaratViewModel baccaratViewModel = new BaccaratViewModel();
+        BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
+        BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
 
         GameDataAccessInterface gameDAO;
         try {
@@ -62,7 +64,8 @@ public class Main {
         CardsAPIInterface cardsAPI = new CardsAPIObject();
 
         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(
-                baccaratViewModel,
+                baccaratStartViewModel,
+                baccaratGameViewModel,
                 viewManagerModel
         );
 
@@ -95,13 +98,13 @@ public class Main {
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, gameDAO, baccaratPresenter);
         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
 
-        BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratViewModel, baccaratController);
+        BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController);
         views.add(baccaratStartView, baccaratStartView.viewName);
 
         BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, startController);
         views.add(startView, startView.viewName);
 
-        BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratViewModel);
+        BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
         views.add(baccaratGameView, baccaratGameView.viewName);
 
         BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, blackJackHitViewModel, blackJackStandViewModel);

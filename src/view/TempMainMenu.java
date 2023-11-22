@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import view.custom_swing_elements.GreenCustomButton;
+import view.custom_elements.GreenCustomButton;
 
 import javax.swing.*;
 import java.awt.*;

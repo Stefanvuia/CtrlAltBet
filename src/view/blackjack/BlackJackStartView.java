@@ -3,10 +3,7 @@ package view.blackjack;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import view.custom_swing_elements.BlackJackBackgroundPanel;
-import view.custom_swing_elements.BetField;
-import view.custom_swing_elements.GreenCustomButton;
-import view.custom_swing_elements.GreenCustomPanel;
+import view.custom_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -26,7 +23,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
     private final BlackJackStartViewModel blackJackStartViewModel;
 
-    final JFormattedTextField betField;
+    JFormattedTextField betField;
 
     final JButton start;
 
@@ -55,9 +52,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         halfBet = blackJackStartViewModel.getState().getFunds() / 2;
         maxBet = blackJackStartViewModel.getState().getFunds();
 
-        betField = new BetField(setUpNumFormat(maxBet));
-        betField.setColumns(5);
-        betField.setValue(halfBet);
+        makeBetFields();
 
         start = new GreenCustomButton(blackJackStartViewModel.BET_LABEL);
         info = new GreenCustomButton(blackJackStartViewModel.INFO_LABEL);
@@ -187,14 +182,12 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weighty = 0.9;
-        gbc.gridwidth = gbc.REMAINDER;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         this.add(new BlackJackBackgroundPanel(blackJackStartViewModel.IMG_PATH), gbc);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Click " + e.getActionCommand());
-    }
+    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -207,19 +200,18 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
                 maxBet = currentState.getFunds();
                 half.setText(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
                 max.setText(blackJackStartViewModel.MAX_BET_LABEL + maxBet);
-                betField.setValue(halfBet);
+                betField.setValue(0);
             }
         }
     }
-    private NumberFormatter setUpNumFormat(int max) {
-        NumberFormat betFormat = NumberFormat.getIntegerInstance();
-        betFormat.setGroupingUsed(false);
-        NumberFormatter formatter = new NumberFormatter(betFormat);
-        formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0);
-        formatter.setMaximum(max);
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
-        return formatter;
+
+    private void makeBetFields() {
+        int max = blackJackStartViewModel.getState().getFunds();
+
+        NumberFormat format = NumberFormat.getIntegerInstance();
+        format.setGroupingUsed(false);
+        NumberFormatter formatter = new BetFieldFormatter(format, max);
+
+        betField = new BetField(formatter);
     }
 }

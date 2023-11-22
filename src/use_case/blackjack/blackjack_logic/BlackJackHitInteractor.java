@@ -3,7 +3,7 @@ package use_case.blackjack.blackjack_logic;
 import entity.game_logic.BlackJackPlayer;
 import entity.Card;
 import entity.game_logic.BlackJackGameInterface;
-import use_case.blackjack.CardsAPIInterface;
+import use_case.CardsAPIInterface;
 
 
 public class BlackJackHitInteractor implements BlackJackHitInputBoundary{

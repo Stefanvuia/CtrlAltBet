@@ -16,7 +16,7 @@ public class BlackJackStartState {
         betError = copy.betError;
     }
 
-    public BlackJackStartState(){}
+    public BlackJackStartState() {}
 
     public String getUsername() {
         return username;

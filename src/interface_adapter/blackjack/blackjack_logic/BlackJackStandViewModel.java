@@ -10,6 +10,10 @@ public class BlackJackStandViewModel extends ViewModel {
 
     public final String IMG_PATH = "img/blackjacktable.png";
 
+    public final int CARD_HEIGHT = 157;
+
+    public final int CARD_WIDTH = 108;
+
     public String STAND_LABEL = "stand";
 
     public String EXIT_LABEL = "exit";

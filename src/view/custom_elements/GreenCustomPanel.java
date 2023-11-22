@@ -1,4 +1,4 @@
-package view.custom_swing_elements;
+package view.custom_elements;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -17,7 +17,7 @@ public class GreenCustomPanel extends JPanel {
         this.setFont(new Font("Courier", Font.BOLD, 28));
         this.setOpaque(true);
         this.setBorder(new CompoundBorder(
-                new LineBorder(new Color(144, 227, 154)),
+                new LineBorder(new Color(144, 227, 154),1),
                 new EmptyBorder(10, 10, 10, 10)));
         this.setBackground(new Color(53, 70, 62));
     }

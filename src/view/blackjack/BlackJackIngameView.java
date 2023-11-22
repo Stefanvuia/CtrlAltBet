@@ -1,8 +1,8 @@
 package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_logic.*;
-import view.custom_swing_elements.BlackJackBackgroundPanel;
-import view.custom_swing_elements.GreenCustomButton;
+import view.custom_elements.BlackJackBackgroundPanel;
+import view.custom_elements.GreenCustomButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -112,63 +112,35 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("bj hit")) {
             BlackJackGameState currState = blackJackHitViewModel.getState();
-            try {
-                showPlayerHand(currState.getPlayerHandImg());
-                showDealerHand(currState.getDealerHandImg(), false);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            showPlayerHand(currState.getPlayerImages());
+            showDealerHand(currState.getDealerImages());
             if (currState.isGameEnd()) {
                 JOptionPane.showMessageDialog(this, currState.getGameMessage());
             }
         } else if (evt.getPropertyName().equals("bj stand")) {
             BlackJackGameState currState = blackJackStandViewModel.getState();
-            try {
-                showDealerHand(currState.getDealerHandImg(), true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            if (currState.isGameEnd()) {
-                JOptionPane.showMessageDialog(this, currState.getGameMessage());
-            }
+            showDealerHand(currState.getDealerImages());
+            JOptionPane.showMessageDialog(this, currState.getGameMessage());
         }
     }
 
-    private void showPlayerHand(List<String> imgs) throws IOException {
+    private void showPlayerHand(List<Image> imgs) {
         tablePanel.getBottom().removeAll();
-        for (String img : imgs) {
-            URL url = new URL(img);
-            Image image = ImageIO.read(url).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
+        for (Image img : imgs) {
             JLabel label = new JLabel();
-            label.setIcon(new ImageIcon(image));
+            label.setIcon(new ImageIcon(img));
             tablePanel.getBottom().add(label);
         }
         revalidate();
         repaint();
     }
 
-    private void showDealerHand(List<String> imgs, boolean showSecondCard) throws IOException {
+    private void showDealerHand(List<Image> imgs) {
         tablePanel.getTop().removeAll();
-        if (showSecondCard) {
-            for (String img : imgs) {
-                URL url = new URL(img);
-                Image image = ImageIO.read(url).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-                JLabel label = new JLabel();
-                label.setIcon(new ImageIcon(image));
-                tablePanel.getTop().add(label);
-            }
-        } else {
-            URL url = new URL(imgs.get(0));
-            Image image = ImageIO.read(url).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
+        for (Image img : imgs) {
             JLabel label = new JLabel();
-            label.setIcon(new ImageIcon(image));
+            label.setIcon(new ImageIcon(img));
             tablePanel.getTop().add(label);
-
-            URL cardBackUrl = new URL(blackJackStandViewModel.CARD_BACK_URL);
-            Image cardBackImg = ImageIO.read(cardBackUrl).getScaledInstance(108, 157, Image.SCALE_SMOOTH);
-            JLabel cardBack = new JLabel();
-            cardBack.setIcon(new ImageIcon(cardBackImg));
-            tablePanel.getTop().add(cardBack);
         }
         revalidate();
         repaint();

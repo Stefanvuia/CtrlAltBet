@@ -3,8 +3,8 @@ package use_case.blackjack.blackjack_logic;
 import entity.game_logic.BlackJackPlayer;
 import entity.game_logic.BlackJackGameInterface;
 import entity.game_logic.Player;
-import use_case.blackjack.GameDataAccessInterface;
-import use_case.blackjack.CardsAPIInterface;
+import use_case.GameDataAccessInterface;
+import use_case.CardsAPIInterface;
 
 public class BlackJackStandInteractor implements BlackJackStandInputBoundary{
     final CardsAPIInterface cardsAPI;

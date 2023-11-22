@@ -1,12 +1,11 @@
 package use_case.baccarat;
 
-import entity.Card;
 import entity.game_logic.BaccaratGame;
 import entity.game_logic.BaccaratGameInterface;
 import entity.game_logic.BaccaratPlayer;
 import entity.game_logic.Player;
-import use_case.blackjack.CardsAPIInterface;
-import use_case.blackjack.GameDataAccessInterface;
+import use_case.CardsAPIInterface;
+import use_case.GameDataAccessInterface;
 
 import java.util.Map;
 import java.util.Set;
