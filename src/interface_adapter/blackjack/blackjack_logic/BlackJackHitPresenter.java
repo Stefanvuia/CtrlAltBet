@@ -1,59 +1,107 @@
 package interface_adapter.blackjack.blackjack_logic;
 
+import entity.Card;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
-import interface_adapter.blackjack.blackjack_start.StartState;
-import use_case.blackjack.blackjack_logic.BlackJackHitOutputBoundary;
-import use_case.blackjack.blackjack_logic.BlackJackOutputGameData;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import use_case.games.blackjack.blackjack_logic.BlackJackHitOutputBoundary;
+import use_case.games.blackjack.blackjack_logic.BlackJackOutputGameData;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
-    private final BlackJackHitViewModel blackJackHitViewModel;
     private final BlackJackStartViewModel blackJackStartViewModel;
 
-    private final BlackJackStandViewModel blackJackStandViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final BlackJackIngameViewModel blackJackIngameViewModel;
+    private final ViewManagerModel viewManagerModel;
 
-    public BlackJackHitPresenter(BlackJackHitViewModel blackJackHitViewModel,
-                                 BlackJackStartViewModel blackJackStartViewModel,
+    public BlackJackHitPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                  ViewManagerModel viewManagerModel,
-                                 BlackJackStandViewModel blackJackStandViewModel) {
-        this.blackJackHitViewModel = blackJackHitViewModel;
+                                 BlackJackIngameViewModel blackJackIngameViewModel) {
         this.blackJackStartViewModel = blackJackStartViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.blackJackStandViewModel = blackJackStandViewModel;
+        this.blackJackIngameViewModel = blackJackIngameViewModel;
     }
 
     @Override
     public void prepareContinueView(BlackJackOutputGameData outputGameData) {
-        GameState currentGameState = blackJackHitViewModel.getState();
-        currentGameState.setGame(outputGameData.getGame());
+        BlackJackGameState currentBlackJackGameState = blackJackIngameViewModel.getState();
 
-        this.blackJackHitViewModel.setState(currentGameState);
-        this.blackJackStandViewModel.setState(currentGameState);
+        currentBlackJackGameState.setPlayerImages(makeImages(outputGameData.getGame().getPlayer().getHand()));
+        List<Image> dealerImages = new ArrayList<>();
 
-        this.blackJackHitViewModel.firePropertyChanged();
+        try {
+            dealerImages.add(
+                    ImageIO.read(
+                            new URL(outputGameData.getGame().getDealer().getHand().get(0).getImg())).getScaledInstance(
+                            blackJackIngameViewModel.CARD_WIDTH,
+                            blackJackIngameViewModel.CARD_HEIGHT,
+                            Image.SCALE_SMOOTH)
+            );
+            dealerImages.add(
+                    ImageIO.read(
+                            new URL(blackJackIngameViewModel.CARD_BACK_URL)).getScaledInstance(
+                                    blackJackIngameViewModel.CARD_WIDTH,
+                                    blackJackIngameViewModel.CARD_HEIGHT,
+                                    Image.SCALE_SMOOTH)
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        currentBlackJackGameState.setDealerImages(dealerImages);
+        currentBlackJackGameState.setGame(outputGameData.getGame());
+
+        this.blackJackIngameViewModel.setState(currentBlackJackGameState);
+
+        this.blackJackIngameViewModel.firePropertyChanged();
     }
 
     @Override
     public void prepareLoseView(BlackJackOutputGameData outputGameData) {
-        StartState newGameState = blackJackStartViewModel.getState();
-        GameState endingGameState = blackJackHitViewModel.getState();
+        BlackJackStartState newGameState = blackJackStartViewModel.getState();
+        BlackJackGameState endingBlackJackGameState = blackJackIngameViewModel.getState();
 
-        endingGameState.setGameMessage("You bust!");
-        endingGameState.setGameEnd(true);
+        endingBlackJackGameState.setDealerImages(makeImages(outputGameData.getGame().getDealer().getHand()));
+        endingBlackJackGameState.setPlayerImages(makeImages(outputGameData.getGame().getPlayer().getHand()));
 
-        newGameState.setUsername(endingGameState.getUsername());
+        endingBlackJackGameState.setGameMessage("You bust! You lose " + -outputGameData.getChange());
+        endingBlackJackGameState.setGameEnd(true);
+
+        this.blackJackIngameViewModel.setState(endingBlackJackGameState);
+        this.blackJackIngameViewModel.firePropertyChanged();
+
         newGameState.setBet(0);
         newGameState.setFunds(newGameState.getFunds() + outputGameData.getChange());
         newGameState.setBetError(null);
-
-        this.blackJackHitViewModel.setState(endingGameState);
-        this.blackJackHitViewModel.firePropertyChanged();
 
         this.blackJackStartViewModel.setState(newGameState);
         this.blackJackStartViewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(blackJackStartViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
+    }
+
+    private List<Image> makeImages(List<Card> imageLinks) {
+        List<Image> images = new ArrayList<>();
+        for (Card card : imageLinks) {
+            URL url;
+            Image image;
+            try {
+                url = new URL(card.getImg());
+                image = ImageIO.read(url).getScaledInstance(blackJackIngameViewModel.CARD_WIDTH,
+                        blackJackIngameViewModel.CARD_HEIGHT,
+                        Image.SCALE_SMOOTH);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            images.add(image);
+        }
+        return images;
     }
 }

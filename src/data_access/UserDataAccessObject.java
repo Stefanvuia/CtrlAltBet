@@ -2,16 +2,17 @@ package data_access;
 
 import entity.account.Account;
 import entity.account.AccountFactory;
-import use_case.blackjack.BlackJackDataAccessInterface;
+import use_case.games.GameDataAccessInterface;
+import use_case.menu.MenuDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class UserDataAccessObject implements BlackJackDataAccessInterface {
+public class UserDataAccessObject implements GameDataAccessInterface, MenuDataAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, Account> accounts = new HashMap<>();
-    private AccountFactory accountFactory;
+    private final AccountFactory accountFactory;
 
     public UserDataAccessObject(String csvPath, AccountFactory accountFactory) throws IOException {
         this.accountFactory = accountFactory;

@@ -24,6 +24,7 @@ public class ViewManager implements PropertyChangeListener {
     public static final String BALANCE_INFO = "balance info";
     private final CardLayout cardLayout;
     private final JPanel views;
+
     private ViewManagerModel viewManagerModel;
     private UserViewModel userViewModel;
 

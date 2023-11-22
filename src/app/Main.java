@@ -13,6 +13,32 @@ import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+// <<<<<<< menu
+// import interface_adapter.menu.exit.ExitController;
+// import interface_adapter.menu.exit.ExitPresenter;
+// import interface_adapter.menu.launch_game.LaunchController;
+// import interface_adapter.menu.launch_game.LaunchPresenter;
+// import interface_adapter.menu.launch_game.LaunchViewModel;
+// import use_case.games.baccarat.BaccaratInputBoundary;
+// import use_case.games.baccarat.BaccaratInteractor;
+// import use_case.games.baccarat.BaccaratOutputBoundary;
+// import use_case.games.GameDataAccessInterface;
+// import use_case.games.CardsAPIInterface;
+// import use_case.games.blackjack.blackjack_logic.*;
+// import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
+// import use_case.games.blackjack.blackjack_start.BlackJackStartInteractor;
+// import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
+// import use_case.menu.MenuDataAccessInterface;
+// import use_case.menu.exit.ExitInputBoundary;
+// import use_case.menu.exit.ExitInteractor;
+// import use_case.menu.exit.ExitOutputBoundary;
+// import use_case.menu.launch_game.LaunchInputBoundary;
+// import use_case.menu.launch_game.LaunchInteractor;
+// import use_case.menu.launch_game.LaunchOutputBoundary;
+// import view.MainMenuView;
+// import view.baccarat.BaccaratGameView;
+// import view.baccarat.BaccaratStartView;
+// =======
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UserUpdateController;
 import use_case.blackjack.BlackJackDataAccessInterface;
@@ -47,6 +73,7 @@ import users.update.UpdateInteractor;
 import users.update.UpdateOutputBoundary;
 import users.update.UpdateUserDataAccessInterface;
 import view.*;
+
 import view.blackjack.BlackJackIngameView;
 import view.blackjack.BlackJackStartView;
 /*import users.SignupUserDataAccessInterface;
@@ -64,7 +91,8 @@ public class Main {
 
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
-        JFrame application = new JFrame("Casino Game");
+        JFrame application = new JFrame("CtrlAltBet");
+
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -78,6 +106,59 @@ public class Main {
         UserViewModel userViewModel = new UserViewModel();
         FileUserDataAccessObject userDataAccessObject = getDAO();
 
+// <<<<<<< menu
+//         BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
+//         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
+
+//         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
+//         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
+
+//         GameDataAccessInterface gameDAO;
+//         MenuDataAccessInterface launchDAO;
+//         try {
+//             UserDataAccessObject concreteDAO =  new UserDataAccessObject("./users.csv", new CommonAccountFactory());
+//             gameDAO = concreteDAO;
+//             launchDAO = concreteDAO;
+//         } catch (IOException e) {
+//             throw new RuntimeException(e);
+//         }
+
+//         CardsAPIInterface cardsAPI = new CardsAPIObject();
+
+//         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(
+//                 baccaratStartViewModel,
+//                 baccaratGameViewModel,
+//                 viewManagerModel
+//         );
+
+//         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(
+//                 blackJackStartViewModel,
+//                 viewManagerModel,
+//                 blackJackIngameViewModel);
+
+//         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(
+//                 blackJackStartViewModel,
+//                 viewManagerModel,
+//                 blackJackIngameViewModel);
+//         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter);
+
+//         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(
+//                 blackJackStartViewModel,
+//                 blackJackIngameViewModel,
+//                 viewManagerModel
+//         );
+//         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, gameDAO, standPresenter);
+
+//         LaunchViewModel launchViewModel = new LaunchViewModel();
+//         LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
+
+//         LaunchInputBoundary launchInteractor = new LaunchInteractor(launchDAO, launchPresenter);
+//         LaunchController launchController = new LaunchController(launchInteractor);
+
+//         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
+//         ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
+//         ExitController exitController = new ExitController(exitInteractor);
+// =======
 
 
         //  The observer watching for changes in the userViewModel. It will
@@ -176,6 +257,31 @@ public class Main {
         AccountInfoView accountInfoView = new AccountInfoView(userViewModel);
         views.add(accountInfoView, ViewManager.ACCOUNT_INFO);
 
+// <<<<<<< menu
+//         BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, gameDAO, blackJackStartPresenter);
+//         BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
+
+//         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, gameDAO, baccaratPresenter);
+//         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
+
+//         BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController, exitController);
+//         views.add(baccaratStartView, baccaratStartView.viewName);
+
+//         BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, exitController, startController);
+//         views.add(startView, startView.viewName);
+
+//         BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
+//         views.add(baccaratGameView, baccaratGameView.viewName);
+
+//         BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
+//         views.add(ingameView, ingameView.viewName);
+
+//         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController);
+//         views.add(mainMenuView, mainMenuView.viewName);
+
+//         viewManagerModel.setActiveView(mainMenuView.viewName);
+//         viewManagerModel.firePropertyChanged();
+// =======
         BalanceInfoView balanceInfoView = new BalanceInfoView(userUpdateController, userViewModel);
         views.add(balanceInfoView, ViewManager.BALANCE_INFO);
     }

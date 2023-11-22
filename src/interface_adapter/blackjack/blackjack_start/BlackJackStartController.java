@@ -1,7 +1,7 @@
 package interface_adapter.blackjack.blackjack_start;
 
-import use_case.blackjack.blackjack_start.BlackJackStartInputBoundary;
-import use_case.blackjack.blackjack_start.BlackJackStartInputData;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInputData;
 
 public class BlackJackStartController {
     final BlackJackStartInputBoundary startUseCaseInteractor;
