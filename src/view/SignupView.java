@@ -2,14 +2,18 @@ package view;
 
 import interface_adapter.UserSignupController;
 import interface_adapter.UserViewModel;
+import view.custom_elements.GreenCustomButton;
+import view.welcome.WelcomeButtonsController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class SignupView extends JPanel implements ActionListener {
-    private final UserViewModel userViewModel;
+public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final SignUpViewModel signUpViewModel;
     /**
      * The username chosen by the user
      */
@@ -28,20 +32,24 @@ public class SignupView extends JPanel implements ActionListener {
      */
     private final UserSignupController userSignupController;
 
-    private final JButton signUp = new JButton("Sign up");
-    private final JButton cancel = new JButton("Cancel");
+    private final WelcomeButtonsController welcomeButtonsController;
+
+    private final JButton signUp;
+    private final JButton cancel;
 
 
     /**
      * A window with a title and a JButton.
      */
-    public SignupView(UserSignupController controller, UserViewModel userViewModel) {
-
+    public SignupView(UserSignupController controller, SignUpViewModel signUpViewModel, WelcomeButtonsController welcomeButtonsController) {
         this.userSignupController = controller;
-        this.userViewModel = userViewModel;
+        this.signUpViewModel = signUpViewModel;
+        this.welcomeButtonsController = welcomeButtonsController;
 
-        JLabel title = new JLabel("Sign-Up Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        signUpViewModel.addPropertyChangeListener(this);
+
+        signUp = new GreenCustomButton(signUpViewModel.SIGN_UP_LABEL);
+        cancel = new GreenCustomButton(signUpViewModel.CANCEL_LABEL);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Choose username"), username);
@@ -60,7 +68,6 @@ public class SignupView extends JPanel implements ActionListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
@@ -72,22 +79,21 @@ public class SignupView extends JPanel implements ActionListener {
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-
         if (evt.getSource().equals(signUp)) {
-            try {
-                userSignupController.create(username.getText(),
-                        String.valueOf(password.getPassword()),
-                        String.valueOf(repeatPassword.getPassword()));
-                userViewModel.setCurrentUser(username.getText());
-                JOptionPane.showMessageDialog(this, "%s created.".formatted(username.getText()));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
+            userSignupController.create(username.getText(),
+                    String.valueOf(password.getPassword()),
+                    String.valueOf(repeatPassword.getPassword()));
+        } else if (evt.getSource().equals(cancel)) {
+            welcomeButtonsController.execute();
         }
-
-        // No matter what, return to the welcome screen.
-        userViewModel.setState(UserViewModel.LoginState.WELCOME);
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (signUpViewModel.getErrorMessage() == null) {
+            JOptionPane.showMessageDialog(this, "%s created.".formatted(username.getText()));
+        } else {
+            JOptionPane.showMessageDialog(this, signUpViewModel.getErrorMessage());
+        }
+    }
 }

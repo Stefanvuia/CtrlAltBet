@@ -1,7 +1,9 @@
 package users.signup;
 
+import interface_adapter.UserCreationFailed;
+
 public interface SignupOutputBoundary {
     void prepareSuccessView(SignupOutputData user);
 
-    void prepareFailView(String error);
+    void prepareFailView(UserCreationFailed error);
 }

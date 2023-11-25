@@ -47,6 +47,7 @@ import users.update.UpdateInteractor;
 import users.update.UpdateOutputBoundary;
 import users.update.UpdateUserDataAccessInterface;
 import view.*;
+import view.welcome.WelcomeView;
 
 /*import users.SignupUserDataAccessInterface;
 import users.SignupInputBoundary;
@@ -259,7 +260,7 @@ public class Main {
     }
 
     private static UserSignupController createUserSignupUseCase(SignupUserDataAccessInterface signupDao) {
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter();
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(loginViewModel, signUpViewModel);
         UserFactory userFactory = new CommonUserFactory();
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 signupDao, signupOutputBoundary, userFactory);

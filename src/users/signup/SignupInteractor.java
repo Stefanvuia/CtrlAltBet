@@ -3,6 +3,7 @@ package users.signup;
 import constants.Constants;
 import entity.user.User;
 import entity.user.UserFactory;
+import interface_adapter.UserCreationFailed;
 
 
 import java.time.LocalDateTime;
@@ -22,15 +23,15 @@ public class SignupInteractor implements SignupInputBoundary {
     @Override
     public void createUser(SignupInputData signupInputData) {
         if (userDsGateway.existsByName(signupInputData.getName())) {
-            userPresenter.prepareFailView("User already exists.");
+            userPresenter.prepareFailView(new UserCreationFailed("User already exists."));
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            userPresenter.prepareFailView("Passwords don't match.");
+            userPresenter.prepareFailView(new UserCreationFailed("Passwords don't match."));
         }
 
         LocalDateTime now = LocalDateTime.now();
         User user = userFactory.create(signupInputData.getName(), signupInputData.getPassword(), now, Constants.INITIAL_BALANCE);
         if (!user.passwordIsValid()) {
-            userPresenter.prepareFailView("User password must have more than 5 characters.");
+            userPresenter.prepareFailView(new UserCreationFailed("User password must have more than 5 characters."));
         }
 
         userDsGateway.save(user);
