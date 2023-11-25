@@ -256,6 +256,9 @@ public class Main {
 // =======
         BalanceInfoView balanceInfoView = new BalanceInfoView(userUpdateController, userViewModel);
         views.add(balanceInfoView, ViewManager.BALANCE_INFO);
+
+        HistoryView historyView = new HistoryView(userViewModel);
+        views.add(historyView, ViewManager.BET_HISTORY);
     }
 
     private static UserSignupController createUserSignupUseCase(SignupUserDataAccessInterface signupDao) {

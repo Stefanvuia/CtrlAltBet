@@ -13,6 +13,7 @@ public class UserViewModel {
         LOGGED_IN,
         ACCOUNT_INFO,
         BALANCE_INFO,
+        BET_HISTORY
     }
 
     /** The username of the user who is currently logged in. Null if not logged in. */

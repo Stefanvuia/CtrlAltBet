@@ -50,7 +50,7 @@ public class AccountInfoView extends JPanel implements ActionListener {
         if (evt.getSource().equals(checkBalance)) {
             userViewModel.setState(UserViewModel.LoginState.BALANCE_INFO);
         } else if (evt.getSource().equals(checkHistory)) {
-
+            userViewModel.setState(UserViewModel.LoginState.BET_HISTORY);
         } else if (evt.getSource().equals(back)) {
             userViewModel.setState(UserViewModel.LoginState.LOGGED_IN);
         }

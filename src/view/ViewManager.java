@@ -11,6 +11,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import static interface_adapter.UserViewModel.LoginState.BET_HISTORY;
 import static interface_adapter.UserViewModel.LoginState.WELCOME;
 
 public class ViewManager implements PropertyChangeListener {
@@ -22,6 +23,7 @@ public class ViewManager implements PropertyChangeListener {
 
     public static final String ACCOUNT_INFO = "account info";
     public static final String BALANCE_INFO = "balance info";
+    public static final String BET_HISTORY = "bet history";
     private final CardLayout cardLayout;
     private final JPanel views;
 
@@ -53,6 +55,7 @@ public class ViewManager implements PropertyChangeListener {
                 case LOGGED_IN -> cardLayout.show(views, LOGGED_IN);
                 case ACCOUNT_INFO -> cardLayout.show(views, ACCOUNT_INFO);
                 case BALANCE_INFO -> cardLayout.show(views, BALANCE_INFO);
+                case BET_HISTORY -> cardLayout.show(views, BET_HISTORY);
                 default -> throw new IllegalStateException("Unexpected view state: " + evt.getNewValue());
             }
         }
