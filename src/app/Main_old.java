@@ -31,8 +31,8 @@
 //// import view.baccarat.BaccaratGameView;
 //// import view.baccarat.BaccaratStartView;
 //// =======
-//import interface_adapter.update.UpdatePresenter;
-//import interface_adapter.update.UserUpdateController;
+//import interface_adapter.account_menu.update.UpdatePresenter;
+//import interface_adapter.account_menu.update.UserUpdateController;
 //
 //import use_case.users.login.LoginInputBoundary;
 //import use_case.users.login.LoginInteractor;
@@ -76,7 +76,7 @@
 //        // will be changed by a presenter object that is reporting the
 //        // results from the use case. This is an observable, and will
 //        // be observed by the layout manager.
-//        UserViewModel userViewModel = new UserViewModel();
+//        AccountInfoViewModel userViewModel = new AccountInfoViewModel();
 //        FileUserDataAccessObject userDataAccessObject = getDAO();
 //
 //// <<<<<<< menu
@@ -214,7 +214,7 @@
 //        application.setVisible(true);
 //    }
 //
-//    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController) {
+//    private static void createViewsAndAddToPanel(AccountInfoViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController) {
 //        WelcomeView welcomeView = new WelcomeView(userViewModel);
 //        views.add(welcomeView, ViewManager.WELCOME);
 //

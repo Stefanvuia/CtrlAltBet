@@ -1,6 +1,6 @@
 package interface_adapter.launch_menu.sign_up;
 
-import entity.user.UserCreationFailed;
+import entity.user.UserDataAccessFailed;
 import interface_adapter.ViewManagerModel;
 import use_case.launch_menu.signup.SignupOutputBoundary;
 import use_case.launch_menu.signup.SignupOutputData;
@@ -40,7 +40,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(UserCreationFailed error) {
+    public void prepareFailView(UserDataAccessFailed error) {
         SignupState signupState = signUpViewModel.getState();
         signupState.setError(error.getMessage());
         signUpViewModel.setState(signupState);

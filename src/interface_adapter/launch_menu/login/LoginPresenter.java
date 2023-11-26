@@ -1,6 +1,6 @@
 package interface_adapter.launch_menu.login;
 
-import entity.user.UserCreationFailed;
+import entity.user.UserDataAccessFailed;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.game_menu.launch_game.LaunchState;
 import interface_adapter.game_menu.launch_game.LaunchViewModel;
@@ -40,7 +40,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(UserCreationFailed error) {
+    public void prepareFailView(UserDataAccessFailed error) {
         LoginState currState = loginViewModel.getState();
         currState.setError(error.getMessage());
         loginViewModel.setState(currState);

@@ -134,11 +134,11 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
     private void makeBetFields() {
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format);
+        NumberFormatter formatter = new FundsFieldFormatter(format);
 
-        bankerBet = new BetField(formatter);
-        tieBet = new BetField(formatter);
-        playerBet = new BetField(formatter);
+        bankerBet = new FundsField(formatter);
+        tieBet = new FundsField(formatter);
+        playerBet = new FundsField(formatter);
     }
 
     private void makeFundsLabel() {

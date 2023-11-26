@@ -1,7 +1,7 @@
 package use_case.launch_menu.login;
 
 import entity.user.User;
-import entity.user.UserCreationFailed;
+import entity.user.UserDataAccessFailed;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +19,9 @@ public class LoginInteractor implements LoginInputBoundary {
     @Override
     public void loginUser(LoginInputData loginInputData) {
         if (!loginUserDataAccessInterface.existsByName(loginInputData.getName())) {
-            userPresenter.prepareFailView(new UserCreationFailed("User does not exist"));
+            userPresenter.prepareFailView(new UserDataAccessFailed("User does not exist"));
         } else if (!loginUserDataAccessInterface.validatePassword(loginInputData.getName(), loginInputData.getPassword())) {
-            userPresenter.prepareFailView(new UserCreationFailed("User password is Incorrect. Please try again"));
+            userPresenter.prepareFailView(new UserDataAccessFailed("User password is Incorrect. Please try again"));
         } else {
             User user = loginUserDataAccessInterface.getUserByName(loginInputData.getName());
 

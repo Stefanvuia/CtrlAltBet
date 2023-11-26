@@ -1,7 +1,7 @@
-package interface_adapter.update;
+package interface_adapter.account_menu.update;
 
-import use_case.launch_menu.update.UpdateInputBoundary;
-import use_case.launch_menu.update.UpdateInputData;
+import use_case.account_menu.update.UpdateInputBoundary;
+import use_case.account_menu.update.UpdateInputData;
 
 public class UserUpdateController {
 

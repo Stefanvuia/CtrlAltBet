@@ -88,7 +88,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 //                userViewModel.setCurrentUser(response.getUser().getName());
 //                userViewModel.setBalance(response.getUser().getBalance());
 //                JOptionPane.showMessageDialog(this, "%s Login.".formatted(username.getText()));
-//                userViewModel.setState(UserViewModel.LoginState.LOGGED_IN);
+//                userViewModel.setState(AccountInfoViewModel.LoginState.LOGGED_IN);
 //            } catch (Exception e) {
 //                JOptionPane.showMessageDialog(this, e.getMessage());
 //            }

@@ -1,4 +1,4 @@
-package use_case.launch_menu.update;
+package use_case.account_menu.update;
 
 
 import entity.user.User;

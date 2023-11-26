@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.game_menu.account.AccountController;
 import interface_adapter.game_menu.launch_game.LaunchController;
 import interface_adapter.game_menu.launch_game.LaunchState;
 import interface_adapter.game_menu.launch_game.LaunchViewModel;
@@ -18,6 +19,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     private final LaunchViewModel launchViewModel;
 
+    private final AccountController accountController;
+
     private final LaunchController launchController;
 
     final JButton blackjack;
@@ -28,7 +31,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     final JButton account;
 
-    public MainMenuView(LaunchViewModel launchViewModel, LaunchController launchController) {
+    public MainMenuView(LaunchViewModel launchViewModel, LaunchController launchController, AccountController accountController) {
+        this.accountController = accountController;
         this.launchController = launchController;
         this.launchViewModel = launchViewModel;
         this.launchViewModel.addPropertyChangeListener(this);
@@ -40,6 +44,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         blackjack.addActionListener(this);
         baccarat.addActionListener(this);
+        account.addActionListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
@@ -66,6 +71,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
             launchController.execute(currState.getUsername(), launchViewModel.BLACKJACK_NAME);
         } else if (e.getSource().equals(baccarat)) {
             launchController.execute(currState.getUsername(), launchViewModel.BACCARAT_NAME);
+        } else if (e.getSource().equals(account)) {
+            accountController.execute(currState.getUsername());
         }
     }
 

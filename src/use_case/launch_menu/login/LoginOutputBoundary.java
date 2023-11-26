@@ -1,10 +1,10 @@
 package use_case.launch_menu.login;
 
-import entity.user.UserCreationFailed;
+import entity.user.UserDataAccessFailed;
 
 public interface LoginOutputBoundary {
 
     void prepareSuccessView(LoginOutputData user);
 
-    void prepareFailView(UserCreationFailed error);
+    void prepareFailView(UserDataAccessFailed error);
 }

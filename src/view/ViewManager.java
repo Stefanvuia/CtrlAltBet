@@ -1,17 +1,14 @@
 package view;
 
 
-import interface_adapter.UserViewModel;
 import interface_adapter.ViewManagerModel;
 
-//import interface_adapter.UserViewModel;
+//import interface_adapter.AccountInfoViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import static interface_adapter.UserViewModel.LoginState.WELCOME;
 
 public class ViewManager implements PropertyChangeListener {
 
@@ -26,7 +23,7 @@ public class ViewManager implements PropertyChangeListener {
     private final JPanel views;
 
     private ViewManagerModel viewManagerModel;
-//    private UserViewModel userViewModel = null;
+//    private AccountInfoViewModel userViewModel = null;
 
     public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel) {
         this.views = views;
@@ -45,7 +42,7 @@ public class ViewManager implements PropertyChangeListener {
         }
 
 //        if (evt.getPropertyName().equals("state")) {
-//            UserViewModel.LoginState newValue = (UserViewModel.LoginState) evt.getNewValue();
+//            AccountInfoViewModel.LoginState newValue = (AccountInfoViewModel.LoginState) evt.getNewValue();
 //            switch (newValue) {
 //                case WELCOME -> cardLayout.show(views, WELCOME);
 //                case SIGNING_UP -> cardLayout.show(views, SIGN_UP);

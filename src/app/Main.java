@@ -3,7 +3,12 @@ package app;
 import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
 import entity.user.CommonUserFactory;
+import interface_adapter.AccountInfoViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.account_menu.sign_out.SignOutController;
+import interface_adapter.account_menu.sign_out.SignOutPresenter;
+import interface_adapter.account_menu.update.UpdatePresenter;
+import interface_adapter.account_menu.update.UserUpdateController;
 import interface_adapter.baccarat.BaccaratController;
 import interface_adapter.baccarat.BaccaratGameViewModel;
 import interface_adapter.baccarat.BaccaratPresenter;
@@ -12,6 +17,8 @@ import interface_adapter.blackjack.blackjack_logic.*;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+import interface_adapter.game_menu.account.AccountController;
+import interface_adapter.game_menu.account.AccountPresenter;
 import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.game_menu.exit.ExitPresenter;
 import interface_adapter.game_menu.launch_game.LaunchController;
@@ -26,6 +33,15 @@ import interface_adapter.launch_menu.login.UserLoginController;
 import interface_adapter.launch_menu.sign_up.SignUpViewModel;
 import interface_adapter.launch_menu.sign_up.SignupPresenter;
 import interface_adapter.launch_menu.sign_up.UserSignupController;
+import use_case.account_menu.sign_out.SignOutInputBoundary;
+import use_case.account_menu.sign_out.SignOutInteractor;
+import use_case.account_menu.sign_out.SignOutOutputBoundary;
+import use_case.account_menu.update.UpdateInputBoundary;
+import use_case.account_menu.update.UpdateInteractor;
+import use_case.account_menu.update.UpdateOutputBoundary;
+import use_case.game_menu.account.AccountInputBoundary;
+import use_case.game_menu.account.AccountInteractor;
+import use_case.game_menu.account.AccountOutputBoundary;
 import use_case.game_menu.exit.ExitOutputBoundary;
 import use_case.games.CardsAPIInterface;
 import use_case.games.baccarat.BaccaratInputBoundary;
@@ -89,6 +105,7 @@ public class Main {
         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
+        AccountInfoViewModel accountInfoViewModel = new AccountInfoViewModel();
 
         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
@@ -96,6 +113,9 @@ public class Main {
         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
         LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
+        AccountOutputBoundary accountPresenter = new AccountPresenter(accountInfoViewModel, viewManagerModel);
+        SignOutOutputBoundary signOutPresenter = new SignOutPresenter(welcomeViewModel, viewManagerModel);
+        UpdateOutputBoundary updatePresenter = new UpdatePresenter(accountInfoViewModel);
 
         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter);
         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, userDataAccessObject, standPresenter);
@@ -103,6 +123,9 @@ public class Main {
         ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
         LaunchInputBoundary launchInteractor = new LaunchInteractor(userDataAccessObject, launchPresenter);
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, userDataAccessObject, baccaratPresenter);
+        AccountInputBoundary accountInteractor = new AccountInteractor(accountPresenter, userDataAccessObject);
+        SignOutInputBoundary signoutInteractor = new SignOutInteractor(signOutPresenter);
+        UpdateInputBoundary updateInteractor = new UpdateInteractor(userDataAccessObject, updatePresenter);
 
         UserButtonsController userButtonsController = makeUserButtonController(viewManagerModel, loginViewModel, signUpViewModel);
         UserSignupController signupController = makeSignUpController(loginViewModel, signUpViewModel, viewManagerModel, userDataAccessObject);
@@ -115,6 +138,9 @@ public class Main {
         ExitController exitController = new ExitController(exitInteractor);
         LaunchController launchController = new LaunchController(launchInteractor);
         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
+        AccountController accountController = new AccountController(accountInteractor);
+        SignOutController signOutController = new SignOutController(signoutInteractor);
+        UserUpdateController updateController = new UserUpdateController(updateInteractor);
 
         WelcomeView welcomeView = new WelcomeView(welcomeViewModel, userButtonsController);
         SignupView signupView = new SignupView(signupController, signUpViewModel, userButtonsController);
@@ -123,7 +149,8 @@ public class Main {
         BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, exitController, startController);
         BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
         BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
-        MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController);
+        AccountInfoView accountInfoView = new AccountInfoView(accountInfoViewModel, exitController, updateController, signOutController);
+        MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
         views.add(startView, startView.viewName);
         views.add(baccaratGameView, baccaratGameView.viewName);
@@ -133,6 +160,7 @@ public class Main {
         views.add(welcomeView, welcomeView.viewName);
         views.add(signupView, signupView.viewName);
         views.add(loginView, loginView.viewName);
+        views.add(accountInfoView, accountInfoView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
         viewManagerModel.firePropertyChanged();

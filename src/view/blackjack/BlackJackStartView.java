@@ -143,9 +143,9 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     private void makeBetFields() {
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format);
+        NumberFormatter formatter = new FundsFieldFormatter(format);
 
-        betField = new BetField(formatter);
+        betField = new FundsField(formatter);
     }
 
     private void openGameInfo() {
