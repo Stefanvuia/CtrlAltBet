@@ -3,10 +3,10 @@ package data_access;
 import entity.user.User;
 import entity.user.UserFactory;
 import use_case.games.GameDataAccessInterface;
-import use_case.menu.MenuDataAccessInterface;
-import users.login.LoginUserDataAccessInterface;
-import users.signup.SignupUserDataAccessInterface;
-import users.update.UpdateUserDataAccessInterface;
+import use_case.game_menu.MenuDataAccessInterface;
+import use_case.launch_menu.login.LoginUserDataAccessInterface;
+import use_case.launch_menu.signup.SignupUserDataAccessInterface;
+import use_case.launch_menu.update.UpdateUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -111,7 +111,7 @@ public class FileUserDataAccessObject implements
 
     @Override
     public void editFund(String username, int amount) {
-        accounts.get(username).setBalance(amount);
+        accounts.get(username).editBalance(amount);
         save(accounts.get(username));
     }
 }

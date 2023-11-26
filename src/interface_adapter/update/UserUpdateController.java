@@ -1,9 +1,7 @@
 package interface_adapter.update;
 
-import users.update.UpdateInputBoundary;
-import users.update.UpdateInputData;
-
-import java.math.BigDecimal;
+import use_case.launch_menu.update.UpdateInputBoundary;
+import use_case.launch_menu.update.UpdateInputData;
 
 public class UserUpdateController {
 

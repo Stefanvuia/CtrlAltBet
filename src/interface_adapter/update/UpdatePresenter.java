@@ -1,7 +1,7 @@
 package interface_adapter.update;
 
-import interface_adapter.UserCreationFailed;
-import users.update.UpdateOutputBoundary;
+import entity.user.UserCreationFailed;
+import use_case.launch_menu.update.UpdateOutputBoundary;
 
 public class UpdatePresenter implements UpdateOutputBoundary {
     @Override

@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.menu.launch_game.LaunchController;
-import interface_adapter.menu.launch_game.LaunchState;
-import interface_adapter.menu.launch_game.LaunchViewModel;
+import interface_adapter.game_menu.launch_game.LaunchController;
+import interface_adapter.game_menu.launch_game.LaunchState;
+import interface_adapter.game_menu.launch_game.LaunchViewModel;
 import tools.GridBagUtils;
 import view.custom_elements.GreenCustomButton;
 
@@ -71,6 +71,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        LaunchState currState = launchViewModel.getState();
+        JOptionPane.showMessageDialog(this, "Welcome, " + currState.getUsername());
     }
 }

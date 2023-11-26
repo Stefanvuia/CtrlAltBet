@@ -4,6 +4,7 @@ package view;
 import interface_adapter.UserViewModel;
 import interface_adapter.update.UserUpdateController;
 import tools.Tools;
+import view.custom_elements.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

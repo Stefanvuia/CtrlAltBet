@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
 
 import interface_adapter.UserViewModel;
+import view.custom_elements.LabelTextPanel;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
     /**
