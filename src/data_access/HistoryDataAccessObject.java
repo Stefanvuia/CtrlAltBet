@@ -84,6 +84,8 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }

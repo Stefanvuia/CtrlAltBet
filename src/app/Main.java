@@ -1,7 +1,9 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.HistoryDataAccessObject;
 import entity.user.CommonUserFactory;
+import entity.user.CommonUserHistory;
 import entity.user.UserFactory;
 
 import interface_adapter.*;
@@ -31,9 +33,16 @@ import interface_adapter.*;
 // import view.baccarat.BaccaratGameView;
 // import view.baccarat.BaccaratStartView;
 // =======
+import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryPresenter;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UserUpdateController;
 
+import use_case.history.HistoryDataAccessInterface;
+import use_case.history.HistoryInputBoundary;
+import use_case.history.HistoryInteractor;
+import use_case.history.HistoryOutputBoundary;
 import users.login.LoginInputBoundary;
 import users.login.LoginInteractor;
 import users.login.LoginOutputBoundary;
@@ -77,6 +86,10 @@ public class Main {
         // be observed by the layout manager.
         UserViewModel userViewModel = new UserViewModel();
         FileUserDataAccessObject userDataAccessObject = getDAO();
+
+        // The data for the betting/payout history of every user
+        HistoryViewModel historyViewModel = new HistoryViewModel();
+        HistoryDataAccessObject historyDataAccessObject = getHistoryDAO();
 
 // <<<<<<< menu
 //         BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
@@ -145,9 +158,11 @@ public class Main {
         UserLoginController userLoginController = loginUserUseCase(userDataAccessObject);
         UserUpdateController userUpdateController = updateUserUseCase(userDataAccessObject);
 
+        HistoryController historyController = historyUserUseCase(historyDataAccessObject);
+
 
         // Build the GUI, plugging in the screens.
-        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController, userUpdateController);
+        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController, userUpdateController, historyController, historyViewModel);
 
         // Show the first view.
 //        cardLayout.show(views, "welcome");
@@ -213,7 +228,7 @@ public class Main {
         application.setVisible(true);
     }
 
-    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController) {
+    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController, HistoryController historyController, HistoryViewModel historyViewModel) {
         WelcomeView welcomeView = new WelcomeView(userViewModel);
         views.add(welcomeView, ViewManager.WELCOME);
 
@@ -257,7 +272,7 @@ public class Main {
         BalanceInfoView balanceInfoView = new BalanceInfoView(userUpdateController, userViewModel);
         views.add(balanceInfoView, ViewManager.BALANCE_INFO);
 
-        HistoryView historyView = new HistoryView(userViewModel);
+        HistoryView historyView = new HistoryView(userViewModel, historyViewModel, historyController);
         views.add(historyView, ViewManager.BET_HISTORY);
     }
 
@@ -279,6 +294,24 @@ public class Main {
         UpdateOutputBoundary updateOutputBoundary = new UpdatePresenter();
         UpdateInputBoundary userUpdateInteractor = new UpdateInteractor(UpdateDao, updateOutputBoundary);
         return new UserUpdateController(userUpdateInteractor);
+    }
+
+    // TODO finish implementing, not sure what this does
+    private static HistoryController historyUserUseCase(HistoryDataAccessInterface historyDAO) {
+        HistoryOutputBoundary historyPresenter = new HistoryPresenter(new HistoryViewModel());
+        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
+        return new HistoryController(historyInteractor);
+    }
+
+    // TODO see if correct
+    public static HistoryDataAccessObject getHistoryDAO() {
+        HistoryDataAccessObject historyDataAccessObject;
+        try {
+            historyDataAccessObject = new HistoryDataAccessObject("./history.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        return historyDataAccessObject;
     }
 
     public static FileUserDataAccessObject getDAO() {

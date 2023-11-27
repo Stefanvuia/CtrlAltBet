@@ -1,6 +1,11 @@
 package view;
 
 import interface_adapter.UserViewModel;
+import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryState;
+import interface_adapter.history.HistoryViewModel;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,19 +19,26 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     /**
      * The controller
      */
-    private final JButton blackjack = new JButton("BlackJack");
-    private final JButton baccarat = new JButton("Baccarat");
-    private final JButton war = new JButton("War");
-    private final JButton back = new JButton("Back");
+    private final JButton blackjack;
+    private final JButton baccarat;
+    private final JButton war;
+    private final JButton back;
 
-    private UserViewModel userViewModel;
+    private JPanel chartPanel;
+
+    private final UserViewModel userViewModel;
+    private final HistoryController historyController;
+    private final HistoryViewModel historyViewModel;
 
     /**
      * A window with a title and a JButton.
      */
-    public HistoryView(UserViewModel userViewModel) {
+    public HistoryView(UserViewModel userViewModel, HistoryViewModel historyViewModel, HistoryController historyController) {
 
         this.userViewModel = userViewModel;
+        this.historyController = historyController;
+        this.historyViewModel = historyViewModel;
+        historyViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Betting History");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -35,10 +47,15 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
+        blackjack = new JButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
         buttons.add(blackjack);
+        baccarat = new JButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
         buttons.add(baccarat);
+        war = new JButton(HistoryViewModel.WAR_BUTTON_LABEl);
         buttons.add(war);
+        back = new JButton(HistoryViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
+
         blackjack.addActionListener(this);
         baccarat.addActionListener(this);
         war.addActionListener(this);
@@ -50,29 +67,63 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         this.add(subtitle);
         this.add(buttons);
 
+
     }
 
     /**
      * React to a button click that results in evt.
      */
+    @Override
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
-
-        if (evt.getSource().equals(blackjack)) {
-            // create blackjack betting history chart
-        } else if (evt.getSource().equals(baccarat)) {
-            // create baccarat betting history chart
-        } else if (evt.getSource().equals(war)) {
-            // create war betting history chart
-        } else if (evt.getSource().equals(back)) {
+        if (evt.getSource().equals(back)) {
             userViewModel.setState(UserViewModel.LoginState.ACCOUNT_INFO);
+        } else {
+            // Assuming evt.getActionCommand() returns "blackjack", "baccarat", or "war"
+            String username = userViewModel.getCurrentUser();
+            historyController.execute(username, evt.getActionCommand());
+
         }
+    }
 
+    private void displayChart(XYChart chart) {
+        // Create a new frame for the chart popup
+        JFrame chartFrame = new JFrame("Chart");
+        chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        chartFrame.setSize(800, 600);
 
+        // Add the chart to the frame
+        XChartPanel<XYChart> chartPanel = new XChartPanel<>(chart);
+        chartFrame.add(chartPanel);
+
+        // Display the frame
+        chartFrame.setLocationRelativeTo(this); // To center it relative to the HistoryView
+        chartFrame.setVisible(true);
+    }
+
+    // TODO tbh idk if this actually does what I want or if needed
+    private void updateChart(XYChart chart) {
+        // Remove the existing chart panel (if present)
+        chartPanel.removeAll();
+
+        // Create a new XChartPanel with the updated chart
+        XChartPanel<XYChart> newChartPanel = new XChartPanel<>(chart);
+
+        // Add the new chart panel to the chartPanel container
+        chartPanel.add(newChartPanel);
+        chartPanel.revalidate();
+        chartPanel.repaint();
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        if ("state".equals(evt.getPropertyName())) {
+            // Update the view with the new chart data
+            HistoryState state = (HistoryState) evt.getNewValue();
+            updateChart(state.getChart());
+            XYChart chart = state.getChart();
+            if (chart != null) {
+                displayChart(chart);
+            }
+        }
     }
 }
