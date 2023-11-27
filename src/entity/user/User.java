@@ -13,5 +13,5 @@ public interface User {
 
     int getBalance();
 
-    void setBalance(int balance);
+    void editBalance(int balance);
 }

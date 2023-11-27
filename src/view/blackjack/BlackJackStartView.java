@@ -3,7 +3,7 @@ package view.blackjack;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import interface_adapter.menu.exit.ExitController;
+import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_elements.*;
 
@@ -143,9 +143,9 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     private void makeBetFields() {
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format);
+        NumberFormatter formatter = new FundsFieldFormatter(format);
 
-        betField = new BetField(formatter);
+        betField = new FundsField(formatter);
     }
 
     private void openGameInfo() {

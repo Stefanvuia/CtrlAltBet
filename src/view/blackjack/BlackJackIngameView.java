@@ -1,7 +1,7 @@
 package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_logic.*;
-import interface_adapter.menu.exit.ExitController;
+import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_elements.BlackJackBackgroundPanel;
 import view.custom_elements.GreenCustomButton;

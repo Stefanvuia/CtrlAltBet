@@ -9,7 +9,6 @@ class CommonUser implements User {
     private final LocalDateTime creationTime;
     private int balance;
 
-
     public CommonUser(String name, String password, LocalDateTime creationTime, int balance) {
         this.name = name;
         this.password = password;
@@ -42,8 +41,8 @@ class CommonUser implements User {
         return balance;
     }
     @Override
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void editBalance(int balance) {
+        this.balance += balance;
     }
 
 }
