@@ -40,6 +40,7 @@ class CommonUser implements User {
     public int getBalance() {
         return balance;
     }
+
     @Override
     public void editBalance(int balance) {
         this.balance += balance;
