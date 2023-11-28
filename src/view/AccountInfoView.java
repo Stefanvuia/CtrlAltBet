@@ -115,10 +115,9 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         JPanel statsPanel = new GreenCustomPanel();
         statsPanel.add(new GreenCustomJLabel(accountInfoViewModel.STATISTICS_LABEL));
 
-        // todo change to constants from the view model
-        blackJackButton = new GreenCustomButton("blackjack");
-        baccararatButton = new GreenCustomButton("baccarat");
-        warButton = new GreenCustomButton("war");
+        blackJackButton = new GreenCustomButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
+        baccararatButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
+        warButton = new GreenCustomButton(HistoryViewModel.WAR_BUTTON_LABEl);
 
         statsPanel.add(blackJackButton);
         statsPanel.add(baccararatButton);
@@ -168,7 +167,6 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
         if (evt.getPropertyName().equals("history")) {
-            // Update the view with the new chart data
             HistoryState state = historyViewModel.getHistoryState();
             XYChart chart = state.getChart();
             if (chart != null) {

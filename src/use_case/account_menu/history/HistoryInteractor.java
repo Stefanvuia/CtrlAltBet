@@ -8,36 +8,6 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 import java.util.ArrayList;
 import java.util.List;
 
-
-//public class HistoryInteractor extends JPanel {
-//
-//    public HistoryInteractor() {
-//        super(new BorderLayout());
-//        // Create Chart here using XChart and add it to this panel
-//        XYChart chart = createChart();
-//        // Create and set up the chart panel
-//        XChartPanel<XYChart> chartPanel = new XChartPanel<>(chart);
-//        this.add(chartPanel, BorderLayout.CENTER);
-//    }
-//
-//        private XYChart createChart() {
-//            // Create Chart
-//            XYChart chart = new XYChartBuilder().width(800).height(600).title("Sample Chart").xAxisTitle("X").yAxisTitle("Y").build();
-//
-//            // Customize Chart
-//            chart.getStyler().setChartTitleVisible(true);
-//            chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
-//
-//            // Series
-//            double[] xData = new double[]{0.0, 1.0, 2.0, 3.0, 4.0};
-//            double[] yData = new double[]{2.0, 1.0, 0.0, 1.0, 2.0};
-//
-//            chart.addSeries("Sample Series", xData, yData);
-//
-//            return chart;
-//        }
-//
-//}
 public class HistoryInteractor implements HistoryInputBoundary {
 
     private HistoryDataAccessInterface historyDAO;
@@ -70,7 +40,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
             XYChart chart = new XYChartBuilder().width(800).height(600).title(game.toUpperCase() + " Payout History").xAxisTitle("Game").yAxisTitle("Total Payout").build();
 
             // Customize Chart
-            chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
+            chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
 //            chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Area);
 
             // Series

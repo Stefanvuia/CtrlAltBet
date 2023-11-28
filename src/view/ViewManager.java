@@ -12,13 +12,13 @@ import java.beans.PropertyChangeListener;
 
 public class ViewManager implements PropertyChangeListener {
 
-    public static final String WELCOME = "welcome";
-    public static final String SIGN_UP = "sign up";
-    public static final String LOG_IN = "log in";
-    public static final String LOGGED_IN = "main menu";
-
-    public static final String ACCOUNT_INFO = "account info";
-    public static final String BALANCE_INFO = "balance info";
+//    public static final String WELCOME = "welcome";
+//    public static final String SIGN_UP = "sign up";
+//    public static final String LOG_IN = "log in";
+//    public static final String LOGGED_IN = "main menu";
+//
+//    public static final String ACCOUNT_INFO = "account info";
+//    public static final String BALANCE_INFO = "balance info";
     private final CardLayout cardLayout;
     private final JPanel views;
 

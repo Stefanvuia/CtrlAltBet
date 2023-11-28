@@ -10,11 +10,11 @@ public class HistoryInputData {
         this.username = username;
     }
 
-    String getGame() {
+    public String getGame() {
         return game;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 }
