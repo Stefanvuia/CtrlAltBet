@@ -1,60 +1,86 @@
 package app;
 
+import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
-import history.HistoryDataAccessObject;
+import data_access.HistoryDataAccessObject;
 import entity.user.CommonUserFactory;
-import entity.user.UserFactory;
-
-import history.*;
-import interface_adapter.*;
-// <<<<<<< menu
-// import interface_adapter.menu.exit.ExitController;
-// import interface_adapter.menu.exit.ExitPresenter;
-// import interface_adapter.menu.launch_game.LaunchController;
-// import interface_adapter.menu.launch_game.LaunchPresenter;
-// import interface_adapter.menu.launch_game.LaunchViewModel;
-// import use_case.games.baccarat.BaccaratInputBoundary;
-// import use_case.games.baccarat.BaccaratInteractor;
-// import use_case.games.baccarat.BaccaratOutputBoundary;
-// import use_case.games.GameDataAccessInterface;
-// import use_case.games.CardsAPIInterface;
-// import use_case.games.blackjack.blackjack_logic.*;
-// import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
-// import use_case.games.blackjack.blackjack_start.BlackJackStartInteractor;
-// import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-// import use_case.menu.MenuDataAccessInterface;
-// import use_case.menu.exit.ExitInputBoundary;
-// import use_case.menu.exit.ExitInteractor;
-// import use_case.menu.exit.ExitOutputBoundary;
-// import use_case.menu.launch_game.LaunchInputBoundary;
-// import use_case.menu.launch_game.LaunchInteractor;
-// import use_case.menu.launch_game.LaunchOutputBoundary;
-// import view.MainMenuView;
-// import view.baccarat.BaccaratGameView;
-// import view.baccarat.BaccaratStartView;
-// =======
-import interface_adapter.update.UpdatePresenter;
-import interface_adapter.update.UserUpdateController;
-
-import users.login.LoginInputBoundary;
-import users.login.LoginInteractor;
-import users.login.LoginOutputBoundary;
-import users.login.LoginUserDataAccessInterface;
-import users.signup.SignupInputBoundary;
-import users.signup.SignupInteractor;
-import users.signup.SignupOutputBoundary;
-import users.signup.SignupUserDataAccessInterface;
-import users.update.UpdateInputBoundary;
-import users.update.UpdateInteractor;
-import users.update.UpdateOutputBoundary;
-import users.update.UpdateUserDataAccessInterface;
+import interface_adapter.account_menu.AccountInfoViewModel;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.account_menu.history.HistoryController;
+import interface_adapter.account_menu.history.HistoryPresenter;
+import interface_adapter.account_menu.history.HistoryViewModel;
+import interface_adapter.account_menu.sign_out.SignOutController;
+import interface_adapter.account_menu.sign_out.SignOutPresenter;
+import interface_adapter.account_menu.update.UpdatePresenter;
+import interface_adapter.account_menu.update.UserUpdateController;
+import interface_adapter.baccarat.BaccaratController;
+import interface_adapter.baccarat.BaccaratGameViewModel;
+import interface_adapter.baccarat.BaccaratPresenter;
+import interface_adapter.baccarat.BaccaratStartViewModel;
+import interface_adapter.blackjack.blackjack_logic.*;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartPresenter;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+import interface_adapter.game_menu.account.AccountController;
+import interface_adapter.game_menu.account.AccountPresenter;
+import interface_adapter.game_menu.exit.ExitController;
+import interface_adapter.game_menu.exit.ExitPresenter;
+import interface_adapter.game_menu.launch_game.LaunchController;
+import interface_adapter.game_menu.launch_game.LaunchPresenter;
+import interface_adapter.game_menu.launch_game.LaunchViewModel;
+import interface_adapter.launch_menu.WelcomeViewModel;
+import interface_adapter.launch_menu.buttons.UserButtonsController;
+import interface_adapter.launch_menu.buttons.UserButtonsPresenter;
+import interface_adapter.launch_menu.login.LoginPresenter;
+import interface_adapter.launch_menu.login.LoginViewModel;
+import interface_adapter.launch_menu.login.UserLoginController;
+import interface_adapter.launch_menu.sign_up.SignUpViewModel;
+import interface_adapter.launch_menu.sign_up.SignupPresenter;
+import interface_adapter.launch_menu.sign_up.UserSignupController;
+import use_case.account_menu.history.HistoryDataAccessInterface;
+import use_case.account_menu.history.HistoryInputBoundary;
+import use_case.account_menu.history.HistoryInteractor;
+import use_case.account_menu.history.HistoryOutputBoundary;
+import use_case.account_menu.sign_out.SignOutInputBoundary;
+import use_case.account_menu.sign_out.SignOutInteractor;
+import use_case.account_menu.sign_out.SignOutOutputBoundary;
+import use_case.account_menu.update.UpdateInputBoundary;
+import use_case.account_menu.update.UpdateInteractor;
+import use_case.account_menu.update.UpdateOutputBoundary;
+import use_case.game_menu.account.AccountInputBoundary;
+import use_case.game_menu.account.AccountInteractor;
+import use_case.game_menu.account.AccountOutputBoundary;
+import use_case.game_menu.exit.ExitOutputBoundary;
+import use_case.games.CardsAPIInterface;
+import use_case.games.baccarat.BaccaratInputBoundary;
+import use_case.games.baccarat.BaccaratInteractor;
+import use_case.games.baccarat.BaccaratOutputBoundary;
+import use_case.games.blackjack.blackjack_logic.*;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
+import use_case.games.blackjack.blackjack_start.BlackJackStartInteractor;
+import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
+import use_case.game_menu.exit.ExitInputBoundary;
+import use_case.game_menu.exit.ExitInteractor;
+import use_case.game_menu.launch_game.LaunchInputBoundary;
+import use_case.game_menu.launch_game.LaunchInteractor;
+import use_case.game_menu.launch_game.LaunchOutputBoundary;
+import use_case.launch_menu.buttons.UserButtonsInputBoundary;
+import use_case.launch_menu.buttons.UserButtonsInteractor;
+import use_case.launch_menu.buttons.UserButtonsOutputBoundary;
+import use_case.launch_menu.login.LoginInputBoundary;
+import use_case.launch_menu.login.LoginInteractor;
+import use_case.launch_menu.login.LoginOutputBoundary;
+import use_case.launch_menu.signup.SignupInputBoundary;
+import use_case.launch_menu.signup.SignupInteractor;
+import use_case.launch_menu.signup.SignupOutputBoundary;
 import view.*;
-
-/*import users.SignupUserDataAccessInterface;
-import users.SignupInputBoundary;
-import users.SignupInteractor;
-import users.SignupOutputBoundary;
-import view.*;*/
+import view.baccarat.BaccaratGameView;
+import view.baccarat.BaccaratStartView;
+import view.blackjack.BlackJackIngameView;
+import view.blackjack.BlackJackStartView;
+import view.launch_menu.LoginView;
+import view.launch_menu.SignupView;
+import view.launch_menu.WelcomeView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,232 +99,125 @@ public class Main {
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        // The data for the views, such as username and password. This
-        // will be changed by a presenter object that is reporting the
-        // results from the use case. This is an observable, and will
-        // be observed by the layout manager.
-        UserViewModel userViewModel = new UserViewModel();
         FileUserDataAccessObject userDataAccessObject = getDAO();
+        HistoryDataAccessInterface historyDAO = getHistoryDAO();
+        CardsAPIInterface cardsAPI = new CardsAPIObject();
 
-        // The data for the betting/payout history of every user
-        HistoryViewModel historyViewModel = new HistoryViewModel();
-        HistoryDataAccessObject historyDataAccessObject = getHistoryDAO();
-
-// <<<<<<< menu
-//         BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
-//         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
-
-//         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
-//         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
-
-//         GameDataAccessInterface gameDAO;
-//         MenuDataAccessInterface launchDAO;
-//         try {
-//             UserDataAccessObject concreteDAO =  new UserDataAccessObject("./users.csv", new CommonAccountFactory());
-//             gameDAO = concreteDAO;
-//             launchDAO = concreteDAO;
-//         } catch (IOException e) {
-//             throw new RuntimeException(e);
-//         }
-
-//         CardsAPIInterface cardsAPI = new CardsAPIObject();
-
-//         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(
-//                 baccaratStartViewModel,
-//                 baccaratGameViewModel,
-//                 viewManagerModel
-//         );
-
-//         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(
-//                 blackJackStartViewModel,
-//                 viewManagerModel,
-//                 blackJackIngameViewModel);
-
-//         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(
-//                 blackJackStartViewModel,
-//                 viewManagerModel,
-//                 blackJackIngameViewModel);
-//         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter);
-
-//         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(
-//                 blackJackStartViewModel,
-//                 blackJackIngameViewModel,
-//                 viewManagerModel
-//         );
-//         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, gameDAO, standPresenter);
-
-//         LaunchViewModel launchViewModel = new LaunchViewModel();
-//         LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
-
-//         LaunchInputBoundary launchInteractor = new LaunchInteractor(launchDAO, launchPresenter);
-//         LaunchController launchController = new LaunchController(launchInteractor);
-
-//         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
-//         ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
-//         ExitController exitController = new ExitController(exitInteractor);
-// =======
-
-
-        //  The observer watching for changes in the userViewModel. It will
-        //  react to changes in application state by changing which view
-        //  is showing. This is an anonymous object because we don't need to
-        //  refer to it later.
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel, userViewModel);
+        ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
 
-        // The object that knows how to start a use case.
-        UserSignupController userSignupController = createUserSignupUseCase(userDataAccessObject);
-        UserLoginController userLoginController = loginUserUseCase(userDataAccessObject);
-        UserUpdateController userUpdateController = updateUserUseCase(userDataAccessObject);
+        WelcomeViewModel welcomeViewModel = new WelcomeViewModel();
+        SignUpViewModel signUpViewModel = new SignUpViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        LaunchViewModel launchViewModel = new LaunchViewModel();
+        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
+        BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
+        BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
+        BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
+        AccountInfoViewModel accountInfoViewModel = new AccountInfoViewModel();
+        HistoryViewModel historyViewModel = new HistoryViewModel();
 
+        BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
+        BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
+        BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(blackJackStartViewModel, blackJackIngameViewModel, viewManagerModel);
+        BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
+        ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
+        LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
+        AccountOutputBoundary accountPresenter = new AccountPresenter(accountInfoViewModel, viewManagerModel);
+        SignOutOutputBoundary signOutPresenter = new SignOutPresenter(welcomeViewModel, viewManagerModel);
+        UpdateOutputBoundary updatePresenter = new UpdatePresenter(accountInfoViewModel);
         HistoryOutputBoundary historyPresenter = new HistoryPresenter(historyViewModel);
-        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDataAccessObject, historyPresenter);
+
+        BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter, historyDAO);
+        BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, userDataAccessObject, standPresenter, historyDAO);
+        BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, userDataAccessObject, blackJackStartPresenter);
+        ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
+        LaunchInputBoundary launchInteractor = new LaunchInteractor(userDataAccessObject, launchPresenter);
+        BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, userDataAccessObject, baccaratPresenter, historyDAO);
+        AccountInputBoundary accountInteractor = new AccountInteractor(accountPresenter, userDataAccessObject);
+        SignOutInputBoundary signoutInteractor = new SignOutInteractor(signOutPresenter);
+        UpdateInputBoundary updateInteractor = new UpdateInteractor(userDataAccessObject, updatePresenter);
+        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
+
+        UserButtonsController userButtonsController = makeUserButtonController(viewManagerModel, loginViewModel, signUpViewModel);
+        UserSignupController signupController = makeSignUpController(loginViewModel, signUpViewModel, viewManagerModel, userDataAccessObject, historyDAO);
+        UserLoginController loginController = makeUserLoginController(loginViewModel, launchViewModel, viewManagerModel, userDataAccessObject);
+
+        // TODO more helpers if time
+        BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
+        BlackJackStandController standController = new BlackJackStandController(standInteractor);
+        BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
+        ExitController exitController = new ExitController(exitInteractor);
+        LaunchController launchController = new LaunchController(launchInteractor);
+        BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
+        AccountController accountController = new AccountController(accountInteractor);
+        SignOutController signOutController = new SignOutController(signoutInteractor);
+        UserUpdateController updateController = new UserUpdateController(updateInteractor);
         HistoryController historyController = new HistoryController(historyInteractor);
 
+        WelcomeView welcomeView = new WelcomeView(welcomeViewModel, userButtonsController);
+        SignupView signupView = new SignupView(signupController, signUpViewModel, userButtonsController);
+        LoginView loginView = new LoginView(loginController, loginViewModel, userButtonsController);
+        BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController, exitController);
+        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, exitController, startController);
+        BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
+        BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
+        AccountInfoView accountInfoView = new AccountInfoView(
+                accountInfoViewModel,
+                exitController,
+                updateController,
+                signOutController,
+                historyController,
+                historyViewModel);
+        MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
-        // Build the GUI, plugging in the screens.
-        createViewsAndAddToPanel(userViewModel, views, userSignupController, userLoginController, userUpdateController, historyController, historyViewModel);
+        views.add(startView, startView.viewName);
+        views.add(baccaratGameView, baccaratGameView.viewName);
+        views.add(ingameView, ingameView.viewName);
+        views.add(mainMenuView, mainMenuView.viewName);
+        views.add(baccaratStartView, baccaratStartView.viewName);
+        views.add(welcomeView, welcomeView.viewName);
+        views.add(signupView, signupView.viewName);
+        views.add(loginView, loginView.viewName);
+        views.add(accountInfoView, accountInfoView.viewName);
 
-        // Show the first view.
-//        cardLayout.show(views, "welcome");
-//        cardLayout.show(views, "sign up");
-//        cardLayout.show(views, "log in");
-//        cardLayout.show(views, "logged in");
+        viewManagerModel.setActiveView(welcomeView.viewName);
+        viewManagerModel.firePropertyChanged();
 
-//        application.pack();
-//        application.setVisible(true);
-
-//  ====================> Uncomment Below to see Game page
-//
-//        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
-//        BlackJackStandViewModel blackJackStandViewModel = new BlackJackStandViewModel();
-//        BlackJackHitViewModel blackJackHitViewModel = new BlackJackHitViewModel();
-//
-//        BlackJackDataAccessInterface blackJackDAO;
-//        try {
-//            blackJackDAO = new UserDataAccessObject("./usersX.csv", new CommonAccountFactory());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        CardsAPIInterface blackJackAPI = new CardsAPIObject();
-//
-//        BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(
-//                blackJackStartViewModel,
-//                blackJackHitViewModel,
-//                viewManagerModel,
-//                blackJackStandViewModel);
-//
-//        BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(
-//                blackJackHitViewModel,
-//                blackJackStartViewModel,
-//                viewManagerModel,
-//                blackJackStandViewModel);
-//        BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(blackJackAPI, hitPresenter);
-//
-//        BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(
-//                blackJackStartViewModel,
-//                blackJackStandViewModel,
-//                viewManagerModel
-//        );
-//        BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(blackJackAPI, blackJackDAO, standPresenter);
-//
-//        BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
-//        BlackJackStandController standController = new BlackJackStandController(standInteractor);
-//
-//        BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(blackJackAPI, blackJackDAO, blackJackStartPresenter);
-//        BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
-//
-//        BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, startController);
-//        views.add(startView, startView.viewName);
-//
-//        BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, blackJackHitViewModel, blackJackStandViewModel);
-//        views.add(ingameView, ingameView.viewName);
-//
-//        viewManagerModel.setActiveView(startView.viewName);
-//        viewManagerModel.firePropertyChanged();
-// =============================================>  Uncomment above to see the game page
         application.pack();
         application.setSize(1280, 720);
         application.setVisible(true);
     }
 
-    private static void createViewsAndAddToPanel(UserViewModel userViewModel, JPanel views, UserSignupController userSignupController, UserLoginController userLoginController, UserUpdateController userUpdateController, HistoryController historyController, HistoryViewModel historyViewModel) {
-        WelcomeView welcomeView = new WelcomeView(userViewModel);
-        views.add(welcomeView, ViewManager.WELCOME);
-
-        SignupView signupView = new SignupView(userSignupController, userViewModel);
-        views.add(signupView, ViewManager.SIGN_UP);
-
-        LoginView loginView = new LoginView(userLoginController, userViewModel);
-        views.add(loginView, ViewManager.LOG_IN);
-
-        LoggedInView loggedInView = new LoggedInView(userViewModel);
-        views.add(loggedInView, ViewManager.LOGGED_IN);
-
-        AccountInfoView accountInfoView = new AccountInfoView(userViewModel);
-        views.add(accountInfoView, ViewManager.ACCOUNT_INFO);
-
-// <<<<<<< menu
-//         BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, gameDAO, blackJackStartPresenter);
-//         BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
-
-//         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, gameDAO, baccaratPresenter);
-//         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
-
-//         BaccaratStartView baccaratStartView = new BaccaratStartView(baccaratStartViewModel, baccaratController, exitController);
-//         views.add(baccaratStartView, baccaratStartView.viewName);
-
-//         BlackJackStartView startView = new BlackJackStartView(blackJackStartViewModel, exitController, startController);
-//         views.add(startView, startView.viewName);
-
-//         BaccaratGameView baccaratGameView = new BaccaratGameView(baccaratGameViewModel);
-//         views.add(baccaratGameView, baccaratGameView.viewName);
-
-//         BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
-//         views.add(ingameView, ingameView.viewName);
-
-//         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController);
-//         views.add(mainMenuView, mainMenuView.viewName);
-
-//         viewManagerModel.setActiveView(mainMenuView.viewName);
-//         viewManagerModel.firePropertyChanged();
-// =======
-        BalanceInfoView balanceInfoView = new BalanceInfoView(userUpdateController, userViewModel);
-        views.add(balanceInfoView, ViewManager.BALANCE_INFO);
-
-        HistoryView historyView = new HistoryView(userViewModel, historyViewModel, historyController);
-        views.add(historyView, ViewManager.BET_HISTORY);
+    public static FileUserDataAccessObject getDAO() {
+        FileUserDataAccessObject fileUserDataAccessObject;
+        try {
+            fileUserDataAccessObject = new FileUserDataAccessObject("users.csv", new CommonUserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        return fileUserDataAccessObject;
     }
 
-    private static UserSignupController createUserSignupUseCase(SignupUserDataAccessInterface signupDao) {
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter();
-        UserFactory userFactory = new CommonUserFactory();
-        SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                signupDao, signupOutputBoundary, userFactory);
-        return new UserSignupController(userSignupInteractor);
-    }
-    private static UserLoginController loginUserUseCase(LoginUserDataAccessInterface loginDao) {
-
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter();
-        LoginInputBoundary userLoginInteractor = new LoginInteractor(loginDao, loginOutputBoundary);
-        return new UserLoginController(userLoginInteractor);
+    private static UserButtonsController makeUserButtonController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignUpViewModel signUpViewModel) {
+        UserButtonsOutputBoundary welcomeButtonsPresenter = new UserButtonsPresenter(viewManagerModel, loginViewModel, signUpViewModel);
+        UserButtonsInputBoundary welcomeButtonsInteractor = new UserButtonsInteractor(welcomeButtonsPresenter);
+        return new UserButtonsController(welcomeButtonsInteractor);
     }
 
-    private static UserUpdateController updateUserUseCase(UpdateUserDataAccessInterface UpdateDao) {
-        UpdateOutputBoundary updateOutputBoundary = new UpdatePresenter();
-        UpdateInputBoundary userUpdateInteractor = new UpdateInteractor(UpdateDao, updateOutputBoundary);
-        return new UserUpdateController(userUpdateInteractor);
+    private static UserSignupController makeSignUpController(LoginViewModel loginViewModel, SignUpViewModel signUpViewModel, ViewManagerModel viewManagerModel,
+                                                             FileUserDataAccessObject userDataAccessObject, HistoryDataAccessInterface historyDAO) {
+        SignupOutputBoundary signupPresenter = new SignupPresenter(loginViewModel, signUpViewModel, viewManagerModel);
+        SignupInputBoundary signupInputInteractor = new SignupInteractor(userDataAccessObject, signupPresenter, new CommonUserFactory(), historyDAO);
+        return new UserSignupController(signupInputInteractor);
     }
 
-    // TODO finish implementing, not sure what this does
-    private static HistoryController historyUserUseCase(HistoryDataAccessInterface historyDAO) {
-        HistoryOutputBoundary historyPresenter = new HistoryPresenter(new HistoryViewModel());
-        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
-        return new HistoryController(historyInteractor);
+    private static UserLoginController makeUserLoginController(LoginViewModel loginViewModel, LaunchViewModel launchViewModel, ViewManagerModel viewManagerModel, FileUserDataAccessObject userDataAccessObject) {
+        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel, launchViewModel, viewManagerModel);
+        LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
+        return new UserLoginController(loginInteractor);
     }
 
-    // TODO see if correct
     public static HistoryDataAccessObject getHistoryDAO() {
         HistoryDataAccessObject historyDataAccessObject;
         try {
@@ -307,16 +226,6 @@ public class Main {
             throw new RuntimeException("Could not create file.");
         }
         return historyDataAccessObject;
-    }
-
-    public static FileUserDataAccessObject getDAO() {
-        FileUserDataAccessObject fileUserDataAccessObject;
-        try {
-            fileUserDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
-        return fileUserDataAccessObject;
     }
 
 }
