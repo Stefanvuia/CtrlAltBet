@@ -1,7 +1,6 @@
 package view.war;
 
-import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import interface_adapter.menu.exit.ExitController;
+import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.war.war_start.WarStartController;
 import interface_adapter.war.war_start.WarStartState;
 import interface_adapter.war.war_start.WarStartViewModel;
@@ -134,9 +133,9 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
     private void makeBetFields() {
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
-        NumberFormatter formatter = new BetFieldFormatter(format);
+        NumberFormatter formatter = new FundsFieldFormatter(format);
 
-        betField = new BetField(formatter);
+        betField = new FundsField(formatter);
     }
 
     private void openGameInfo() {

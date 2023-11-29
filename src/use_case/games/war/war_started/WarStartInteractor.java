@@ -33,7 +33,16 @@ public class WarStartInteractor implements WarStartInputBoundary{
             game.addToHand(player, cardsAPI.draw(game.getDeck()));
             game.addToHand(dealer, cardsAPI.draw(game.getDeck()));
 
-           warStartPresenter.prepareSuccessView(new WarStartOutputData(game));
+           if (!game.goToWar()){
+               if(game.playerWins()){
+                   dataAccess.editFund(username, 2*bet);
+               }
+               warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
+           }
+           else{
+               warStartPresenter.prepareGoToWarView(new WarStartOutputData(game));
+           }
+
         } else {
             warStartPresenter.prepareFailView("insufficient funds");
         }

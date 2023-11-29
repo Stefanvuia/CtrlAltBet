@@ -1,4 +1,4 @@
-package interface_adapter.war.war_occur;
+package interface_adapter.war;
 
 import entity.game_logic.WarGameInterface;
 
@@ -14,10 +14,6 @@ public class WarGameState {
     private java.util.List<Image> dealerImages = new ArrayList<>();
 
     private WarGameInterface warGameInterface = null;
-
-    private String gameMessage = "";
-
-    private boolean gameEnd = false;
 
     public WarGameState(){}
 
@@ -35,22 +31,6 @@ public class WarGameState {
 
     public void setGame(WarGameInterface warGameInterface) {
         this.warGameInterface = warGameInterface;
-    }
-
-    public String getGameMessage() {
-        return gameMessage;
-    }
-
-    public void setGameMessage(String gameMessage) {
-        this.gameMessage = gameMessage;
-    }
-
-    public boolean isGameEnd() {
-        return gameEnd;
-    }
-
-    public void setGameEnd(boolean gameEnd) {
-        this.gameEnd = gameEnd;
     }
 
     public java.util.List<Image> getPlayerImages() {

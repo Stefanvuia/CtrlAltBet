@@ -18,14 +18,14 @@ public class WarStartViewModel extends ViewModel {
 
         public final String HALF_BET_LABEL = "1/2: ";
 
-        public final String IMG_PATH = "img/blackjacktable.png";
+        public final String IMG_PATH = "img/wartable.png";
 
         public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
 
         private WarStartState state = new WarStartState();
 
         public WarStartViewModel() {
-            super("bj start");
+            super("war start");
         }
 
         public void setState(WarStartState state) {
