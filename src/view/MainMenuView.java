@@ -43,6 +43,7 @@ public class MainMenuView extends JPanel implements ActionListener {
 
         blackjack.addActionListener(this);
         baccarat.addActionListener(this);
+        war.addActionListener(this);
         account.addActionListener(this);
 
         // setting initial layout constraints
@@ -72,6 +73,8 @@ public class MainMenuView extends JPanel implements ActionListener {
             launchController.execute(currState.getUsername(), launchViewModel.BACCARAT_NAME);
         } else if (e.getSource().equals(account)) {
             accountController.execute(currState.getUsername());
+        } else if (e.getSource().equals(war)) {
+            launchController.execute(currState.getUsername(), launchViewModel.WAR_NAME);
         }
     }
 }

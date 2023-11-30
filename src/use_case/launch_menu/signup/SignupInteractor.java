@@ -13,7 +13,6 @@ public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDsGateway;
     final SignupOutputBoundary userPresenter;
     final UserFactory userFactory;
-
     final HistoryDataAccessInterface historyDAO;
 
     public SignupInteractor(SignupUserDataAccessInterface signupUserDataAccessInterface, SignupOutputBoundary signupOutputBoundary,

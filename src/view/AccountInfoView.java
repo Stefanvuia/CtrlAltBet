@@ -10,6 +10,7 @@ import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.account_menu.update.UserUpdateController;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
+
 import tools.GridBagUtils;
 import view.custom_elements.*;
 
@@ -135,7 +136,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         GridBagLayout layout = new GridBagLayout();
         GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-
+      
         gridBagUtils.addComponentWithConstraints(statsPanel, 2, 0, 4, 1, 1, 1);
         gridBagUtils.addComponentWithConstraints(userPanel, 0, 0, 2, 2, 1, 1);
         gridBagUtils.addComponentWithConstraints(fundsPanel, 0, 2, 2, 1, 1, 1);

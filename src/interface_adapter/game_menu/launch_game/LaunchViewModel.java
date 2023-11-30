@@ -19,6 +19,8 @@ public class LaunchViewModel extends ViewModel {
 
     public final String BACCARAT_NAME = "baccarat start";
 
+    public final String WAR_NAME = "war start";
+
     public LaunchViewModel() {
         super("main menu");
     }

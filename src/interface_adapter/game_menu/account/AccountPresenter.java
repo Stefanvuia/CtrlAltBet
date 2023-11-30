@@ -1,5 +1,6 @@
 package interface_adapter.game_menu.account;
 
+
 import interface_adapter.account_menu.AccountInfoState;
 import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.ViewManagerModel;
