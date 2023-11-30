@@ -5,10 +5,10 @@ import use_case.games.war.war_logic.WarInputGameData;
 import use_case.games.war.war_logic.WarSurrenderInputBoundary;
 
 public class WarSurrenderController {
-    final WarSurrenderInputBoundary warSurrenederInteractor;
+    final WarSurrenderInputBoundary warSurrenderInteractor;
 
-    public WarSurrenderController(WarSurrenderInputBoundary warSurrenederInteractor) {
-        this.warSurrenederInteractor = warSurrenederInteractor;
+    public WarSurrenderController(WarSurrenderInputBoundary warSurrenderInteractor) {
+        this.warSurrenderInteractor = warSurrenderInteractor;
     }
 
     public void execute(WarGameInterface game) {

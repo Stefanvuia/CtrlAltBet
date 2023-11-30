@@ -30,10 +30,13 @@ public class WarStartInteractor implements WarStartInputBoundary{
             Player dealer = new WarDealer();
 
             WarGameInterface game = new WarGame(player, dealer, deckId);
-            //TODO Change this back
-            entity.Card card = cardsAPI.draw(game.getDeck());
+
+            /*entity.Card card = cardsAPI.draw(game.getDeck());
             game.addToHand(player, card);
-            game.addToHand(dealer, card);
+            game.addToHand(dealer, card);*/
+
+            game.addToHand(player, cardsAPI.draw(game.getDeck()));
+            game.addToHand(dealer, cardsAPI.draw(game.getDeck()));
 
            if (!game.goToWar()){
                if(game.playerWins()){

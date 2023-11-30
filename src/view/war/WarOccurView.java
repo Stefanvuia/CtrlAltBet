@@ -6,7 +6,6 @@ import interface_adapter.war.war_occur.WarGoToWarController;
 import interface_adapter.war.war_occur.WarOccurViewModel;
 import interface_adapter.war.war_occur.WarSurrenderController;
 import tools.GridBagUtils;
-import view.blackjack.BlackJackIngameView;
 import view.custom_elements.BlackJackBackgroundPanel;
 import view.custom_elements.GreenCustomButton;
 
@@ -97,6 +96,8 @@ public class WarOccurView extends JPanel implements ActionListener, PropertyChan
             } else {
                 JOptionPane.showMessageDialog(this, "You lost the War and lost double your wager -$" + 2 * currState.getBet());
             }
+        } else if(currState.getSurrendered()){
+            JOptionPane.showMessageDialog(this, "You have chosen to surrender the War and forfeited half of your wager: -$" + currState.getBet()/2);
         }
     }
     private void showPlayerHand(java.util.List<Image> imgs) {
