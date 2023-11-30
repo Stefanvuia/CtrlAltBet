@@ -46,7 +46,7 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
             dataAccess.editFund(username, change);
             warGoToWarPresenter.preparePayoutView(new WarOutputGameData(game));
         } else{
-            warGoToWarPresenter.prepareFailView("insufficient funds");
+            warGoToWarPresenter.prepareFailView("insufficient funds to double the wager");
         }
 
     }
