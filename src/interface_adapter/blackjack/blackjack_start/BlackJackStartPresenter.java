@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackJackStartPresenter  implements BlackJackStartOutputBoundary {
+public class BlackJackStartPresenter implements BlackJackStartOutputBoundary {
     private final BlackJackStartViewModel blackJackStartViewModel;
 
     private final BlackJackIngameViewModel blackJackIngameViewModel;
