@@ -20,10 +20,6 @@ public class WarGameState {
     private String errorMessage = null;
 
     public WarGameState(){}
-    public void setGameMessage(String message){
-        gameMessage = message;
-    }
-    public String getGameMessage(){return gameMessage;}
     public void setSurrendered(boolean surrendered){this.surrendered = surrendered;}
     public void setDidGoToWar(boolean wentToWar){this.wentToWar = wentToWar;}
     public boolean getSurrendered(){return surrendered;}
