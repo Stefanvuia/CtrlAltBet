@@ -20,10 +20,15 @@ public class WarStartPresenter implements WarStartOutputBoundary {
     private final WarStartViewModel warStartViewModel;
     private final ViewManagerModel viewManagerModel;
     private final WarIngameViewModel warIngameViewModel;
-    public WarStartPresenter(WarStartViewModel warStartViewModel, ViewManagerModel viewManagerModel, WarIngameViewModel warIngameViewModel){
+    private final WarOccurViewModel warOccurViewModel;
+    public WarStartPresenter(WarStartViewModel warStartViewModel,
+                             ViewManagerModel viewManagerModel,
+                             WarIngameViewModel warIngameViewModel,
+                             WarOccurViewModel warOccurViewModel){
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warIngameViewModel = warIngameViewModel;
+        this.warOccurViewModel = warOccurViewModel;
     }
     @Override
     public void prepareWarIngameView(WarStartOutputData outputData) {
@@ -41,7 +46,6 @@ public class WarStartPresenter implements WarStartOutputBoundary {
 
         this.warIngameViewModel.firePropertyChanged();
 
-
         if(outputData.getGame().playerWins()){
             newGameState.setFunds(newGameState.getFunds() + newGameState.getBet());
         } else {
@@ -58,6 +62,17 @@ public class WarStartPresenter implements WarStartOutputBoundary {
     }
     @Override
     public void prepareGoToWarView(WarStartOutputData outputData){
+        WarGameState ingameStateWar = new WarGameState();
+        ingameStateWar.setBet(outputData.getBet());
+        ingameStateWar.setGame(outputData.getGame());
+        ingameStateWar.setPlayerImages(makeImages(outputData.getGame().getPlayer().getHand()));
+        ingameStateWar.setDealerImages(makeImages(outputData.getGame().getDealer().getHand()));
+
+        this.warOccurViewModel.setState(ingameStateWar);
+        this.viewManagerModel.setActiveView(warOccurViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+        this.warOccurViewModel.firePropertyChanged();
+
 
     }
     @Override

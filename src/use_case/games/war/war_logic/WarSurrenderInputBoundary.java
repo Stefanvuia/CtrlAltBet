@@ -1,6 +1,5 @@
 package use_case.games.war.war_logic;
 
-
-public interface GoToWarInputBoundary {
+public interface WarSurrenderInputBoundary {
     void execute(WarInputGameData warInputGameData);
 }

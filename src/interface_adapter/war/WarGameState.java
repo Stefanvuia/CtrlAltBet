@@ -8,14 +8,25 @@ import java.util.List;
 
 public class WarGameState {
     private int bet = 0;
+    private String gameMessage = null;
 
     private java.util.List<Image> playerImages = new ArrayList<>();
 
     private java.util.List<Image> dealerImages = new ArrayList<>();
 
     private WarGameInterface warGameInterface = null;
+    private boolean surrendered = false;
+    private boolean wentToWar = false;
 
     public WarGameState(){}
+    public void setGameMessage(String message){
+        gameMessage = message;
+    }
+    public String getGameMessage(){return gameMessage;}
+    public void setSurrendered(boolean surrendered){this.surrendered = surrendered;}
+    public void setDidGoToWar(boolean wentToWar){this.wentToWar = wentToWar;}
+    public boolean getSurrendered(){return surrendered;}
+    public boolean getWentToWar(){return wentToWar;}
 
     public int getBet() {
         return bet;
