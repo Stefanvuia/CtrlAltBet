@@ -57,6 +57,12 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
+        WarGameState errorGameState = warOccurViewModel.getState();
+        errorGameState.setErrorMessage(error);
+        warOccurViewModel.setState(errorGameState);
+        warOccurViewModel.firePropertyChanged();
+
+        errorGameState.setErrorMessage(null);
 
     }
     private List<Image> makeImages(List<Card> imageLinks) {

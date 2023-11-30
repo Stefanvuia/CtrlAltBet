@@ -98,6 +98,8 @@ public class WarOccurView extends JPanel implements ActionListener, PropertyChan
             }
         } else if(currState.getSurrendered()){
             JOptionPane.showMessageDialog(this, "You have chosen to surrender the War and forfeited half of your wager: -$" + currState.getBet()/2);
+        } else if (currState.getErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, currState.getErrorMessage());
         }
     }
     private void showPlayerHand(java.util.List<Image> imgs) {

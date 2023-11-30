@@ -17,6 +17,7 @@ public class WarGameState {
     private WarGameInterface warGameInterface = null;
     private boolean surrendered = false;
     private boolean wentToWar = false;
+    private String errorMessage = null;
 
     public WarGameState(){}
     public void setGameMessage(String message){
@@ -27,6 +28,12 @@ public class WarGameState {
     public void setDidGoToWar(boolean wentToWar){this.wentToWar = wentToWar;}
     public boolean getSurrendered(){return surrendered;}
     public boolean getWentToWar(){return wentToWar;}
+    public void setErrorMessage(String message){
+        errorMessage = message;
+    }
+    public String getErrorMessage(){
+        return errorMessage;
+    }
 
     public int getBet() {
         return bet;
