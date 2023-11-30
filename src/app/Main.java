@@ -10,6 +10,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.account_menu.history.HistoryController;
 import interface_adapter.account_menu.history.HistoryPresenter;
 
+import interface_adapter.account_menu.history.HistoryViewModel;
 import interface_adapter.account_menu.sign_out.SignOutController;
 import interface_adapter.account_menu.sign_out.SignOutPresenter;
 import interface_adapter.account_menu.update.UpdatePresenter;
@@ -148,7 +149,7 @@ public class Main {
 
         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
-        LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, viewManagerModel);
+        LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, warStartViewModel, viewManagerModel);
         AccountOutputBoundary accountPresenter = new AccountPresenter(accountInfoViewModel, viewManagerModel);
         SignOutOutputBoundary signOutPresenter = new SignOutPresenter(welcomeViewModel, viewManagerModel);
         UpdateOutputBoundary updatePresenter = new UpdatePresenter(accountInfoViewModel);
@@ -262,12 +263,6 @@ public class Main {
         return new UserSignupController(signupInputInteractor);
     }
 
-    private static UserLoginController makeUserLoginController(LoginViewModel loginViewModel, LaunchViewModel launchViewModel, ViewManagerModel viewManagerModel, FileUserDataAccessObject userDataAccessObject) {
-        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel, launchViewModel, viewManagerModel);
-        LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
-        return new UserLoginController(loginInteractor);
-    }
-
     public static HistoryDataAccessObject getHistoryDAO() {
         HistoryDataAccessObject historyDataAccessObject;
         try {
@@ -276,18 +271,6 @@ public class Main {
             throw new RuntimeException("Could not create file.");
         }
         return historyDataAccessObject;
-    }
-
-    private static UserButtonsController makeUserButtonController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignUpViewModel signUpViewModel) {
-        UserButtonsOutputBoundary welcomeButtonsPresenter = new UserButtonsPresenter(viewManagerModel, loginViewModel, signUpViewModel);
-        UserButtonsInputBoundary welcomeButtonsInteractor = new UserButtonsInteractor(welcomeButtonsPresenter);
-        return new UserButtonsController(welcomeButtonsInteractor);
-    }
-
-    private static UserSignupController makeSignUpController(LoginViewModel loginViewModel, SignUpViewModel signUpViewModel, ViewManagerModel viewManagerModel, FileUserDataAccessObject userDataAccessObject) {
-        SignupOutputBoundary signupPresenter = new SignupPresenter(loginViewModel, signUpViewModel, viewManagerModel);
-        SignupInputBoundary signupInputInteractor = new SignupInteractor(userDataAccessObject, signupPresenter, new CommonUserFactory());
-        return new UserSignupController(signupInputInteractor);
     }
 
     private static UserLoginController makeUserLoginController(LoginViewModel loginViewModel, LaunchViewModel launchViewModel, ViewManagerModel viewManagerModel, FileUserDataAccessObject userDataAccessObject) {
