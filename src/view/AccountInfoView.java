@@ -1,10 +1,16 @@
 package view;
 
-import interface_adapter.AccountInfoState;
-import interface_adapter.AccountInfoViewModel;
+import interface_adapter.account_menu.history.HistoryController;
+import interface_adapter.account_menu.history.HistoryState;
+import interface_adapter.account_menu.history.HistoryViewModel;
+import interface_adapter.account_menu.AccountInfoState;
+import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.account_menu.sign_out.SignOutController;
 import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.account_menu.update.UserUpdateController;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+
 import tools.GridBagUtils;
 import view.custom_elements.*;
 
@@ -22,6 +28,10 @@ import java.text.NumberFormat;
 public class AccountInfoView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public String viewName = "account info";
     private final AccountInfoViewModel accountInfoViewModel;
+
+    private final HistoryController historyController;
+
+    private final HistoryViewModel historyViewModel;
 
     private final ExitController exitController;
 
@@ -55,12 +65,20 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     /**
      * A window with a title and a JButton.
      */
-    public AccountInfoView(AccountInfoViewModel accountInfoViewModel, ExitController exitController, UserUpdateController updateController, SignOutController signOutController) {
+    public AccountInfoView(AccountInfoViewModel accountInfoViewModel,
+                           ExitController exitController,
+                           UserUpdateController updateController,
+                           SignOutController signOutController,
+                           HistoryController historyController,
+                           HistoryViewModel historyViewModel) {
         this.exitController = exitController;
         this.updateController = updateController;
         this.signOutController = signOutController;
         this.accountInfoViewModel = accountInfoViewModel;
+        this.historyViewModel = historyViewModel;
+        this.historyController = historyController;
         accountInfoViewModel.addPropertyChangeListener(this);
+        historyViewModel.addPropertyChangeListener(this);
 
         AccountInfoState state = accountInfoViewModel.getAccountInfoState();
 
@@ -86,36 +104,46 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         signout = new GreenCustomButton(accountInfoViewModel.SIGN_OUT_LABEL);
         exit = new GreenCustomButton(accountInfoViewModel.EXIT_LABEL);
 
+        JPanel depositPanel = new GreenCustomPanel();
+        depositPanel.add(depositField);
+        depositPanel.add(deposit);
+
+        JPanel withdrawPanel = new GreenCustomPanel();
+        withdrawPanel.add(withdrawField);
+        withdrawPanel.add(withdraw);
+
+
         JPanel statsPanel = new GreenCustomPanel();
         statsPanel.add(new GreenCustomJLabel(accountInfoViewModel.STATISTICS_LABEL));
 
-        // todo change to constants from the view model
-        blackJackButton = new GreenCustomButton("blackjack stats");
-        baccararatButton = new GreenCustomButton("baccarat stats");
-        warButton = new GreenCustomButton("war stats");
+        blackJackButton = new GreenCustomButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
+        baccararatButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
+        warButton = new GreenCustomButton(HistoryViewModel.WAR_BUTTON_LABEl);
+
+        statsPanel.add(blackJackButton);
+        statsPanel.add(baccararatButton);
+        statsPanel.add(warButton);
 
         deposit.addActionListener(this);
         withdraw.addActionListener(this);
         signout.addActionListener(this);
         exit.addActionListener(this);
+        blackJackButton.addActionListener(this);
+        baccararatButton.addActionListener(this);
+        warButton.addActionListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
         GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-
-        gridBagUtils.addComponentWithConstraints(statsPanel, 1, 0, 3, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(blackJackButton, 1, 1, 1, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(baccararatButton, 2, 1, 1, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(warButton, 3, 1, 1, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(userPanel, 0, 0, 1, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(fundsPanel, 0, 1, 1, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(depositField, 0, 2, 2, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(deposit, 0, 3, 2, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(withdrawField, 2, 2, 2, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(withdraw, 2, 3, 2, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(exit, 0, 4, 2, 1, 1, 1);
-        gridBagUtils.addComponentWithConstraints(signout, 2, 4, 2, 1, 1, 1);
+      
+        gridBagUtils.addComponentWithConstraints(statsPanel, 2, 0, 4, 1, 1, 1);
+        gridBagUtils.addComponentWithConstraints(userPanel, 0, 0, 2, 2, 1, 1);
+        gridBagUtils.addComponentWithConstraints(fundsPanel, 0, 2, 2, 1, 1, 1);
+        gridBagUtils.addComponentWithConstraints(depositPanel, 2, 2, 2, 1, 1, 1);
+        gridBagUtils.addComponentWithConstraints(withdrawPanel, 4, 2, 2, 1, 1, 1);
+        gridBagUtils.addComponentWithConstraints(exit, 0, 3, 3, 1, 1, 1);
+        gridBagUtils.addComponentWithConstraints(signout, 3, 3, 3, 1, 1, 1);
     }
 
     /**
@@ -129,13 +157,23 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             signOutController.execute();
         } else if (evt.getSource().equals(exit)) {
             exitController.execute();
+        } else if (evt.getSource().equals(baccararatButton) ||
+                evt.getSource().equals(blackJackButton) ||
+                evt.getSource().equals(warButton)) {
+            historyController.execute(currState.getUsername(), evt.getActionCommand());
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
-        if (currState.getErrorMessage() == null) {
+        if (evt.getPropertyName().equals("history")) {
+            HistoryState state = historyViewModel.getHistoryState();
+            XYChart chart = state.getChart();
+            if (chart != null) {
+                displayChart(chart);
+            }
+        } else if (evt.getPropertyName().equals("account info") && currState.getErrorMessage() == null) {
             fundsLabel = new GreenCustomJLabel(accountInfoViewModel.FUNDS_LABEL + currState.getFunds());
             userLabel = new GreenCustomJLabel(accountInfoViewModel.USER_LABEL + currState.getUsername());
 
@@ -148,7 +186,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             if (Math.abs(currState.getChange()) > 0) {
                 JOptionPane.showMessageDialog(this, accountInfoViewModel.SUCCESS_NOTE);
             }
-        } else {
+        } else if (evt.getPropertyName().equals("account info")) {
             JOptionPane.showMessageDialog(this, currState.getErrorMessage());
         }
         withdrawField.setValue(0);
@@ -171,4 +209,19 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void changedUpdate(DocumentEvent e) {}
+
+    private void displayChart(XYChart chart) {
+        // Create a new frame for the chart popup
+        JFrame chartFrame = new JFrame("Chart");
+        chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        chartFrame.setSize(800, 600);
+
+        // Add the chart to the frame
+        XChartPanel<XYChart> chartPanel = new XChartPanel<>(chart);
+        chartFrame.add(chartPanel);
+
+        // Display the frame
+        chartFrame.setLocationRelativeTo(this); // To center it relative to the HistoryView
+        chartFrame.setVisible(true);
+    }
 }

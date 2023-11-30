@@ -4,8 +4,10 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.baccarat.BaccaratStartState;
 import interface_adapter.baccarat.BaccaratStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
+
 import interface_adapter.war.war_start.WarStartState;
 import interface_adapter.war.war_start.WarStartViewModel;
+
 import use_case.game_menu.launch_game.LaunchOutputBoundary;
 import use_case.game_menu.launch_game.LaunchOutputData;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
@@ -14,6 +16,7 @@ public class LaunchPresenter implements LaunchOutputBoundary {
     private final BlackJackStartViewModel blackJackStartViewModel;
 
     private final BaccaratStartViewModel baccaratStartViewModel;
+
     private final WarStartViewModel warStartViewModel;
 
     final ViewManagerModel viewManagerModel;
@@ -67,7 +70,6 @@ public class LaunchPresenter implements LaunchOutputBoundary {
 
             viewManagerModel.setActiveView(warStartViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
-
         }
     }
 }

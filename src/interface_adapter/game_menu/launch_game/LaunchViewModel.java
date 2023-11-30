@@ -6,7 +6,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class LaunchViewModel extends ViewModel {
-
     private LaunchState state = new LaunchState();
     public final String BLACKJACK_LABEL = "blackjack";
 
@@ -19,6 +18,7 @@ public class LaunchViewModel extends ViewModel {
     public final String BLACKJACK_NAME = "bj start";
 
     public final String BACCARAT_NAME = "baccarat start";
+
     public final String WAR_NAME = "war start";
 
     public LaunchViewModel() {

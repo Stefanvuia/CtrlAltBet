@@ -1,7 +1,8 @@
 package interface_adapter.game_menu.account;
 
-import interface_adapter.AccountInfoState;
-import interface_adapter.AccountInfoViewModel;
+
+import interface_adapter.account_menu.AccountInfoState;
+import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.ViewManagerModel;
 import use_case.game_menu.account.AccountOutputBoundary;
 import use_case.game_menu.account.AccountOutputData;

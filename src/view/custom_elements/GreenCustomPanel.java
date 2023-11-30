@@ -7,7 +7,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class GreenCustomPanel extends JPanel {
-    private final GridBagConstraints gbc = new GridBagConstraints();
+    private GridBagConstraints gbc = new GridBagConstraints();
     public GreenCustomPanel(){
         super();
         GridBagLayout layout = new GridBagLayout();
@@ -20,5 +20,9 @@ public class GreenCustomPanel extends JPanel {
                 new LineBorder(new Color(144, 227, 154),1),
                 new EmptyBorder(10, 10, 10, 10)));
         this.setBackground(new Color(53, 70, 62));
+    }
+
+    public GridBagConstraints getGbc() {
+        return gbc;
     }
 }

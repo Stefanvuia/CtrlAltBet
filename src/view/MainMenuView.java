@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
+public class MainMenuView extends JPanel implements ActionListener {
     public final String viewName = "main menu";
 
     private final LaunchViewModel launchViewModel;
@@ -35,7 +35,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         this.accountController = accountController;
         this.launchController = launchController;
         this.launchViewModel = launchViewModel;
-        this.launchViewModel.addPropertyChangeListener(this);
 
         blackjack = new GreenCustomButton(launchViewModel.BLACKJACK_LABEL);
         baccarat = new GreenCustomButton(launchViewModel.BACCARAT_LABEL);
@@ -76,13 +75,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
             accountController.execute(currState.getUsername());
         } else if (e.getSource().equals(war)) {
             launchController.execute(currState.getUsername(), launchViewModel.WAR_NAME);
-
         }
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        LaunchState currState = launchViewModel.getState();
-        JOptionPane.showMessageDialog(this, "Welcome, " + currState.getUsername());
     }
 }

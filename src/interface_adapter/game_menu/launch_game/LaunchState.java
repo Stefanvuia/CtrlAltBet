@@ -1,7 +1,7 @@
 package interface_adapter.game_menu.launch_game;
 
 public class LaunchState {
-    private String username = "cakev";
+    private String username = "";
 
     public LaunchState() {}
 

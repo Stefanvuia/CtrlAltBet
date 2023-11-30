@@ -4,6 +4,7 @@ import entity.game_logic.BaccaratGame;
 import entity.game_logic.BaccaratGameInterface;
 import entity.game_logic.BaccaratPlayer;
 import entity.game_logic.Player;
+import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
@@ -17,12 +18,16 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
 
     final BaccaratOutputBoundary baccaratPresenter;
 
+    final HistoryDataAccessInterface historyDAO;
+
     public BaccaratInteractor(CardsAPIInterface cardsAPI,
                               GameDataAccessInterface gameDAO,
-                              BaccaratOutputBoundary baccaratPresenter) {
+                              BaccaratOutputBoundary baccaratPresenter,
+                              HistoryDataAccessInterface historyDAO) {
         this.cardsAPI = cardsAPI;
         this.gameDAO = gameDAO;
         this.baccaratPresenter = baccaratPresenter;
+        this.historyDAO = historyDAO;
     }
 
     @Override
@@ -30,7 +35,12 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         String username = baccaratInputData.getUsername();
         Map<String, Integer> bet = baccaratInputData.getBet();
 
-        if (checkBet(username, bet)) {
+        int sum = 0;
+        for (String key : bet.keySet()) {
+            sum += bet.get(key);
+        }
+
+        if (checkBet(username, sum)) {
             Player banker = new BaccaratPlayer();
             Player player = new BaccaratPlayer();
             String deckId = cardsAPI.shuffleNew(8);
@@ -40,10 +50,10 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
             game.addToHand(banker, cardsAPI.draw(deckId, 2));
 
             String winner = thirdCardHelper(game, player, banker);
-            int payout = payoutHelper(username, bet, winner);
+            int payout = payoutHelper(username, bet, winner, sum);
 
             BaccaratOutputData outputData = new BaccaratOutputData(
-                    winner.toUpperCase() + " win. You win " + payout + "!",
+                    winner.toUpperCase() + " win. Your payout is " + payout + "!",
                     gameDAO.getFund(username),
                     player.getHand(),
                     banker.getHand());
@@ -54,13 +64,9 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         }
     }
 
-    private boolean checkBet(String username, Map<String, Integer> bet) {
-        int sum = 0;
-        for (String key : bet.keySet()) {
-            sum += bet.get(key);
-        }
-        if (gameDAO.getFund(username) >= sum) {
-            gameDAO.editFund(username, -sum);
+    private boolean checkBet(String username, int betSum) {
+        if (gameDAO.getFund(username) >= betSum) {
+            gameDAO.editFund(username, -betSum);
             return true;
         } else {
             return false;
@@ -95,7 +101,7 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         }
     }
 
-    private int payoutHelper(String username, Map<String, Integer> bet, String winner) {
+    private int payoutHelper(String username, Map<String, Integer> bet, String winner, int betSum) {
         int payout;
         if (winner.equals("tie")) {
             payout = bet.get(winner) * 8;
@@ -104,8 +110,10 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         } else {
             payout = bet.get(winner);
         }
-
         gameDAO.editFund(username, payout + bet.get(winner));
+
+        payout = payout + bet.get(winner) - betSum;
+        historyDAO.addPayout(username, "baccarat", payout);
         return payout;
     }
 }

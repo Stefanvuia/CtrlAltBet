@@ -75,6 +75,7 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         baccaratStartViewModel.firePropertyChanged();
     }
 
+    // todo this is bad
     private List<Image> makeImageFromCard(List<Card> Images) {
         List<Image> cardImages = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
