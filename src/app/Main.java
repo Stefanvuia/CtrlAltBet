@@ -34,6 +34,10 @@ import interface_adapter.launch_menu.sign_up.SignUpViewModel;
 import interface_adapter.launch_menu.sign_up.SignupPresenter;
 import interface_adapter.launch_menu.sign_up.UserSignupController;
 import interface_adapter.war.war_logic.WarIngameViewModel;
+import interface_adapter.war.war_occur.WarGoToWarController;
+import interface_adapter.war.war_occur.WarGoToWarPresenter;
+import interface_adapter.war.war_occur.WarOccurViewModel;
+import interface_adapter.war.war_occur.WarSurrenderController;
 import interface_adapter.war.war_start.WarStartController;
 import interface_adapter.war.war_start.WarStartPresenter;
 import interface_adapter.war.war_start.WarStartViewModel;
@@ -60,6 +64,9 @@ import use_case.game_menu.exit.ExitInteractor;
 import use_case.game_menu.launch_game.LaunchInputBoundary;
 import use_case.game_menu.launch_game.LaunchInteractor;
 import use_case.game_menu.launch_game.LaunchOutputBoundary;
+import use_case.games.war.war_logic.WarGoToWarInputBoundary;
+import use_case.games.war.war_logic.WarGoToWarInteractor;
+import use_case.games.war.war_logic.WarGoToWarOutputBoundary;
 import use_case.games.war.war_started.WarStartInputBoundary;
 import use_case.games.war.war_started.WarStartInteractor;
 import use_case.games.war.war_started.WarStartOutputBoundary;
@@ -81,6 +88,7 @@ import view.launch_menu.LoginView;
 import view.launch_menu.SignupView;
 import view.launch_menu.WelcomeView;
 import view.war.WarIngameView;
+import view.war.WarOccurView;
 import view.war.WarStartView;
 
 import javax.swing.*;
@@ -114,6 +122,7 @@ public class Main {
         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
         WarStartViewModel warStartViewModel = new WarStartViewModel();
         WarIngameViewModel warIngameViewModel = new WarIngameViewModel();
+        WarOccurViewModel warOccurViewModel = new WarOccurViewModel();
         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
         AccountInfoViewModel accountInfoViewModel = new AccountInfoViewModel();
@@ -121,7 +130,8 @@ public class Main {
         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(blackJackStartViewModel, blackJackIngameViewModel, viewManagerModel);
-        WarStartOutputBoundary warstartPresenter = new WarStartPresenter(warStartViewModel, viewManagerModel, warIngameViewModel);
+        WarStartOutputBoundary warstartPresenter = new WarStartPresenter(warStartViewModel, viewManagerModel, warIngameViewModel, warOccurViewModel);
+        WarGoToWarOutputBoundary warGoToWarPresenter = new WarGoToWarPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
         LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, warStartViewModel, viewManagerModel);
@@ -134,6 +144,7 @@ public class Main {
         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, userDataAccessObject, standPresenter);
         BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, userDataAccessObject, blackJackStartPresenter);
         WarStartInputBoundary warStartInputInteractor = new WarStartInteractor(cardsAPI, userDataAccessObject, warstartPresenter);
+        WarGoToWarInputBoundary warGoToWarInteractor = new WarGoToWarInteractor(cardsAPI, userDataAccessObject, warGoToWarPresenter);
         ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
         LaunchInputBoundary launchInteractor = new LaunchInteractor(userDataAccessObject, launchPresenter);
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, userDataAccessObject, baccaratPresenter);
@@ -150,6 +161,8 @@ public class Main {
         BlackJackStandController standController = new BlackJackStandController(standInteractor);
         BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
         WarStartController warStartController = new WarStartController(warStartInputInteractor);
+        WarGoToWarController warGoToWarController = new WarGoToWarController(warGoToWarInteractor);
+        WarSurrenderController warSurrenderController = new WarSurrenderController(warSurrenederInteractor);
         ExitController exitController = new ExitController(exitInteractor);
         LaunchController launchController = new LaunchController(launchInteractor);
         BaccaratController baccaratController = new BaccaratController(baccaratInteractor);
@@ -166,6 +179,7 @@ public class Main {
         BlackJackIngameView ingameView = new BlackJackIngameView(hitController, standController, exitController, blackJackIngameViewModel);
         WarStartView warStartView = new WarStartView(warStartViewModel, exitController, warStartController);
         WarIngameView warIngameView = new WarIngameView(warIngameViewModel);
+        WarOccurView warOccurView = new WarOccurView(warOccurViewModel, warGoToWarController, warSurrenderController, exitController);
         AccountInfoView accountInfoView = new AccountInfoView(accountInfoViewModel, exitController, updateController, signOutController);
         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
@@ -174,6 +188,7 @@ public class Main {
         views.add(ingameView, ingameView.viewName);
         views.add(warStartView, warStartView.viewName);
         views.add(warIngameView, warIngameView.viewName);
+        views.add(warOccurView, warOccurView.viewName);
         views.add(mainMenuView, mainMenuView.viewName);
         views.add(baccaratStartView, baccaratStartView.viewName);
         views.add(welcomeView, welcomeView.viewName);

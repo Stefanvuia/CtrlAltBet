@@ -24,7 +24,7 @@ public class WarOccurViewModel extends ViewModel {
     public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
 
     public WarOccurViewModel() {
-        super("war ingame");
+        super("war occur");
     }
 
     public void setState(WarGameState state) {
@@ -39,7 +39,7 @@ public class WarOccurViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("war surrender", null, this.state);
+        support.firePropertyChange("war occur", null, this.state);
     }
 
     @Override
