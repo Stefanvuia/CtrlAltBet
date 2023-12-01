@@ -2,19 +2,24 @@ package use_case.games.war.war_logic;
 
 import entity.game_logic.WarGameInterface;
 import entity.game_logic.WarPlayer;
+import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
 public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
     final CardsAPIInterface cardsAPI;
     final GameDataAccessInterface dataAccess;
+    final HistoryDataAccessInterface historyDAO;
     final WarGoToWarOutputBoundary warGoToWarPresenter;
+
     public WarGoToWarInteractor(CardsAPIInterface cardsAPI,
                                 GameDataAccessInterface dataAccess,
+                                HistoryDataAccessInterface historyDAO,
                                 WarGoToWarOutputBoundary warGoToWarPresenter){
         this.cardsAPI = cardsAPI;
         this.dataAccess = dataAccess;
         this.warGoToWarPresenter = warGoToWarPresenter;
+        this.historyDAO = historyDAO;
     }
     @Override
     public void execute(WarInputGameData warInputGameData) {
@@ -25,8 +30,7 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
         if(dataAccess.getFund(username) >= bet){
             dataAccess.editFund(username, -bet);
 
-            WarPlayer user = (WarPlayer) game.getPlayer();
-            user.setBet(bet * 2);
+            bet = bet * 2;
 
             /*entity.Card card = cardsAPI.draw(game.getDeck());
             game.addToHand(game.getPlayer(), card);
@@ -38,11 +42,12 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
             int change = 0;
             if(!game.goToWar()){
                 if(game.playerWins()){
-                    change = bet * 3/2 + 2 * bet;
+                    change = bet + bet * 1/4;
                 }
             }else {
-                change = bet * 4;
+                change = bet * 2;
             }
+            historyDAO.addPayout(username, "war", change - bet);
             dataAccess.editFund(username, change);
             warGoToWarPresenter.preparePayoutView(new WarOutputGameData(game));
         } else{

@@ -1,22 +1,26 @@
 package use_case.games.war.war_started;
 
 import entity.game_logic.*;
+import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.GameDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 
 public class WarStartInteractor implements WarStartInputBoundary{
     final CardsAPIInterface cardsAPI;
     final GameDataAccessInterface dataAccess;
+    final HistoryDataAccessInterface historyDAO;
 
     final WarStartOutputBoundary warStartPresenter;
 
     public WarStartInteractor(
             CardsAPIInterface cardsAPI,
             GameDataAccessInterface dataAccess,
+            HistoryDataAccessInterface historyDAO,
             WarStartOutputBoundary warStartPresenter) {
         this.cardsAPI = cardsAPI;
         this.dataAccess = dataAccess;
         this.warStartPresenter = warStartPresenter;
+        this.historyDAO = historyDAO;
     }
 
     public void execute(WarStartInputData warStartData) {
@@ -40,6 +44,9 @@ public class WarStartInteractor implements WarStartInputBoundary{
            if (!game.goToWar()){
                if(game.playerWins()){
                    dataAccess.editFund(username, 2*bet);
+                   historyDAO.addPayout(username, "war", bet);
+               } else {
+                   historyDAO.addPayout(username, "war", -bet);
                }
                warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
            }
