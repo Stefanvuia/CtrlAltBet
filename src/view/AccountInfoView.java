@@ -102,7 +102,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         deposit = new GreenCustomButton(accountInfoViewModel.DEPOSIT_LABEL);
         withdraw = new GreenCustomButton(accountInfoViewModel.WITHDRAW_LABEL);
         signout = new GreenCustomButton(accountInfoViewModel.SIGN_OUT_LABEL);
-        exit = new GreenCustomButton(accountInfoViewModel.EXIT_LABEL);
+        exit = new GreenCustomButton(accountInfoViewModel.BACK_LABEL);
 
         JPanel depositPanel = new GreenCustomPanel();
         depositPanel.add(depositField);
