@@ -69,8 +69,9 @@ public class WarOccurView extends JPanel implements ActionListener, PropertyChan
         this.tablePanel = new BlackJackBackgroundPanel(warOccurViewModel.IMG_PATH);
         gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, 8, 7, 1, 1);
     }
+
     @Override
-    public void actionPerformed (ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         WarGameState currstate = warOccurViewModel.getState();
         Object source = e.getSource();
 
@@ -88,20 +89,25 @@ public class WarOccurView extends JPanel implements ActionListener, PropertyChan
         WarGameState currState = warOccurViewModel.getState();
         showPlayerHand(currState.getPlayerImages());
         showDealerHand(currState.getDealerImages());
-        if(currState.getWentToWar()) {
+        if (currState.getWentToWar()) {
             if (currState.getGame().goToWar()) {
-                JOptionPane.showMessageDialog(this, "You Won the War and Won the double your wager: $" + 2 * currState.getBet());
+                JOptionPane.showMessageDialog(this,
+                        "You Won the War and Won the double your original wager: $" + 2 * currState.getBet());
             } else if (currState.getGame().playerWins()) {
-                JOptionPane.showMessageDialog(this, "You survived the War and Won 3/2 of the wager: $" + (currState.getBet() * 3 / 2));
+                JOptionPane.showMessageDialog(this,
+                        "You survived the War and Won your 1.5 times your original wager: $" + (currState.getBet() * 3 / 2));
             } else {
-                JOptionPane.showMessageDialog(this, "You lost the War and lost double your wager -$" + 2 * currState.getBet());
+                JOptionPane.showMessageDialog(this,
+                        "You lost the War and lost double your wager -$" + 2 * currState.getBet());
             }
-        } else if(currState.getSurrendered()){
-            JOptionPane.showMessageDialog(this, "You have chosen to surrender the War and forfeited half of your wager: -$" + currState.getBet()/2);
+        } else if (currState.getSurrendered()) {
+            JOptionPane.showMessageDialog(this,
+                    "You have chosen to surrender the War and forfeited half of your wager: -$" + currState.getBet() / 2);
         } else if (currState.getErrorMessage() != null) {
             JOptionPane.showMessageDialog(this, currState.getErrorMessage());
         }
     }
+
     private void showPlayerHand(java.util.List<Image> imgs) {
         tablePanel.getBottom().removeAll();
         for (Image img : imgs) {
