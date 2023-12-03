@@ -18,4 +18,29 @@ class CommonUserTest {
     void passwordIsValid() {
         assertEquals(false, user.passwordIsValid());
     }
+
+    @Test
+    void editBalance() {
+        CommonUser user = new CommonUser("Alice", "securepass", LocalDateTime.now(), 200);
+        assertEquals(200, user.getBalance());
+
+        user.editBalance(50);
+        assertEquals(250, user.getBalance());
+
+        user.editBalance(-30);
+        assertEquals(220, user.getBalance());
+    }
+
+}
+class CommonUserFactoryTest {
+
+    @Test
+    void create() {
+        CommonUserFactory factory = new CommonUserFactory();
+        User user = factory.create("Bob", "strongpass", LocalDateTime.now(), 300);
+
+        assertEquals("Bob", user.getName());
+        assertEquals("strongpass", user.getPassword());
+        assertEquals(300, user.getBalance());
+    }
 }
