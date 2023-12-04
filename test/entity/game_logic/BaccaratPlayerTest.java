@@ -23,7 +23,7 @@ class BaccaratPlayerTest {
     @Test
     public void addToHand() {
         player.addToHand(card);
-        assert player.getHand().equals(card);
         assert player.getHand().size() == 1;
+        assert player.getHand().get(0).equals(card);
     }
 }

@@ -1,4 +1,4 @@
-package data_access;
+package use_case.games;
 
 import entity.user.User;
 import use_case.games.GameDataAccessInterface;

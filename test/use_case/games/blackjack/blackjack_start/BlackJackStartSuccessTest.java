@@ -1,8 +1,7 @@
 package use_case.games.blackjack.blackjack_start;
 
-import api.CardsAPIObject;
-import api.TestAPIObject;
-import data_access.InMemoryUserDataAccessObject;
+import use_case.games.blackjack.BlackJackTestAPIObject;
+import use_case.games.InMemoryUserDataAccessObject;
 import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,12 +13,10 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BlackJackStartSuccessTest {
-    private CardsAPIInterface api = new TestAPIObject();
+    private final CardsAPIInterface api = new BlackJackTestAPIObject("JACk");
     private InMemoryUserDataAccessObject dao;
-    private User user;
-    private BlackJackStartInputData inputData;
 
-    private BlackJackStartOutputBoundary successPresenter = new BlackJackStartOutputBoundary() {
+    private final BlackJackStartOutputBoundary successPresenter = new BlackJackStartOutputBoundary() {
 
         @Override
         public void prepareSuccessView(BlackJackStartOutputData outputData) {
@@ -37,12 +34,12 @@ class BlackJackStartSuccessTest {
     @BeforeEach
     void setUp() {
         dao = new InMemoryUserDataAccessObject();
-        user = new CommonUser("cakev","qwerty", LocalDateTime.now(), 1000);
+        User user = new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000);
         dao.save(user);
     }
     @Test
     void successTest() {
-        inputData = new BlackJackStartInputData("cakev", 1000);
+        BlackJackStartInputData inputData = new BlackJackStartInputData("cakev", 1000);
         BlackJackStartInputBoundary interactor = new BlackJackStartInteractor(api, dao, successPresenter);
         interactor.execute(inputData);
     }

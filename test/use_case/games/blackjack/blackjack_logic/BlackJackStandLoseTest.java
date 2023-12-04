@@ -1,10 +1,8 @@
 package use_case.games.blackjack.blackjack_logic;
 
-import api.CardsAPIObject;
-import api.TestAPIObject;
-import data_access.InMemoryHistoryDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import entity.StandardCard;
+import use_case.games.blackjack.BlackJackTestAPIObject;
+import use_case.games.InMemoryHistoryDataAccessObject;
+import use_case.games.InMemoryUserDataAccessObject;
 import entity.game_logic.*;
 import entity.user.CommonUser;
 import entity.user.User;
@@ -19,18 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class BlackJackStandLoseTest {
-    private CardsAPIInterface api = new TestAPIObject();
-    private InMemoryUserDataAccessObject uDao = new InMemoryUserDataAccessObject();
+    private final CardsAPIInterface api = new BlackJackTestAPIObject("JACK");
+    private final InMemoryUserDataAccessObject uDao = new InMemoryUserDataAccessObject();
 
-    private HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
-    private User user;
+    private final HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
 
-    private Player player;
+    private BlackJackGameInterface game;
 
-    private Player dealer;
-    private Game game;
-
-    private BlackJackStandOutputBoundary presenter = new BlackJackStandOutputBoundary() {
+    private final BlackJackStandOutputBoundary presenter = new BlackJackStandOutputBoundary() {
         @Override
         public void prepareWinView(BlackJackOutputGameData outputGameData) {
             fail("win is unexpected");
@@ -51,10 +45,10 @@ public class BlackJackStandLoseTest {
 
     @BeforeEach
     void setUp() {
-        user = new CommonUser("cakev","qwerty", LocalDateTime.now(), 1000);
+        User user = new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000);
         uDao.save(user);
-        dealer = new BlackJackDealer();
-        player = new BlackJackPlayer(1000, "cakev");
+        Player dealer = new BlackJackDealer();
+        Player player = new BlackJackPlayer(1000, "cakev");
         hDao.addUser("cakev");
 
         game = new BlackJackGame(
@@ -68,6 +62,6 @@ public class BlackJackStandLoseTest {
     @Test
     void loseTest() {
         BlackJackStandInputBoundary interactor = new BlackJackStandInteractor(api, uDao, presenter, hDao);
-        interactor.execute(new BlackJackInputGameData((BlackJackGameInterface) game));
+        interactor.execute(new BlackJackInputGameData(game));
     }
 }

@@ -1,8 +1,7 @@
 package use_case.games.blackjack.blackjack_logic;
 
-import api.CardsAPIObject;
-import api.TestAPIObject;
-import data_access.InMemoryHistoryDataAccessObject;
+import use_case.games.blackjack.BlackJackTestAPIObject;
+import use_case.games.InMemoryHistoryDataAccessObject;
 import entity.StandardCard;
 import entity.game_logic.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +12,11 @@ import use_case.games.CardsAPIInterface;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BlackJackHitLoseTest {
-    private CardsAPIInterface api = new TestAPIObject();
+    private final CardsAPIInterface api = new BlackJackTestAPIObject("JACK");
 
-    private HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
+    private final HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
 
-    private BlackJackHitOutputBoundary lPresenter = new BlackJackHitOutputBoundary() {
+    private final BlackJackHitOutputBoundary lPresenter = new BlackJackHitOutputBoundary() {
         @Override
         public void prepareContinueView(BlackJackOutputGameData outputGameData) {
             fail("continue is unexpected");
@@ -31,7 +30,7 @@ class BlackJackHitLoseTest {
         }
     };
 
-    private Game lGame;
+    private BlackJackGameInterface lGame;
 
     @BeforeEach
     void setUp() {
@@ -50,6 +49,6 @@ class BlackJackHitLoseTest {
     @Test
     void loseTest() {
         BlackJackHitInputBoundary interactor = new BlackJackHitInteractor(api, lPresenter, hDao);
-        interactor.execute(new BlackJackInputGameData((BlackJackGameInterface) lGame));
+        interactor.execute(new BlackJackInputGameData(lGame));
     }
 }
