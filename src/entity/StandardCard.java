@@ -1,7 +1,5 @@
 package entity;
 
-import entity.Card;
-
 public class StandardCard implements Card {
     private final String value;
     private final String img;

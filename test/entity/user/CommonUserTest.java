@@ -16,6 +16,6 @@ class CommonUserTest {
 
     @Test
     void passwordIsValid() {
-        assertEquals(false, user.passwordIsValid());
+        assertFalse(user.passwordIsValid());
     }
 }

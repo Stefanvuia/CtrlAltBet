@@ -44,13 +44,13 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     private final JButton signout;
     private final JButton exit;
 
-    private JFormattedTextField depositField;
+    private final JFormattedTextField depositField;
 
-    private JFormattedTextField withdrawField;
+    private final JFormattedTextField withdrawField;
 
-    private JPanel fundsPanel;
+    private final JPanel fundsPanel;
 
-    private JPanel userPanel;
+    private final JPanel userPanel;
 
     private JLabel fundsLabel;
 
@@ -58,7 +58,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     private JButton blackJackButton;
 
-    private JButton baccararatButton;
+    private final JButton baccaratButton;
 
     private JButton warButton;
 
@@ -117,11 +117,11 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         statsPanel.add(new GreenCustomJLabel(accountInfoViewModel.STATISTICS_LABEL));
 
         blackJackButton = new GreenCustomButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
-        baccararatButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
+        baccaratButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
         warButton = new GreenCustomButton(HistoryViewModel.WAR_BUTTON_LABEl);
 
         statsPanel.add(blackJackButton);
-        statsPanel.add(baccararatButton);
+        statsPanel.add(baccaratButton);
         statsPanel.add(warButton);
 
         deposit.addActionListener(this);
@@ -129,7 +129,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         signout.addActionListener(this);
         exit.addActionListener(this);
         blackJackButton.addActionListener(this);
-        baccararatButton.addActionListener(this);
+        baccaratButton.addActionListener(this);
         warButton.addActionListener(this);
 
         // setting initial layout constraints
@@ -157,7 +157,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             signOutController.execute();
         } else if (evt.getSource().equals(exit)) {
             exitController.execute();
-        } else if (evt.getSource().equals(baccararatButton) ||
+        } else if (evt.getSource().equals(baccaratButton) ||
                 evt.getSource().equals(blackJackButton) ||
                 evt.getSource().equals(warButton)) {
             historyController.execute(currState.getUsername(), evt.getActionCommand());
