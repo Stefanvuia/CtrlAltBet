@@ -1,8 +1,10 @@
 package use_case.account_menu.history;
 
 import org.knowm.xchart.*;
+import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
+import java.awt.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
             List<Double> yDataBelow = new ArrayList<>();
 
             double total = 0;
-            double previousTotal;
+            double previousTotal = 0;
 
             for (int i = 0; i < payouts.size(); i++) {
                 previousTotal = total;
@@ -60,18 +62,23 @@ public class HistoryInteractor implements HistoryInputBoundary {
                     xDataBelow.add(zeroCrossX);
                     yDataBelow.add(0.0);
                 }
-
-                if (total >= 0) {
+                if (total == 0) {
                     xDataAbove.add((double)i);
                     yDataAbove.add(total);
-                } else {
                     xDataBelow.add((double)i);
                     yDataBelow.add(total);
+                } else if (total < 0){
+                    xDataBelow.add((double)i);
+                    yDataBelow.add(total);
+                } else {
+                    xDataAbove.add((double)i);
+                    yDataAbove.add(total);
                 }
             }
 
+
             // Create Chart
-            XYChart chart = new XYChartBuilder().width(800).height(600).title(game.toUpperCase() + " Payout History").xAxisTitle("Game").yAxisTitle("Total Payout").build();
+            XYChart chart = new XYChartBuilder().width(800).height(600).title(game.toUpperCase() + " Payout History").xAxisTitle("Game").yAxisTitle("Total Payout").theme(Styler.ChartTheme.GGPlot2).build();
 
             chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Area);
 
@@ -79,14 +86,14 @@ public class HistoryInteractor implements HistoryInputBoundary {
             XYSeries seriesBelow = chart.addSeries("Down by", xDataBelow, yDataBelow);
 
             // Customize
-            seriesAbove.setFillColor(new java.awt.Color(100, 255, 100, 90)); // Green for above 0
-            seriesBelow.setFillColor(new java.awt.Color(255, 100, 100, 90)); // Red for below 0
+            seriesAbove.setFillColor(new Color(100, 255, 100, 90)); // Green for above 0
+            seriesBelow.setFillColor(new Color(255, 100, 100, 90)); // Red for below 0
 
-            seriesAbove.setLineColor(new java.awt.Color(100, 255, 100, 135));
-            seriesBelow.setLineColor(new java.awt.Color(255, 100, 100, 135));
+            seriesAbove.setLineColor(new Color(100, 255, 100, 135));
+            seriesBelow.setLineColor(new Color(255, 100, 100, 135));
 
-            seriesAbove.setMarkerColor(new java.awt.Color(100, 255, 100));
-            seriesBelow.setMarkerColor(new java.awt.Color(255, 100, 100));
+            seriesAbove.setMarkerColor(new Color(100, 255, 100));
+            seriesBelow.setMarkerColor(new Color(255, 100, 100));
 
             seriesAbove.setMarker(SeriesMarkers.CIRCLE);
             seriesBelow.setMarker(SeriesMarkers.CIRCLE);
@@ -94,8 +101,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
             chart.getStyler().setLegendVisible(false);
 
             chart.getStyler().setCursorEnabled(true);
-            chart.getStyler().setCustomCursorXDataFormattingFunction(x -> "Game " + (int)Math.round(x));
-
+            chart.getStyler().setCustomCursorXDataFormattingFunction(x -> "Game " + (int) Math.round(x));
 
             HistoryOutputData outputData = new HistoryOutputData(chart);
             historyPresenter.presentHistoryChart(outputData);
