@@ -104,6 +104,18 @@ public class UpdateInteractorTest {
         updateInteractor = new UpdateInteractor(stubUserDataAccess, stubUserPresenter);
     }
 
+    @Test
+    public void testSuccessfulUpdate() {
+        // Arrange
+        UpdateInputData input = new UpdateInputData("testUser", 150);
+
+        // Act
+        updateInteractor.updateUser(input);
+
+        // Assert
+        assertEquals(150, stubUserPresenter.getPreparedOutput().getFunds());
+    }
+
 
     @Test
     public void testUpdateUserInsufficientFunds() {

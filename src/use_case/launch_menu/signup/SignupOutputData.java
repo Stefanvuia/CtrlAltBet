@@ -13,19 +13,12 @@ public class SignupOutputData {
     private final String user;
 
     /**
-     * The time at which the user was created.
-     */
-    private String creationTime;
-
-    /**
      * Constructs a {@code SignupOutputData} instance with the specified {@code user} and {@code creationTime}.
      *
      * @param user The username of the newly created user.
-     * @param creationTime The time at which the user was created.
      */
-    public SignupOutputData(String user, String creationTime) {
+    public SignupOutputData(String user) {
         this.user = user;
-        this.creationTime = creationTime;
     }
 
     /**
@@ -35,23 +28,5 @@ public class SignupOutputData {
      */
     public String getUser() {
         return user;
-    }
-
-    /**
-     * Retrieves the time at which the user was created.
-     *
-     * @return The creation time.
-     */
-    public String getCreationTime() {
-        return creationTime;
-    }
-
-    /**
-     * Sets the creation time to the specified value.
-     *
-     * @param creationTime The new creation time.
-     */
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
     }
 }

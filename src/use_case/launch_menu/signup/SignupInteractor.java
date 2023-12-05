@@ -76,7 +76,7 @@ public class SignupInteractor implements SignupInputBoundary {
             userDsGateway.save(user);
             historyDAO.addUser(user.getName());
 
-            SignupOutputData accountResponseModel = new SignupOutputData(user.getName(), now.toString());
+            SignupOutputData accountResponseModel = new SignupOutputData(user.getName());
             userPresenter.prepareSuccessView(accountResponseModel);
         }
     }

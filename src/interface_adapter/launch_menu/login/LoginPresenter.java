@@ -51,9 +51,6 @@ public class LoginPresenter implements LoginOutputBoundary {
      */
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        LocalDateTime responseTime = LocalDateTime.parse(response.getLoginTime());
-        response.setLoginTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
-
         LaunchState currState = launchViewModel.getState();
         currState.setUsername(response.getUser().getName());
         launchViewModel.setState(currState);
