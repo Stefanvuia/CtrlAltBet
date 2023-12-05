@@ -21,7 +21,7 @@ class LaunchInteractorTest {
     };
 
     @Test
-    void LaunchTest() {
+    void launchTest() {
         ((InMemoryUserDataAccessObject) dao).save(new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000));
         LaunchInputBoundary interactor = new LaunchInteractor(dao, presenter);
         interactor.execute(new LaunchInputData("cakev", "blackjack"));
