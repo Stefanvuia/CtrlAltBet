@@ -14,9 +14,9 @@ import interface_adapter.launch_menu.login.LoginState;
 import interface_adapter.launch_menu.login.LoginViewModel;
 import interface_adapter.launch_menu.login.UserLoginController;
 import tools.GridBagUtils;
-import view.custom_elements.GreenCustomButton;
-import view.custom_elements.GreenCustomJLabel;
-import view.custom_elements.GreenCustomPanel;
+import view.custom_swing_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomJLabel;
+import view.custom_swing_elements.GreenCustomPanel;
 import interface_adapter.launch_menu.buttons.UserButtonsController;
 
 /**

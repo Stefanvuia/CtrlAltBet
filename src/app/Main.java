@@ -11,6 +11,7 @@ import interface_adapter.account_menu.history.HistoryController;
 import interface_adapter.account_menu.history.HistoryPresenter;
 
 import interface_adapter.account_menu.history.HistoryViewModel;
+import interface_adapter.account_menu.reset_graph.ResetController;
 import interface_adapter.account_menu.sign_out.SignOutController;
 import interface_adapter.account_menu.sign_out.SignOutPresenter;
 import interface_adapter.account_menu.update.UpdatePresenter;
@@ -51,6 +52,9 @@ import interface_adapter.war.war_start.WarStartController;
 import interface_adapter.war.war_start.WarStartPresenter;
 import interface_adapter.war.war_start.WarStartViewModel;
 
+import use_case.account_menu.reset_graph.ResetDataAccessInterface;
+import use_case.account_menu.reset_graph.ResetInputBoundary;
+import use_case.account_menu.reset_graph.ResetInteractor;
 import use_case.account_menu.sign_out.SignOutInputBoundary;
 import use_case.account_menu.sign_out.SignOutInteractor;
 import use_case.account_menu.sign_out.SignOutOutputBoundary;
@@ -121,7 +125,7 @@ public class Main {
 
         FileUserDataAccessObject userDataAccessObject = getDAO();
 
-        HistoryDataAccessInterface historyDAO = getHistoryDAO();
+        HistoryDataAccessObject historyDAO = getHistoryDAO();
         CardsAPIInterface cardsAPI = new CardsAPIObject();
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
@@ -131,16 +135,17 @@ public class Main {
         SignUpViewModel signUpViewModel = new SignUpViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         LaunchViewModel launchViewModel = new LaunchViewModel();
+
         BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
-
         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
-        AccountInfoViewModel accountInfoViewModel = new AccountInfoViewModel();
-        HistoryViewModel historyViewModel = new HistoryViewModel();
         WarStartViewModel warStartViewModel = new WarStartViewModel();
         WarIngameViewModel warIngameViewModel = new WarIngameViewModel();
         WarOccurViewModel warOccurViewModel = new WarOccurViewModel();
+
+        AccountInfoViewModel accountInfoViewModel = new AccountInfoViewModel();
+        HistoryViewModel historyViewModel = new HistoryViewModel();
 
 
         BlackJackStartOutputBoundary blackJackStartPresenter = new BlackJackStartPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
@@ -148,6 +153,11 @@ public class Main {
         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(blackJackStartViewModel, blackJackIngameViewModel, viewManagerModel);
 
         BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
+
+        WarStartOutputBoundary warstartPresenter = new WarStartPresenter(warStartViewModel, viewManagerModel, warIngameViewModel, warOccurViewModel);
+        WarGoToWarOutputBoundary warGoToWarPresenter = new WarGoToWarPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
+        WarSurrenderOutputBoundary warSurrenderPresenter = new WarSurrenderPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
+
         ExitOutputBoundary exitPresenter = new ExitPresenter(launchViewModel, viewManagerModel);
         LaunchOutputBoundary launchPresenter = new LaunchPresenter(blackJackStartViewModel, baccaratStartViewModel, warStartViewModel, viewManagerModel);
         AccountOutputBoundary accountPresenter = new AccountPresenter(accountInfoViewModel, viewManagerModel);
@@ -155,28 +165,27 @@ public class Main {
         UpdateOutputBoundary updatePresenter = new UpdatePresenter(accountInfoViewModel);
         HistoryOutputBoundary historyPresenter = new HistoryPresenter(historyViewModel);
       
-        WarStartOutputBoundary warstartPresenter = new WarStartPresenter(warStartViewModel, viewManagerModel, warIngameViewModel, warOccurViewModel);
-        WarGoToWarOutputBoundary warGoToWarPresenter = new WarGoToWarPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
-        WarSurrenderOutputBoundary warSurrenderPresenter = new WarSurrenderPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
 
         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter, historyDAO);
         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, userDataAccessObject, standPresenter, historyDAO);
         BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, userDataAccessObject, blackJackStartPresenter);
-        ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
-        LaunchInputBoundary launchInteractor = new LaunchInteractor(userDataAccessObject, launchPresenter);
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, userDataAccessObject, baccaratPresenter, historyDAO);
-        AccountInputBoundary accountInteractor = new AccountInteractor(accountPresenter, userDataAccessObject);
-        SignOutInputBoundary signoutInteractor = new SignOutInteractor(signOutPresenter);
-        UpdateInputBoundary updateInteractor = new UpdateInteractor(userDataAccessObject, updatePresenter);
-        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
-      
         WarStartInputBoundary warStartInputInteractor = new WarStartInteractor(cardsAPI, userDataAccessObject, historyDAO, warstartPresenter);
         WarGoToWarInputBoundary warGoToWarInteractor = new WarGoToWarInteractor(cardsAPI, userDataAccessObject, historyDAO, warGoToWarPresenter);
         WarSurrenderInputBoundary warSurrenederInteractor = new WarSurrenderInteractor(cardsAPI, userDataAccessObject, historyDAO, warSurrenderPresenter);
 
+        ExitInputBoundary exitInteractor = new ExitInteractor(exitPresenter);
+        LaunchInputBoundary launchInteractor = new LaunchInteractor(userDataAccessObject, launchPresenter);
+        AccountInputBoundary accountInteractor = new AccountInteractor(accountPresenter, userDataAccessObject);
+        SignOutInputBoundary signoutInteractor = new SignOutInteractor(signOutPresenter);
+        UpdateInputBoundary updateInteractor = new UpdateInteractor(userDataAccessObject, updatePresenter);
+        HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
+
+
         UserButtonsController userButtonsController = makeUserButtonController(viewManagerModel, loginViewModel, signUpViewModel);
         UserSignupController signupController = makeSignUpController(loginViewModel, signUpViewModel, viewManagerModel, userDataAccessObject, historyDAO);
         UserLoginController loginController = makeUserLoginController(loginViewModel, launchViewModel, viewManagerModel, userDataAccessObject);
+        ResetController resetController = makeResetController(historyDAO);
 
         // TODO more helpers if time
         BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
@@ -210,7 +219,8 @@ public class Main {
                 updateController,
                 signOutController,
                 historyController,
-                historyViewModel);
+                historyViewModel,
+                resetController);
         WarStartView warStartView = new WarStartView(warStartViewModel, exitController, warStartController);
         WarIngameView warIngameView = new WarIngameView(warIngameViewModel);
         WarOccurView warOccurView = new WarOccurView(warOccurViewModel, warGoToWarController, warSurrenderController, exitController);
@@ -250,6 +260,16 @@ public class Main {
         return fileUserDataAccessObject;
     }
 
+    public static HistoryDataAccessObject getHistoryDAO() {
+        HistoryDataAccessObject historyDataAccessObject;
+        try {
+            historyDataAccessObject = new HistoryDataAccessObject("./history.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        return historyDataAccessObject;
+    }
+
     private static UserButtonsController makeUserButtonController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignUpViewModel signUpViewModel) {
         UserButtonsOutputBoundary welcomeButtonsPresenter = new UserButtonsPresenter(viewManagerModel, loginViewModel, signUpViewModel);
         UserButtonsInputBoundary welcomeButtonsInteractor = new UserButtonsInteractor(welcomeButtonsPresenter);
@@ -263,19 +283,14 @@ public class Main {
         return new UserSignupController(signupInputInteractor);
     }
 
-    public static HistoryDataAccessObject getHistoryDAO() {
-        HistoryDataAccessObject historyDataAccessObject;
-        try {
-            historyDataAccessObject = new HistoryDataAccessObject("./history.csv");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
-        }
-        return historyDataAccessObject;
-    }
-
     private static UserLoginController makeUserLoginController(LoginViewModel loginViewModel, LaunchViewModel launchViewModel, ViewManagerModel viewManagerModel, FileUserDataAccessObject userDataAccessObject) {
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel, launchViewModel, viewManagerModel);
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
         return new UserLoginController(loginInteractor);
+    }
+
+    private static ResetController makeResetController(ResetDataAccessInterface resetDAO) {
+        ResetInputBoundary resetInteractor = new ResetInteractor(resetDAO);
+        return new ResetController(resetInteractor);
     }
 }

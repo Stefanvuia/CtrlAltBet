@@ -6,8 +6,8 @@ import interface_adapter.war.war_occur.WarGoToWarController;
 import interface_adapter.war.war_occur.WarOccurViewModel;
 import interface_adapter.war.war_occur.WarSurrenderController;
 import tools.GridBagUtils;
-import view.custom_elements.BlackJackBackgroundPanel;
-import view.custom_elements.GreenCustomButton;
+import view.custom_swing_elements.BlackJackBackgroundPanel;
+import view.custom_swing_elements.GreenCustomButton;
 
 import javax.swing.*;
 import java.awt.*;

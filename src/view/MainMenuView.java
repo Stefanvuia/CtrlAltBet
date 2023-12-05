@@ -5,14 +5,12 @@ import interface_adapter.game_menu.launch_game.LaunchController;
 import interface_adapter.game_menu.launch_game.LaunchState;
 import interface_adapter.game_menu.launch_game.LaunchViewModel;
 import tools.GridBagUtils;
-import view.custom_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * Represents the graphical user interface for the main menu view.

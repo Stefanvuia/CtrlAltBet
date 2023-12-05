@@ -3,7 +3,7 @@ package view.war;
 import interface_adapter.war.WarGameState;
 import interface_adapter.war.war_logic.WarIngameViewModel;
 import tools.GridBagUtils;
-import view.custom_elements.BlackJackBackgroundPanel;
+import view.custom_swing_elements.BlackJackBackgroundPanel;
 
 import javax.swing.*;
 import java.awt.*;

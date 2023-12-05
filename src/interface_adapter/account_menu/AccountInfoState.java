@@ -8,9 +8,10 @@ public class AccountInfoState {
     private int deposit = 0;
 
     private int withdraw = 0;
+  
     private String username = "";
 
-    private int funds = 0;
+    private int deposit = 0;
 
     private String errorMessage = null;
 

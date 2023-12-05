@@ -1,26 +1,44 @@
 package use_case.games.baccarat;
 
-import entity.game_logic.BaccaratGame;
-import entity.game_logic.BaccaratGameInterface;
-import entity.game_logic.BaccaratPlayer;
-import entity.game_logic.Player;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * Interactor class for handling Baccarat game-related operations, including user input processing and game execution.
+ */
 public class BaccaratInteractor implements BaccaratInputBoundary {
 
+    /**
+     * Data access object for managing Baccarat game data.
+     */
     final BaccaratDataAccess baccaratDataAccess;
 
+    /**
+     * Game logic handler for Baccarat game rules and outcomes.
+     */
     final BaccaratGameLogic baccaratGameLogic;
 
+    /**
+     * Presenter responsible for displaying Baccarat game output to the user.
+     */
     final BaccaratOutputBoundary baccaratPresenter;
 
+    /**
+     * Data access interface for handling user history data.
+     */
     final HistoryDataAccessInterface historyDAO;
 
+    /**
+     * Constructs a BaccaratInteractor object with the specified dependencies.
+     *
+     * @param cardsAPI           The interface for interacting with the Cards API.
+     * @param gameDAO            Data access interface for handling game-related data.
+     * @param baccaratPresenter  Presenter for displaying Baccarat game output.
+     * @param historyDAO         Data access interface for handling user history data.
+     */
     public BaccaratInteractor(CardsAPIInterface cardsAPI,
                               GameDataAccessInterface gameDAO,
                               BaccaratOutputBoundary baccaratPresenter,
@@ -31,6 +49,11 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         this.historyDAO = historyDAO;
     }
 
+    /**
+     * Executes the Baccarat game based on the provided input data.
+     *
+     * @param baccaratInputData The input data containing the user's bets and username.
+     */
     @Override
     public void execute(BaccaratInputData baccaratInputData) {
         String username = baccaratInputData.getUsername();
