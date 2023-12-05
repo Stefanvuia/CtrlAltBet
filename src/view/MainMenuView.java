@@ -12,7 +12,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents the graphical user interface for the main menu view.
+ * Extends JPanel and implements ActionListener.
+ */
 public class MainMenuView extends JPanel implements ActionListener {
+
+    /**
+     * The name associated with this view.
+     */
     public final String viewName = "main menu";
 
     private final LaunchViewModel launchViewModel;
@@ -29,6 +37,13 @@ public class MainMenuView extends JPanel implements ActionListener {
 
     final JButton account;
 
+    /**
+     * Constructs a new MainMenuView with the specified parameters.
+     *
+     * @param launchViewModel The view model providing data for the launch menu view.
+     * @param launchController The controller responsible for handling game launch operations.
+     * @param accountController The controller responsible for handling account-related operations.
+     */
     public MainMenuView(LaunchViewModel launchViewModel, LaunchController launchController, AccountController accountController) {
         this.accountController = accountController;
         this.launchController = launchController;
@@ -62,6 +77,14 @@ public class MainMenuView extends JPanel implements ActionListener {
         gridBagUtils.addComponentWithConstraints(war, 0, 1, 1, 1, 1, 1);
     }
 
+    /**
+     * Responds to button click events in the main menu.
+     *
+     * This method is called when a button in the main menu is clicked. It delegates the execution
+     * of the corresponding operation to the appropriate controller based on the clicked button.
+     *
+     * @param e The ActionEvent representing the button click event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         LaunchState currState = launchViewModel.getState();
