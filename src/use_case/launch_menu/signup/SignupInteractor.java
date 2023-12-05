@@ -6,15 +6,43 @@ import entity.user.UserFactory;
 import entity.user.UserDataAccessFailed;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 
-
 import java.time.LocalDateTime;
 
+/**
+ * The {@code SignupInteractor} class implements the {@code SignupInputBoundary} interface and is responsible
+ * for handling user signup interactions in the launch menu.
+ */
 public class SignupInteractor implements SignupInputBoundary {
-    final SignupUserDataAccessInterface userDsGateway;
-    final SignupOutputBoundary userPresenter;
-    final UserFactory userFactory;
-    final HistoryDataAccessInterface historyDAO;
 
+    /**
+     * The interface for accessing user data during signup.
+     */
+    private final SignupUserDataAccessInterface userDsGateway;
+
+    /**
+     * The presenter responsible for handling the output of user signup interactions.
+     */
+    private final SignupOutputBoundary userPresenter;
+
+    /**
+     * The factory responsible for creating user objects.
+     */
+    private final UserFactory userFactory;
+
+    /**
+     * The interface for accessing user history data during signup.
+     */
+    private final HistoryDataAccessInterface historyDAO;
+
+    /**
+     * Constructs a {@code SignupInteractor} with the specified {@code signupUserDataAccessInterface},
+     * {@code signupOutputBoundary}, {@code userFactory}, and {@code historyDAO}.
+     *
+     * @param signupUserDataAccessInterface The interface for accessing user data during signup.
+     * @param signupOutputBoundary The presenter responsible for handling the output of user signup interactions.
+     * @param userFactory The factory responsible for creating user objects.
+     * @param historyDAO The interface for accessing user history data during signup.
+     */
     public SignupInteractor(SignupUserDataAccessInterface signupUserDataAccessInterface, SignupOutputBoundary signupOutputBoundary,
                             UserFactory userFactory, HistoryDataAccessInterface historyDAO) {
         this.userDsGateway = signupUserDataAccessInterface;
@@ -23,6 +51,14 @@ public class SignupInteractor implements SignupInputBoundary {
         this.historyDAO = historyDAO;
     }
 
+    /**
+     * Initiates the process of creating a new user based on the provided {@code signupInputData}.
+     *
+     * <p>If the user already exists or the passwords do not match, a fail view is prepared with an appropriate message.
+     * Otherwise, a new user is created, and if the password is valid, it is saved along with user history.</p>
+     *
+     * @param signupInputData The input data containing information necessary for user signup.
+     */
     @Override
     public void createUser(SignupInputData signupInputData) {
         if (userDsGateway.existsByName(signupInputData.getName())) {
