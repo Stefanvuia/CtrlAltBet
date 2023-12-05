@@ -2,8 +2,6 @@ package interface_adapter.war.war_occur;
 
 import entity.Card;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.blackjack.blackjack_logic.BlackJackIngameViewModel;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.war.WarGameState;
 import interface_adapter.war.war_start.WarStartState;
 import interface_adapter.war.war_start.WarStartViewModel;
@@ -57,6 +55,12 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
+        WarGameState errorGameState = warOccurViewModel.getState();
+        errorGameState.setErrorMessage(error);
+        warOccurViewModel.setState(errorGameState);
+        warOccurViewModel.firePropertyChanged();
+
+        errorGameState.setErrorMessage(null);
 
     }
     private List<Image> makeImages(List<Card> imageLinks) {

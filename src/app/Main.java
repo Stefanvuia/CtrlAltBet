@@ -170,9 +170,9 @@ public class Main {
         UpdateInputBoundary updateInteractor = new UpdateInteractor(userDataAccessObject, updatePresenter);
         HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDAO, historyPresenter);
       
-        WarStartInputBoundary warStartInputInteractor = new WarStartInteractor(cardsAPI, userDataAccessObject, warstartPresenter);
-        WarGoToWarInputBoundary warGoToWarInteractor = new WarGoToWarInteractor(cardsAPI, userDataAccessObject, warGoToWarPresenter);
-        WarSurrenderInputBoundary warSurrenederInteractor = new WarSurrenderInteractor(cardsAPI, userDataAccessObject, warSurrenderPresenter);
+        WarStartInputBoundary warStartInputInteractor = new WarStartInteractor(cardsAPI, userDataAccessObject, historyDAO, warstartPresenter);
+        WarGoToWarInputBoundary warGoToWarInteractor = new WarGoToWarInteractor(cardsAPI, userDataAccessObject, historyDAO, warGoToWarPresenter);
+        WarSurrenderInputBoundary warSurrenederInteractor = new WarSurrenderInteractor(cardsAPI, userDataAccessObject, historyDAO, warSurrenderPresenter);
 
         UserButtonsController userButtonsController = makeUserButtonController(viewManagerModel, loginViewModel, signUpViewModel);
         UserSignupController signupController = makeSignUpController(loginViewModel, signUpViewModel, viewManagerModel, userDataAccessObject, historyDAO);

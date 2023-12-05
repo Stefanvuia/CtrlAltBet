@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WarPlayer extends Player{
-    private int bet;
+    private final int bet;
     private final String username;
 
     public WarPlayer(int bet, String username) {
@@ -26,7 +26,6 @@ public class WarPlayer extends Player{
     public int getBet() {
         return this.bet;
     }
-    public void setBet(int bet) { this.bet = bet; }
 
     public String getUsername() {
         return this.username;

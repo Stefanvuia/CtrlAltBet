@@ -55,7 +55,7 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
 
         start = new GreenCustomButton(warStartViewModel.BET_LABEL);
         info = new GreenCustomButton(warStartViewModel.INFO_LABEL);
-        exit = new GreenCustomButton(warStartViewModel.EXIT_LABEL);
+        exit = new RedCustomButton(warStartViewModel.EXIT_LABEL);
         max = new GreenCustomButton(warStartViewModel.MAX_BET_LABEL + maxBet);
         min = new GreenCustomButton(warStartViewModel.MIN_BET_LABEL);
         half = new GreenCustomButton(warStartViewModel.HALF_BET_LABEL + halfBet);

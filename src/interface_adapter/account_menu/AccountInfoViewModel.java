@@ -21,6 +21,8 @@ public class AccountInfoViewModel extends ViewModel {
 
     public final String EXIT_LABEL = "exit";
 
+    public final String BACK_LABEL = "back";
+
     public final String SUCCESS_NOTE = "Successfully edited funds!";
 
     public AccountInfoState getAccountInfoState() {

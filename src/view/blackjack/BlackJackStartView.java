@@ -64,7 +64,7 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
 
         start = new GreenCustomButton(blackJackStartViewModel.BET_LABEL);
         info = new GreenCustomButton(blackJackStartViewModel.INFO_LABEL);
-        exit = new GreenCustomButton(blackJackStartViewModel.EXIT_LABEL);
+        exit = new RedCustomButton(blackJackStartViewModel.EXIT_LABEL);
         max = new GreenCustomButton(blackJackStartViewModel.MAX_BET_LABEL + maxBet);
         min = new GreenCustomButton(blackJackStartViewModel.MIN_BET_LABEL);
         half = new GreenCustomButton(blackJackStartViewModel.HALF_BET_LABEL + halfBet);
