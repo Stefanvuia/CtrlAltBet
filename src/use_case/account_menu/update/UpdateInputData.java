@@ -29,29 +29,11 @@ private int balance;
     }
 
     /**
-     * Sets the username for the update.
-     *
-     * @param username The new username to be set.
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
      * Gets the new balance value for the user.
      *
      * @return The new balance value to be set.
      */
     public int getBalance() {
         return balance;
-    }
-
-    /**
-     * Sets the new balance value for the user.
-     *
-     * @param balance The new balance value to be set.
-     */
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 }

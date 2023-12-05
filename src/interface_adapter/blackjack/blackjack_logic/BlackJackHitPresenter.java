@@ -1,6 +1,8 @@
 package interface_adapter.blackjack.blackjack_logic;
 
+import constants.Constants;
 import entity.Card;
+import entity.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
@@ -19,6 +21,8 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
 
     private final BlackJackIngameViewModel blackJackIngameViewModel;
     private final ViewManagerModel viewManagerModel;
+
+    private final ImageFactory imageFactory = new ImageFactory();
 
     public BlackJackHitPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                  ViewManagerModel viewManagerModel,
@@ -39,15 +43,15 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
             dealerImages.add(
                     ImageIO.read(
                             new URL(outputGameData.getGame().getDealer().getHand().get(0).getImg())).getScaledInstance(
-                            blackJackIngameViewModel.CARD_WIDTH,
-                            blackJackIngameViewModel.CARD_HEIGHT,
+                            Constants.CARD_WIDTH,
+                            Constants.CARD_HEIGHT,
                             Image.SCALE_SMOOTH)
             );
             dealerImages.add(
                     ImageIO.read(
                             new URL(blackJackIngameViewModel.CARD_BACK_URL)).getScaledInstance(
-                                    blackJackIngameViewModel.CARD_WIDTH,
-                                    blackJackIngameViewModel.CARD_HEIGHT,
+                                    Constants.CARD_WIDTH,
+                                    Constants.CARD_HEIGHT,
                                     Image.SCALE_SMOOTH)
             );
         } catch (IOException e) {
@@ -88,20 +92,12 @@ public class BlackJackHitPresenter implements BlackJackHitOutputBoundary {
     }
 
     private List<Image> makeImages(List<Card> imageLinks) {
-        List<Image> images = new ArrayList<>();
+        List<Image> cardImages = new ArrayList<>();
         for (Card card : imageLinks) {
-            URL url;
             Image image;
-            try {
-                url = new URL(card.getImg());
-                image = ImageIO.read(url).getScaledInstance(blackJackIngameViewModel.CARD_WIDTH,
-                        blackJackIngameViewModel.CARD_HEIGHT,
-                        Image.SCALE_SMOOTH);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            images.add(image);
+            image = imageFactory.create(card);
+            cardImages.add(image);
         }
-        return images;
+        return cardImages;
     }
 }

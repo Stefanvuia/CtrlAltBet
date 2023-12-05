@@ -78,10 +78,7 @@ public class CardsAPIObject implements CardsAPIInterface {
             assert response.body() != null;
             String responseBody = response.body().string();
             return new JSONObject(responseBody);
-
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException | JSONException e) { throw new RuntimeException(e); }
     }
 
     /**

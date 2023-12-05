@@ -5,7 +5,7 @@ import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
 import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

@@ -5,7 +5,7 @@ import interface_adapter.war.war_start.WarStartController;
 import interface_adapter.war.war_start.WarStartState;
 import interface_adapter.war.war_start.WarStartViewModel;
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

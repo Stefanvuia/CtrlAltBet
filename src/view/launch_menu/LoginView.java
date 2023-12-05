@@ -14,33 +14,66 @@ import interface_adapter.launch_menu.login.LoginState;
 import interface_adapter.launch_menu.login.LoginViewModel;
 import interface_adapter.launch_menu.login.UserLoginController;
 import tools.GridBagUtils;
-import view.custom_elements.GreenCustomButton;
-import view.custom_elements.GreenCustomJLabel;
-import view.custom_elements.GreenCustomPanel;
+import view.custom_swing_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomJLabel;
+import view.custom_swing_elements.GreenCustomPanel;
 import interface_adapter.launch_menu.buttons.UserButtonsController;
 
+/**
+ * The graphical representation of the login view for the application.
+ * Allows users to enter their username and password for authentication.
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
-    public String viewName = "log in";
+
     /**
-     * The username chosen by the user
+     * The name of the view, used for identification.
+     */
+    public String viewName = "log in";
+
+    /**
+     * The ViewModel associated with the login functionality.
      */
     private final LoginViewModel loginViewModel;
 
-    private final UserButtonsController userButtonsController;
-    final JTextField username = new JTextField(15);
     /**
-     * The password
+     * The controller for handling user interactions with buttons.
+     */
+    private final UserButtonsController userButtonsController;
+
+    /**
+     * The text field for entering the username.
+     */
+    final JTextField username = new JTextField(15);
+
+    /**
+     * The password field for entering the user's password.
      */
     final JPasswordField password = new JPasswordField(15);
 
+    /**
+     * The login button for initiating the login process.
+     */
     final JButton logIn;
+
+    /**
+     * The cancel button for canceling the login process.
+     */
     final JButton cancel;
 
-    private final UserLoginController userLoginController;
     /**
-     * A window with a title and a JButton.
+     * The controller responsible for handling user login operations.
      */
-    public LoginView(UserLoginController userLoginController, LoginViewModel loginViewModel, UserButtonsController userButtonsController) {
+    private final UserLoginController userLoginController;
+
+    /**
+     * Creates a new instance of the LoginView.
+     *
+     * @param userLoginController  The controller for handling user login operations.
+     * @param loginViewModel       The ViewModel associated with the login functionality.
+     * @param userButtonsController The controller for handling user interactions with buttons.
+     */
+    public LoginView(UserLoginController userLoginController, LoginViewModel loginViewModel,
+                     UserButtonsController userButtonsController) {
         this.userLoginController = userLoginController;
         this.loginViewModel = loginViewModel;
         this.userButtonsController = userButtonsController;
@@ -77,25 +110,22 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     /**
      * React to a button click that results in evt.
+     *
+     * @param evt The ActionEvent triggered by a button click.
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(cancel)) {
             userButtonsController.execute();
         } else if (evt.getSource().equals(logIn)) {
             userLoginController.login(username.getText(), String.valueOf(password.getPassword()));
-//            try {
-//                LoginOutputData response = userLoginController.login(username.getText(), String.valueOf(password.getPassword()));
-//                userViewModel.setCurrentUser(response.getUser().getName());
-//                userViewModel.setBalance(response.getUser().getBalance());
-//                JOptionPane.showMessageDialog(this, "%s Login.".formatted(username.getText()));
-//                userViewModel.setState(AccountInfoViewModel.LoginState.LOGGED_IN);
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(this, e.getMessage());
-//            }
         }
-
     }
 
+    /**
+     * Handles property change events related to the login process.
+     *
+     * @param evt The PropertyChangeEvent triggered when a property changes.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState currState = loginViewModel.getState();
@@ -107,9 +137,15 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         password.setText("");
     }
 
-    private void textFieldStyleHelper (JTextField textField) {
+    /**
+     * Helper method to apply a consistent style to text fields.
+     *
+     * @param textField The JTextField to apply the style to.
+     */
+    private void textFieldStyleHelper(JTextField textField) {
         textField.setFont(new Font("Courier", Font.BOLD, 28));
-        textField.setBorder(new CompoundBorder(new LineBorder(new Color(144, 227, 154), 1), new EmptyBorder(10, 10, 10, 10)));
+        textField.setBorder(new CompoundBorder(new LineBorder(new Color(144, 227, 154), 1),
+                new EmptyBorder(10, 10, 10, 10)));
         textField.setOpaque(true);
         textField.setBackground(new Color(53, 70, 62));
         textField.setForeground(new Color(144, 227, 154));

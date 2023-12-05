@@ -3,7 +3,7 @@ package view.baccarat;
 import interface_adapter.baccarat.BaccaratGameState;
 import interface_adapter.baccarat.BaccaratGameViewModel;
 import tools.GridBagUtils;
-import view.custom_elements.BaccaratBackgroundPanel;
+import view.custom_swing_elements.BaccaratBackgroundPanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -13,7 +13,7 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -62,13 +62,13 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     private final JButton signout;
     private final JButton exit;
 
-    private JFormattedTextField depositField;
+    private final JFormattedTextField depositField;
 
-    private JFormattedTextField withdrawField;
+    private final JFormattedTextField withdrawField;
 
-    private JPanel fundsPanel;
+    private final JPanel fundsPanel;
 
-    private JPanel userPanel;
+    private final JPanel userPanel;
 
     private JLabel fundsLabel;
 
@@ -76,7 +76,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     private JButton blackJackButton;
 
-    private JButton baccararatButton;
+    private final JButton baccaratButton;
 
     private JButton warButton;
 
@@ -146,12 +146,12 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         statsPanel.add(new GreenCustomJLabel(accountInfoViewModel.STATISTICS_LABEL));
 
         blackJackButton = new GreenCustomButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
-        baccararatButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
+        baccaratButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
         warButton = new GreenCustomButton(HistoryViewModel.WAR_BUTTON_LABEl);
         resetGraph = new GreenCustomButton(HistoryViewModel.RESET_GRAPH_LABEL);
 
         statsPanel.add(blackJackButton);
-        statsPanel.add(baccararatButton);
+        statsPanel.add(baccaratButton);
         statsPanel.add(warButton);
 
         // Positioning Reset Graph button
@@ -175,7 +175,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         signout.addActionListener(this);
         exit.addActionListener(this);
         blackJackButton.addActionListener(this);
-        baccararatButton.addActionListener(this);
+        baccaratButton.addActionListener(this);
         warButton.addActionListener(this);
         resetGraph.addActionListener(this);
 
@@ -203,13 +203,15 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
      */
     public void actionPerformed(ActionEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
-        if ((evt.getSource().equals(deposit) && currState.getChange() > 0) || (evt.getSource().equals(withdraw) && currState.getChange() < 0)) {
-            updateController.updateUser(currState.getUsername(), currState.getChange());
+        if ((evt.getSource().equals(deposit) && currState.getDeposit() > 0)) {
+            updateController.updateUser(currState.getUsername(), currState.getDeposit());
+        } else if ((evt.getSource().equals(withdraw) && currState.getWithdraw() > 0)) {
+            updateController.updateUser(currState.getUsername(), -currState.getWithdraw());
         } else if (evt.getSource().equals(signout)) {
             signOutController.execute();
         } else if (evt.getSource().equals(exit)) {
             exitController.execute();
-        } else if (evt.getSource().equals(baccararatButton) ||
+        } else if (evt.getSource().equals(baccaratButton) ||
                 evt.getSource().equals(blackJackButton) ||
                 evt.getSource().equals(warButton)) {
             historyController.execute(currState.getUsername(), evt.getActionCommand());
@@ -256,7 +258,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             userPanel.add(userLabel);
             revalidate();
             repaint();
-            if (Math.abs(currState.getChange()) > 0) {
+            if (currState.getWithdraw() > 0 || currState.getDeposit() > 0) {
                 JOptionPane.showMessageDialog(this, accountInfoViewModel.SUCCESS_NOTE);
             }
         } else if (evt.getPropertyName().equals("account info")) {
@@ -274,12 +276,11 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
      */
     @Override
     public void insertUpdate(DocumentEvent e) {
-        // todo fix bug
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
         if (e.getDocument() == depositField.getDocument()) {
-            currState.setChange(Integer.parseInt(depositField.getText()));
+            currState.setDeposit(Integer.parseInt(depositField.getText()));
         } else if (e.getDocument() == withdrawField.getDocument()) {
-            currState.setChange(-Integer.parseInt(withdrawField.getText()));
+            currState.setWithdraw(Integer.parseInt(withdrawField.getText()));
         }
     }
 

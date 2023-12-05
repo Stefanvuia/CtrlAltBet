@@ -1,9 +1,8 @@
 package view.launch_menu;
 
-
 import interface_adapter.launch_menu.WelcomeViewModel;
 import interface_adapter.launch_menu.buttons.UserButtonsController;
-import view.custom_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,18 +10,42 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The graphical representation of the welcome view for the application.
+ * Provides options for users to navigate to the login or sign-up views.
+ */
 public class WelcomeView extends JPanel implements ActionListener {
 
+    /**
+     * The name of the view, used for identification.
+     */
     public final String viewName = "welcome";
 
+    /**
+     * The ViewModel associated with the welcome functionality.
+     */
     private final WelcomeViewModel welcomeViewModel;
 
+    /**
+     * The controller for handling user interactions with buttons.
+     */
     private final UserButtonsController userButtonsController;
+
+    /**
+     * The button for navigating to the login view.
+     */
     private final JButton logIn;
+
+    /**
+     * The button for navigating to the sign-up view.
+     */
     private final JButton signUp;
 
     /**
-     * A window with a title and a JButton.
+     * Creates a new instance of the WelcomeView.
+     *
+     * @param welcomeViewModel      The ViewModel associated with the welcome functionality.
+     * @param userButtonsController The controller for handling user interactions with buttons.
      */
     public WelcomeView(WelcomeViewModel welcomeViewModel, UserButtonsController userButtonsController) {
         this.welcomeViewModel = welcomeViewModel;
@@ -46,6 +69,8 @@ public class WelcomeView extends JPanel implements ActionListener {
 
     /**
      * React to a button click that results in evt.
+     *
+     * @param evt The ActionEvent triggered by a button click.
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(logIn)) {

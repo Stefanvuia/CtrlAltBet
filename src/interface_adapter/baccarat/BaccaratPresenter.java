@@ -1,26 +1,46 @@
 package interface_adapter.baccarat;
 
 import entity.Card;
+import entity.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import use_case.games.baccarat.BaccaratOutputBoundary;
 import use_case.games.baccarat.BaccaratOutputData;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
+/**
+ * Presenter class for the Baccarat game responsible for preparing the view based on the output data.
+ */
 public class BaccaratPresenter implements BaccaratOutputBoundary {
+
+    /**
+     * The ViewModel representing the Baccarat start state.
+     */
     private final BaccaratStartViewModel baccaratStartViewModel;
 
+    /**
+     * The ViewModel representing the current state of the Baccarat game.
+     */
     private final BaccaratGameViewModel baccaratGameViewModel;
 
+    /**
+     * The ViewManagerModel for managing active views.
+     */
     final ViewManagerModel viewManagerModel;
 
+    private final ImageFactory imageFactory = new ImageFactory();
+
+    /**
+     * Constructs a BaccaratPresenter with the provided ViewModels and ViewManagerModel.
+     *
+     * @param baccaratStartViewModel The ViewModel for the Baccarat start state.
+     * @param baccaratGameViewModel  The ViewModel for the current state of the Baccarat game.
+     * @param viewManagerModel       The ViewManagerModel for managing active views.
+     */
     public BaccaratPresenter(BaccaratStartViewModel baccaratStartViewModel,
                              BaccaratGameViewModel baccaratGameViewModel,
                              ViewManagerModel viewManagerModel) {
@@ -29,6 +49,11 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * Prepares the view for displaying the payout information after a Baccarat game.
+     *
+     * @param baccaratOutputData The output data containing the game result and payout information.
+     */
     @Override
     public void preparePayoutView(BaccaratOutputData baccaratOutputData) {
 
@@ -63,6 +88,11 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         timer.start();
     }
 
+    /**
+     * Prepares the view for displaying a fail message after an unsuccessful Baccarat game.
+     *
+     * @param baccaratOutputData The output data containing the failure message.
+     */
     @Override
     public void prepareFailView(BaccaratOutputData baccaratOutputData) {
         BaccaratStartState currState = baccaratStartViewModel.getState();
@@ -75,40 +105,12 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         baccaratStartViewModel.firePropertyChanged();
     }
 
-    // todo this is bad
     private List<Image> makeImageFromCard(List<Card> Images) {
         List<Image> cardImages = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            URL url = null;
-            Image image = null;
-
-            if (i < 2) {
-                try {
-                    url = new URL(Images.get(i).getImg());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (Images.size() > 2) {
-                try {
-                    url = new URL(Images.get(i).getImg());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            if (url != null) {
-                try {
-                    image = ImageIO.read(url).getScaledInstance(baccaratGameViewModel.CARD_WIDTH,
-                            baccaratGameViewModel.CARD_HEIGHT,
-                            Image.SCALE_SMOOTH);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            if(image != null) {
-                cardImages.add(image);
-            }
+        for (Card card : Images) {
+            Image image;
+            image = imageFactory.create(card);
+            cardImages.add(image);
         }
         return cardImages;
     }
