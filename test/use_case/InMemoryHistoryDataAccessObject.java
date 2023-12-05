@@ -1,4 +1,4 @@
-package use_case.games;
+package use_case;
 
 import use_case.account_menu.history.HistoryDataAccessInterface;
 
