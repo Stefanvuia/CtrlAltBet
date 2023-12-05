@@ -25,8 +25,19 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
+/**
+ * Represents the graphical user interface for the account information view.
+ * Extends JPanel and implements ActionListener, PropertyChangeListener, and DocumentListener.
+ */
 public class AccountInfoView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
+
+    // Fields and components
+
+    /**
+     * The name associated with this view.
+     */
     public String viewName = "account info";
+
     private final AccountInfoViewModel accountInfoViewModel;
 
     private final HistoryController historyController;
@@ -63,7 +74,14 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     private JButton warButton;
 
     /**
-     * A window with a title and a JButton.
+     * Constructs a new AccountInfoView with the specified parameters.
+     *
+     * @param accountInfoViewModel The view model providing data for the account information view.
+     * @param exitController       The controller responsible for handling exit-related operations.
+     * @param updateController     The controller responsible for handling user update operations.
+     * @param signOutController    The controller responsible for handling sign-out operations.
+     * @param historyController    The controller responsible for handling history-related operations.
+     * @param historyViewModel     The view model providing data for the history view.
      */
     public AccountInfoView(AccountInfoViewModel accountInfoViewModel,
                            ExitController exitController,
@@ -164,6 +182,10 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * Responds to changes in properties, particularly the "history" and "account info" properties.
+     * @param evt The PropertyChangeEvent object containing information about the property change.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
@@ -193,6 +215,13 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         depositField.setValue(0);
     }
 
+    /**
+     * Responds to text insertion events in the document.
+     * This method is called when text is inserted into the associated document (e.g., deposit or
+     * withdrawal fields). It updates the current state with the entered change amount based on the
+     * field where the insertion occurred.
+     * @param e The DocumentEvent representing the insertion event.
+     */
     @Override
     public void insertUpdate(DocumentEvent e) {
         // todo fix bug
@@ -204,12 +233,31 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * Responds to text removal events in the document.
+     * This method is called when text is removed from the associated document. It does not perform
+     * any specific actions in response to text removal events.
+     * @param e The DocumentEvent representing the removal event.
+     */
     @Override
     public void removeUpdate(DocumentEvent e) {}
 
+    /**
+     * Responds to changes in attributes of the associated document.
+     * This method is called when attributes of the associated document change. It does not perform
+     * any specific actions in response to changes in attributes.
+     * @param e The DocumentEvent representing the change event.
+     */
     @Override
     public void changedUpdate(DocumentEvent e) {}
 
+    /**
+     * Displays the given XYChart in a new frame.
+     * This method creates a new frame to display the provided XYChart. The chart is added to the
+     * frame using XChartPanel, and the frame is set to be disposed of when closed. The frame size
+     * is set to 800x600, and it is displayed in the center relative to the current view.
+     * @param chart The XYChart to be displayed.
+     */
     private void displayChart(XYChart chart) {
         // Create a new frame for the chart popup
         JFrame chartFrame = new JFrame("Chart");

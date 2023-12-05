@@ -5,6 +5,10 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * Represents the view model for the account information in the user interface.
+ * Extends ViewModel and manages the state of the account information.
+ */
 public class AccountInfoViewModel extends ViewModel {
     private AccountInfoState accountInfoState = new AccountInfoState();
     public final String USER_LABEL = "current user: ";
@@ -25,26 +29,46 @@ public class AccountInfoViewModel extends ViewModel {
 
     public final String SUCCESS_NOTE = "Successfully edited funds!";
 
+    /**
+     * Retrieves the current state of the account information.
+     *
+     * @return The account information state.
+     */
     public AccountInfoState getAccountInfoState() {
         return accountInfoState;
     }
 
+    /**
+     * Sets the state of the account information.
+     *
+     * @param accountInfoState The new account information state.
+     */
     public void setAccountInfoState(AccountInfoState accountInfoState) {
         this.accountInfoState = accountInfoState;
     }
 
+    /**
+     * Constructs a new AccountInfoViewModel with the specified view name.
+     */
     public AccountInfoViewModel() {
         super("account info");
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-
+    /**
+     * Notifies listeners of a property change in the account information.
+     */
     @Override
     public void firePropertyChanged() {
         support.firePropertyChange("account info", null, this.getAccountInfoState());
     }
 
+    /**
+     * Adds a property change listener to the account information view model.
+     *
+     * @param listener The listener to be added.
+     */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
