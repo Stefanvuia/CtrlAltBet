@@ -5,6 +5,7 @@ import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_elements.BlackJackBackgroundPanel;
 import view.custom_elements.GreenCustomButton;
+import view.custom_elements.RedCustomButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         this.blackJackIngameViewModel = blackJackIngameViewModel;
         this.blackJackIngameViewModel.addPropertyChangeListener(this);
 
-        exit = new GreenCustomButton(blackJackIngameViewModel.EXIT_LABEL);
+        exit = new RedCustomButton(blackJackIngameViewModel.EXIT_LABEL);
         hit = new GreenCustomButton(BlackJackIngameView.this.blackJackIngameViewModel.HIT_LABEL);
         stand = new GreenCustomButton(blackJackIngameViewModel.STAND_LABEL);
 
