@@ -8,13 +8,35 @@ import use_case.account_menu.reset_graph.ResetDataAccessInterface;
 import java.io.*;
 import java.util.*;
 
+/**
+ * A data access object (DAO) for handling user history game data persistence.
+ * Implements HistoryDataAccessInterface and ResetDataAccessInterface to provide
+ * methods for interacting with user history data.
+ */
 public class HistoryDataAccessObject implements HistoryDataAccessInterface, ResetDataAccessInterface {
 
+    /**
+     * The file used for storing user history data.
+     */
     private final File csvFile;
 
+    /**
+     * A map for storing the headers of the CSV file with their corresponding column index.
+     */
     private final Map<String, Integer> headers = new LinkedHashMap<>();
+
+    /**
+     * A map for storing user history objects, keyed by username.
+     */
     private final Map<String, UserHistory> accounts = new HashMap<>();
 
+    /**
+     * Constructs a new HistoryDataAccessObject using the provided CSV file path.
+     * Initializes the headers map and reads existing user data from the file.
+     *
+     * @param csvPath The path to the CSV file used for data storage.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public HistoryDataAccessObject(String csvPath) throws IOException {
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -62,9 +84,8 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
                  }
             }
         }
-
-
     }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -81,9 +102,7 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
 
             writer.close();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException e) { throw new RuntimeException(e); }
     }
 
     /**
@@ -96,6 +115,12 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
         return accounts.containsKey(identifier);
     }
 
+    /**
+     * Adds a new user with the given username to the data storage.
+     * Initializes their history for each game with a default value.
+     *
+     * @param username The username of the user to add.
+     */
     @Override
     public void addUser(String username) {
         if (!existsByName(username)) {
@@ -110,6 +135,14 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
         }
     }
 
+    /**
+     * Adds a payout entry for the specified user and game.
+     * If the user does not exist, they are added to the data storage.
+     *
+     * @param username The username of the user.
+     * @param game The game for which the payout is being recorded.
+     * @param amount The amount of the payout.
+     */
     @Override
     public void addPayout(String username, String game, double amount) {
         if (!existsByName(username)){
@@ -119,11 +152,25 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
         save();
     }
 
+    /**
+     * Retrieves a list of payout amounts for a specific user and game.
+     *
+     * @param username The username of the user.
+     * @param game The game for which the payout history is requested.
+     * @return An ArrayList of Double values representing the payout history.
+     */
     @Override
     public ArrayList<Double> getPayouts(String username, String game) {
         return accounts.get(username).getPayouts(game);
     }
 
+    /**
+     * Resets the history data for a specific user.
+     * This involves removing the user's history from the CSV file and from memory.
+     *
+     * @param username The username of the user whose history is to be reset.
+     * @throws IOException If an I/O error occurs during file processing.
+     */
     public void reset(String username) throws IOException {
         File inputFile = this.csvFile;
         File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
@@ -139,17 +186,11 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
                     writer.newLine();
                 }
             }
-        } catch (IOException e) {
-            throw new IOException("Error processing the file", e);
-        }
+        } catch (IOException e) { throw new IOException("Error processing the file", e); }
 
-        if (!inputFile.delete()) {
-            throw new IOException("Could not delete original file");
-        }
+        if (!inputFile.delete()) { throw new IOException("Could not delete original file"); }
 
-        if (!tempFile.renameTo(inputFile)) {
-            throw new IOException("Could not rename temp file to original file name");
-        }
+        if (!tempFile.renameTo(inputFile)) { throw new IOException("Could not rename temp file to original file name");}
 
         accounts.remove(username);
     }
