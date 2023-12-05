@@ -1,4 +1,4 @@
-package view.custom_elements;
+package view.custom_swing_elements;
 
 import javax.swing.*;
 import java.awt.*;

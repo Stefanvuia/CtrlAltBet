@@ -12,7 +12,7 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -151,8 +151,10 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
      */
     public void actionPerformed(ActionEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
-        if ((evt.getSource().equals(deposit) && currState.getChange() > 0) || (evt.getSource().equals(withdraw) && currState.getChange() < 0)) {
-            updateController.updateUser(currState.getUsername(), currState.getChange());
+        if ((evt.getSource().equals(deposit) && currState.getDeposit() > 0)) {
+            updateController.updateUser(currState.getUsername(), currState.getDeposit());
+        } else if ((evt.getSource().equals(withdraw) && currState.getWithdraw() > 0)) {
+            updateController.updateUser(currState.getUsername(), -currState.getWithdraw());
         } else if (evt.getSource().equals(signout)) {
             signOutController.execute();
         } else if (evt.getSource().equals(exit)) {
@@ -183,7 +185,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             userPanel.add(userLabel);
             revalidate();
             repaint();
-            if (Math.abs(currState.getChange()) > 0) {
+            if (currState.getWithdraw() > 0 || currState.getDeposit() > 0) {
                 JOptionPane.showMessageDialog(this, accountInfoViewModel.SUCCESS_NOTE);
             }
         } else if (evt.getPropertyName().equals("account info")) {
@@ -195,12 +197,11 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        // todo fix bug
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
         if (e.getDocument() == depositField.getDocument()) {
-            currState.setChange(Integer.parseInt(depositField.getText()));
+            currState.setDeposit(Integer.parseInt(depositField.getText()));
         } else if (e.getDocument() == withdrawField.getDocument()) {
-            currState.setChange(-Integer.parseInt(withdrawField.getText()));
+            currState.setWithdraw(Integer.parseInt(withdrawField.getText()));
         }
     }
 

@@ -2,7 +2,7 @@ package view.launch_menu;
 
 import interface_adapter.launch_menu.WelcomeViewModel;
 import interface_adapter.launch_menu.buttons.UserButtonsController;
-import view.custom_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
