@@ -36,6 +36,9 @@ public class HistoryInteractor implements HistoryInputBoundary {
      */
     @Override
     public void createChart(HistoryInputData historyInputData) {
+        if (!historyDAO.existsByName(historyInputData.getUsername())) {
+            historyDAO.addUser(historyInputData.getUsername());
+        }
         if (historyDAO.existsByName(historyInputData.getUsername())) {
 
             String game = historyInputData.getGame();
@@ -76,7 +79,6 @@ public class HistoryInteractor implements HistoryInputBoundary {
                 }
             }
 
-
             // Create Chart
             XYChart chart = new XYChartBuilder().width(800).height(600).title(game.toUpperCase() + " Payout History").xAxisTitle("Game").yAxisTitle("Total Payout").theme(Styler.ChartTheme.GGPlot2).build();
 
@@ -106,5 +108,6 @@ public class HistoryInteractor implements HistoryInputBoundary {
             HistoryOutputData outputData = new HistoryOutputData(chart);
             historyPresenter.presentHistoryChart(outputData);
         }
+
     }
 }

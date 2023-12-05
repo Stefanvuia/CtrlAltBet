@@ -3,11 +3,12 @@ package data_access;
 import entity.user.CommonUserHistory;
 import entity.user.UserHistory;
 import use_case.account_menu.history.HistoryDataAccessInterface;
+import use_case.account_menu.reset_graph.ResetDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class HistoryDataAccessObject implements HistoryDataAccessInterface {
+public class HistoryDataAccessObject implements HistoryDataAccessInterface, ResetDataAccessInterface {
 
     private final File csvFile;
 
@@ -85,6 +86,11 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface {
         }
     }
 
+    /**
+     * Return whether a user exists with username identifier.
+     * @param identifier the username to check.
+     * @return whether a user exists with username identifier
+     */
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
@@ -116,6 +122,36 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface {
     @Override
     public ArrayList<Double> getPayouts(String username, String game) {
         return accounts.get(username).getPayouts(game);
+    }
+
+    public void reset(String username) throws IOException {
+        File inputFile = this.csvFile;
+        File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                if (!currentLine.contains(username)) {
+                    writer.write(currentLine);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new IOException("Error processing the file", e);
+        }
+
+        if (!inputFile.delete()) {
+            throw new IOException("Could not delete original file");
+        }
+
+        if (!tempFile.renameTo(inputFile)) {
+            throw new IOException("Could not rename temp file to original file name");
+        }
+
+        accounts.remove(username);
     }
 
 }
