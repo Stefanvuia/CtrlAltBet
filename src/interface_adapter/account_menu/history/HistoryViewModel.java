@@ -10,6 +10,7 @@ public class HistoryViewModel extends ViewModel {
     public static final String BLACKJACK_BUTTON_LABEL = "blackjack";
     public static final String BACCARAT_BUTTON_LABEL = "baccarat";
     public static final String WAR_BUTTON_LABEl = "war";
+    public static final String RESET_GRAPH_LABEL = "reset";
 
     private HistoryState historyState = new HistoryState();
 
@@ -32,7 +33,6 @@ public class HistoryViewModel extends ViewModel {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
-    // TODO make sure property name and overall implementation is correct
     @Override
     public void firePropertyChanged() {
         propertyChangeSupport.firePropertyChange("history", null, this.historyState);
