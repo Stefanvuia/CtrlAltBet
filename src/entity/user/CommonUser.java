@@ -2,10 +2,12 @@ package entity.user;
 
 import java.time.LocalDateTime;
 
+
+public class CommonUser implements User {
 /**
  * Represents a common user with basic information such as name, password, creation time, and balance.
  */
-class CommonUser implements User {
+
 
     /**
      * Constructs a CommonUser with the specified parameters.

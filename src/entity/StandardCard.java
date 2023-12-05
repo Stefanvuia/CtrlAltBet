@@ -1,10 +1,12 @@
 package entity;
 
+
 import entity.Card;
 
 /**
  * Represents a standard playing card with a specific value and image.
  */
+
 public class StandardCard implements Card {
     private final String value;
     private final String img;
