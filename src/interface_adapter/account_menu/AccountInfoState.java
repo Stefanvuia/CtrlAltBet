@@ -5,21 +5,14 @@ package interface_adapter.account_menu;
  * Encapsulates information such as username, funds, change, and error messages.
  */
 public class AccountInfoState {
+    private int deposit = 0;
+
+    private int withdraw = 0;
     private String username = "";
 
     private int funds = 0;
 
-    public int getChange() {
-        return change;
-    }
-
-    private int change = 0;
-
     private String errorMessage = null;
-
-    public void setChange(int change) {
-        this.change = change;
-    }
 
     /**
      * Constructs a new AccountInfoState with default values.
@@ -78,5 +71,21 @@ public class AccountInfoState {
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
+
+    public int getWithdraw() {
+        return withdraw;
+    }
+
+    public void setWithdraw(int withdraw) {
+        this.withdraw = withdraw;
     }
 }

@@ -5,6 +5,7 @@ import interface_adapter.account_menu.history.HistoryState;
 import interface_adapter.account_menu.history.HistoryViewModel;
 import interface_adapter.account_menu.AccountInfoState;
 import interface_adapter.account_menu.AccountInfoViewModel;
+import interface_adapter.account_menu.reset_graph.ResetController;
 import interface_adapter.account_menu.sign_out.SignOutController;
 import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.account_menu.update.UserUpdateController;
@@ -12,7 +13,7 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -23,21 +24,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.NumberFormat;
 
 /**
- * Represents the graphical user interface for the account information view.
- * Extends JPanel and implements ActionListener, PropertyChangeListener, and DocumentListener.
+ * Represents the account information view in a user interface, displaying details such as the current user's
+ * username and balance. This view allows for actions such as depositing and withdrawing funds, signing out,
+ * and exiting the application. It also provides functionality for viewing payout statistics
+ * for blackjack, baccarat, and war in a graph and resetting all graphs.
+ *
+ * <p>This class extends {@link JPanel} and implements {@link ActionListener}, {@link PropertyChangeListener},
+ * and {@link DocumentListener} to handle user interactions and respond to changes in the model.
+ *
+ * @see javax.swing.JPanel
+ * @see java.awt.event.ActionListener
+ * @see java.beans.PropertyChangeListener
+ * @see javax.swing.event.DocumentListener
  */
 public class AccountInfoView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
-
-    // Fields and components
-
-    /**
-     * The name associated with this view.
-     */
     public String viewName = "account info";
-
     private final AccountInfoViewModel accountInfoViewModel;
 
     private final HistoryController historyController;
@@ -49,6 +54,8 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     private final UserUpdateController updateController;
 
     private final SignOutController signOutController;
+
+    private final ResetController resetController;
 
     private final JButton deposit;
     private final JButton withdraw;
@@ -73,28 +80,33 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     private JButton warButton;
 
+    private JButton resetGraph;
+
     /**
-     * Constructs a new AccountInfoView with the specified parameters.
+     * Constructs an AccountInfoView with the given models and controllers.
      *
-     * @param accountInfoViewModel The view model providing data for the account information view.
-     * @param exitController       The controller responsible for handling exit-related operations.
-     * @param updateController     The controller responsible for handling user update operations.
-     * @param signOutController    The controller responsible for handling sign-out operations.
-     * @param historyController    The controller responsible for handling history-related operations.
-     * @param historyViewModel     The view model providing data for the history view.
+     * @param accountInfoViewModel The view model for account information.
+     * @param exitController       The controller to handle exit action.
+     * @param updateController     The controller for updating the user's balance information.
+     * @param signOutController    The controller for sign-out functionality.
+     * @param historyController    The controller for handling betting history graph view actions.
+     * @param historyViewModel     The view model for betting history information.
+     * @param resetController      The controller for resetting all game statistics graph.
      */
     public AccountInfoView(AccountInfoViewModel accountInfoViewModel,
                            ExitController exitController,
                            UserUpdateController updateController,
                            SignOutController signOutController,
                            HistoryController historyController,
-                           HistoryViewModel historyViewModel) {
+                           HistoryViewModel historyViewModel,
+                           ResetController resetController) {
         this.exitController = exitController;
         this.updateController = updateController;
         this.signOutController = signOutController;
         this.accountInfoViewModel = accountInfoViewModel;
         this.historyViewModel = historyViewModel;
         this.historyController = historyController;
+        this.resetController = resetController;
         accountInfoViewModel.addPropertyChangeListener(this);
         historyViewModel.addPropertyChangeListener(this);
 
@@ -130,17 +142,33 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         withdrawPanel.add(withdrawField);
         withdrawPanel.add(withdraw);
 
-
         JPanel statsPanel = new GreenCustomPanel();
         statsPanel.add(new GreenCustomJLabel(accountInfoViewModel.STATISTICS_LABEL));
 
         blackJackButton = new GreenCustomButton(HistoryViewModel.BLACKJACK_BUTTON_LABEL);
         baccaratButton = new GreenCustomButton(HistoryViewModel.BACCARAT_BUTTON_LABEL);
         warButton = new GreenCustomButton(HistoryViewModel.WAR_BUTTON_LABEl);
+        resetGraph = new GreenCustomButton(HistoryViewModel.RESET_GRAPH_LABEL);
 
         statsPanel.add(blackJackButton);
         statsPanel.add(baccaratButton);
         statsPanel.add(warButton);
+
+        // Positioning Reset Graph button
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        Component filler = Box.createVerticalStrut(10);
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        statsPanel.add(filler, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        statsPanel.add(resetGraph, gbc);
 
         deposit.addActionListener(this);
         withdraw.addActionListener(this);
@@ -149,12 +177,13 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         blackJackButton.addActionListener(this);
         baccaratButton.addActionListener(this);
         warButton.addActionListener(this);
+        resetGraph.addActionListener(this);
 
         // setting initial layout constraints
         GridBagLayout layout = new GridBagLayout();
         GridBagUtils gridBagUtils = new GridBagUtils(this);
         this.setLayout(layout);
-      
+
         gridBagUtils.addComponentWithConstraints(statsPanel, 2, 0, 4, 1, 1, 1);
         gridBagUtils.addComponentWithConstraints(userPanel, 0, 0, 2, 2, 1, 1);
         gridBagUtils.addComponentWithConstraints(fundsPanel, 0, 2, 2, 1, 1, 1);
@@ -164,13 +193,20 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
         gridBagUtils.addComponentWithConstraints(signout, 3, 3, 3, 1, 1, 1);
     }
 
+
     /**
-     * React to a button click that results in evt.
+     * Handles action events triggered by user interaction, such as button clicks.
+     * This method responds to various actions like deposit, withdrawal, sign-out, exit,
+     * viewing game statistics, and resetting those statistics.
+     *
+     * @param evt The action event triggered by the user.
      */
     public void actionPerformed(ActionEvent evt) {
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
-        if ((evt.getSource().equals(deposit) && currState.getChange() > 0) || (evt.getSource().equals(withdraw) && currState.getChange() < 0)) {
-            updateController.updateUser(currState.getUsername(), currState.getChange());
+        if ((evt.getSource().equals(deposit) && currState.getDeposit() > 0)) {
+            updateController.updateUser(currState.getUsername(), currState.getDeposit());
+        } else if ((evt.getSource().equals(withdraw) && currState.getWithdraw() > 0)) {
+            updateController.updateUser(currState.getUsername(), -currState.getWithdraw());
         } else if (evt.getSource().equals(signout)) {
             signOutController.execute();
         } else if (evt.getSource().equals(exit)) {
@@ -179,12 +215,29 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
                 evt.getSource().equals(blackJackButton) ||
                 evt.getSource().equals(warButton)) {
             historyController.execute(currState.getUsername(), evt.getActionCommand());
+        } else if (evt.getSource().equals(resetGraph)) {
+            // Prompt the user to confirm the reset action
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to reset all your graph history?",
+                    "Confirm Reset",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    resetController.execute(currState.getUsername());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
     /**
-     * Responds to changes in properties, particularly the "history" and "account info" properties.
-     * @param evt The PropertyChangeEvent object containing information about the property change.
+     * Responds to property change events. This method updates the view based on changes in the
+     * account information or history states, such as updating the balance or displaying an error message.
+     *
+     * @param evt The property change event.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -205,7 +258,7 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
             userPanel.add(userLabel);
             revalidate();
             repaint();
-            if (Math.abs(currState.getChange()) > 0) {
+            if (currState.getWithdraw() > 0 || currState.getDeposit() > 0) {
                 JOptionPane.showMessageDialog(this, accountInfoViewModel.SUCCESS_NOTE);
             }
         } else if (evt.getPropertyName().equals("account info")) {
@@ -216,48 +269,27 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     }
 
     /**
-     * Responds to text insertion events in the document.
-     * This method is called when text is inserted into the associated document (e.g., deposit or
-     * withdrawal fields). It updates the current state with the entered change amount based on the
-     * field where the insertion occurred.
-     * @param e The DocumentEvent representing the insertion event.
+     * Handles insertions in document fields. This method updates the state based on user input in
+     * fields like deposit and withdrawal amounts.
+     *
+     * @param e The document event indicating an insertion.
      */
     @Override
     public void insertUpdate(DocumentEvent e) {
-        // todo fix bug
         AccountInfoState currState = accountInfoViewModel.getAccountInfoState();
         if (e.getDocument() == depositField.getDocument()) {
-            currState.setChange(Integer.parseInt(depositField.getText()));
+            currState.setDeposit(Integer.parseInt(depositField.getText()));
         } else if (e.getDocument() == withdrawField.getDocument()) {
-            currState.setChange(-Integer.parseInt(withdrawField.getText()));
+            currState.setWithdraw(Integer.parseInt(withdrawField.getText()));
         }
     }
 
-    /**
-     * Responds to text removal events in the document.
-     * This method is called when text is removed from the associated document. It does not perform
-     * any specific actions in response to text removal events.
-     * @param e The DocumentEvent representing the removal event.
-     */
     @Override
     public void removeUpdate(DocumentEvent e) {}
 
-    /**
-     * Responds to changes in attributes of the associated document.
-     * This method is called when attributes of the associated document change. It does not perform
-     * any specific actions in response to changes in attributes.
-     * @param e The DocumentEvent representing the change event.
-     */
     @Override
     public void changedUpdate(DocumentEvent e) {}
 
-    /**
-     * Displays the given XYChart in a new frame.
-     * This method creates a new frame to display the provided XYChart. The chart is added to the
-     * frame using XChartPanel, and the frame is set to be disposed of when closed. The frame size
-     * is set to 800x600, and it is displayed in the center relative to the current view.
-     * @param chart The XYChart to be displayed.
-     */
     private void displayChart(XYChart chart) {
         // Create a new frame for the chart popup
         JFrame chartFrame = new JFrame("Chart");
