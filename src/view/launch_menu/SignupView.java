@@ -17,37 +17,66 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The graphical representation of the sign-up view for the application.
+ * Allows users to create a new account by entering a username and password.
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public String viewName = "sign up";
-    private final SignUpViewModel signUpViewModel;
+
     /**
-     * The username chosen by the user
+     * The name of the view, used for identification.
+     */
+    public String viewName = "sign up";
+
+    /**
+     * The ViewModel associated with the sign-up functionality.
+     */
+    private final SignUpViewModel signUpViewModel;
+
+    /**
+     * The text field for entering the desired username.
      */
     private final JTextField username = new JTextField(15);
+
     /**
-     * The password
+     * The password field for entering the user's password.
      */
     private final JPasswordField password = new JPasswordField(15);
+
     /**
-     * The second password to make sure the user understands
+     * The password field for confirming the entered password.
      */
     private final JPasswordField repeatPassword = new JPasswordField(15);
 
     /**
-     * The controller
+     * The controller for handling user sign-up operations.
      */
     private final UserSignupController userSignupController;
 
+    /**
+     * The controller for handling user interactions with buttons.
+     */
     private final UserButtonsController userButtonsController;
 
+    /**
+     * The button for initiating the sign-up process.
+     */
     private final JButton signUp;
-    private final JButton cancel;
-
 
     /**
-     * A window with a title and a JButton.
+     * The button for canceling the sign-up process.
      */
-    public SignupView(UserSignupController controller, SignUpViewModel signUpViewModel, UserButtonsController userButtonsController) {
+    private final JButton cancel;
+
+    /**
+     * Creates a new instance of the SignupView.
+     *
+     * @param controller           The controller for handling user sign-up operations.
+     * @param signUpViewModel      The ViewModel associated with the sign-up functionality.
+     * @param userButtonsController The controller for handling user interactions with buttons.
+     */
+    public SignupView(UserSignupController controller, SignUpViewModel signUpViewModel,
+                      UserButtonsController userButtonsController) {
         this.userSignupController = controller;
         this.signUpViewModel = signUpViewModel;
         this.userButtonsController = userButtonsController;
@@ -90,6 +119,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     /**
      * React to a button click that results in evt.
+     *
+     * @param evt The ActionEvent triggered by a button click.
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(signUp)) {
@@ -101,6 +132,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
+    /**
+     * Handles property change events related to the sign-up process.
+     *
+     * @param evt The PropertyChangeEvent triggered when a property changes.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SignupState currState = signUpViewModel.getState();
@@ -114,9 +150,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         repeatPassword.setText("");
     }
 
-    private void textFieldStyleHelper (JTextField textField) {
+    /**
+     * Helper method to apply a consistent style to text fields.
+     *
+     * @param textField The JTextField to apply the style to.
+     */
+    private void textFieldStyleHelper(JTextField textField) {
         textField.setFont(new Font("Courier", Font.BOLD, 28));
-        textField.setBorder(new CompoundBorder(new LineBorder(new Color(144, 227, 154), 1), new EmptyBorder(10, 10, 10, 10)));
+        textField.setBorder(new CompoundBorder(new LineBorder(new Color(144, 227, 154), 1),
+                new EmptyBorder(10, 10, 10, 10)));
         textField.setOpaque(true);
         textField.setBackground(new Color(53, 70, 62));
         textField.setForeground(new Color(144, 227, 154));
