@@ -20,6 +20,11 @@ class CommonUserTest {
     }
 
     @Test
+    void creationTimeTest() {
+        assertNotNull(user.getCreationTime());
+    }
+
+    @Test
     void editBalance() {
         CommonUser user = new CommonUser("Alice", "securepass", LocalDateTime.now(), 200);
         assertEquals(200, user.getBalance());
