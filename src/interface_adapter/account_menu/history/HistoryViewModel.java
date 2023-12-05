@@ -10,7 +10,7 @@ public class HistoryViewModel extends ViewModel {
     public static final String BLACKJACK_BUTTON_LABEL = "blackjack";
     public static final String BACCARAT_BUTTON_LABEL = "baccarat";
     public static final String WAR_BUTTON_LABEl = "war";
-    public static final String RESET_GRAPH_LABEL = "reset graphs";
+    public static final String RESET_GRAPH_LABEL = "reset";
 
     private HistoryState historyState = new HistoryState();
 
