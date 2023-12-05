@@ -52,7 +52,7 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
 
         start = new GreenCustomButton(baccaratStartViewModel.START_LABEL);
         info = new GreenCustomButton(baccaratStartViewModel.INFO_LABEL);
-        exit = new GreenCustomButton(baccaratStartViewModel.EXIT_LABEL);
+        exit = new RedCustomButton(baccaratStartViewModel.EXIT_LABEL);
 
         makeBetFields();
 
