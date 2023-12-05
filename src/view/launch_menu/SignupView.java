@@ -4,7 +4,7 @@ import interface_adapter.launch_menu.sign_up.SignUpViewModel;
 import interface_adapter.launch_menu.sign_up.SignupState;
 import interface_adapter.launch_menu.sign_up.UserSignupController;
 import tools.GridBagUtils;
-import view.custom_elements.*;
+import view.custom_swing_elements.*;
 import interface_adapter.launch_menu.buttons.UserButtonsController;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package view.custom_elements;
+package view.custom_swing_elements;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,13 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class BlackJackBackgroundPanel extends JPanel {
+public class BaccaratBackgroundPanel extends JPanel {
     private final BufferedImage image;
-    private final JPanel top = new JPanel();
-    private final JPanel bottom = new JPanel();
+    private final JPanel left = new JPanel();
+    private final JPanel right = new JPanel();
 
     private final GridBagConstraints gbc = new GridBagConstraints();
-    public BlackJackBackgroundPanel(String path) throws IOException {
+    public BaccaratBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
@@ -23,12 +23,12 @@ public class BlackJackBackgroundPanel extends JPanel {
         gbc.gridx = 0;
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
-        top.setOpaque(false);
-        this.add(top, gbc);
+        left.setOpaque(false);
+        this.add(left, gbc);
 
-        gbc.gridy++;
-        bottom.setOpaque(false);
-        this.add(bottom,gbc);
+        gbc.gridx++;
+        right.setOpaque(false);
+        this.add(right, gbc);
 
 
         try {
@@ -44,11 +44,11 @@ public class BlackJackBackgroundPanel extends JPanel {
         g.drawImage(image, 0, 0, this);
     }
 
-    public JPanel getTop() {
-        return top;
+    public JPanel getLeft() {
+        return left;
     }
 
-    public JPanel getBottom() {
-        return bottom;
+    public JPanel getRight() {
+        return right;
     }
 }
