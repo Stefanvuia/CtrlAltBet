@@ -1,52 +1,15 @@
 # CtrlAltBet
 Coding assignment 207 Group#269
 
-Domain:
--
-Card Games
+# Instructions for the Various Games
+- War:
+The game is normally played with six standard 52-card decks. The cards are ranked in the same way that cards in poker games are ranked, with aces being the highest cards.[2]
 
-The general purpose of our software will be to allow users to play classic casino card games.
+One card each is dealt to a dealer and to a player. If the player's card is higher, they win the wager they bet. However, if the dealer's card is higher, the player loses their bet.[3]
 
-User Stories:
--
+A tie occurs when the dealer and the player each have cards of the same rank. In a tie situation, the player has two options:
 
-Blackjack (Use Case): Emma decides to play blackjack. Before the round starts Emma wants to be able to place bet using virtual chips. After receiving initial cards, Emma decides whether to “Hit” or “Stand” based on the value of her cards, and after each decision Emma sees the the sum of her cards, if she finished closer to 21 than the dealer without going over wins back twice the money she put in.
-
-Specifications:
--
-- In the blackjack option, the user will wager their funds in blackjack against an automated dealer following standard blackjack rules
-
-Entities:
--
-- Account:
-  - name: String
-  - password: String
-  - funds: double
-  + addFunds(): void
-  + takeFunds(): void
-
-- Deck:
-  - deckid: String
-  - cards: List<Card>
-  - remaining: int
-  + shuffle(): void
-  + draw(n: int): List<Card>
-  + getId(): String
- 
-- Card:
-  - code: String
-  - value: int
-  - suit: String
- 
-- Game:
-  - deck: Deck
-  - player: Account
-  - bet: Double
-  + startGame(): void
-  + payout(bet: double): void
-
-- BlackjackGame:
-  - hit():
-
-
+The player can surrender, in which case the player loses half the bet.
+The player can go to war, in which case the player must double their stake.
+If the player continues play in view of a tie, the dealer burns (discards) three cards before dealing each of them an additional card. If the player's card is ranked higher than the dealer's, then the player wins 1.5 times the amount of their original wager only. If the dealer's card is ranked higher than the player's, the player loses their (doubled) wager. If the ranks are equal, then the player wins the amount of their doubled wager.
 
