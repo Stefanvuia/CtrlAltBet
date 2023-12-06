@@ -22,7 +22,7 @@ The game is normally played with six standard 52-card decks. 10, Jack, Queen, an
 The game starts with two cards each being dealt to a dealer and a player. Only one of the dealer's cards is visible.
 
 The player has the option to hit or stand. 
-- Hit: The dealer adds a card to the player's hand
+- Hit: The dealer adds a card to the player's hand, this can be repeated until the player busts (sum goes over 21) or they choose to stand.
 - Stand: No more cards are added and now it's the dealer's turn to hit
   
 If the player has an ace and a card with a value of 10 they have blackjack. If the dealer's hand does not sum 21 by the end of their turn the player wins 3/2 of their wager or breaks even otherwise.
