@@ -5,13 +5,34 @@ import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
+/**
+ * The WarStartInteractor class is responsible for initializing the War card game.
+ * It implements the WarStartInputBoundary interface and interacts with external systems, such as the
+ * CardsAPIInterface, GameDataAccessInterface, and HistoryDataAccessInterface. It communicates the results
+ * to the WarStartOutputBoundary for presentation.
+ */
 public class WarStartInteractor implements WarStartInputBoundary{
+
+    /** Interface for drawing cards from an external API. */
     final CardsAPIInterface cardsAPI;
+
+    /** Interface for accessing game-related data. */
     final GameDataAccessInterface dataAccess;
+
+    /** Interface for accessing historical game data. */
     final HistoryDataAccessInterface historyDAO;
 
+    /** Presenter for the "Start War" action. */
     final WarStartOutputBoundary warStartPresenter;
 
+    /**
+     * Constructs a new WarStartInteractor with the specified dependencies.
+     *
+     * @param cardsAPI            Interface for drawing cards from an external API.
+     * @param dataAccess          Interface for accessing game-related data.
+     * @param historyDAO          Interface for accessing historical game data.
+     * @param warStartPresenter   Presenter for the "Start War" action.
+     */
     public WarStartInteractor(
             CardsAPIInterface cardsAPI,
             GameDataAccessInterface dataAccess,
@@ -23,6 +44,11 @@ public class WarStartInteractor implements WarStartInputBoundary{
         this.historyDAO = historyDAO;
     }
 
+    /**
+     * Executes the "Start War" action based on the provided input data.
+     *
+     * @param warStartData The input data containing the username and initial bet for starting the game.
+     */
     public void execute(WarStartInputData warStartData) {
         String username = warStartData.getUsername();
         int bet = warStartData.getBet();
