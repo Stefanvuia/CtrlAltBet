@@ -42,7 +42,7 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
             int change = 0;
             if(!game.goToWar()){
                 if(game.playerWins()){
-                    change = bet + bet * 1/4;
+                    change = bet + bet * 3/4;
                 }
             }else {
                 change = bet * 2;
