@@ -3,7 +3,7 @@ Coding assignment 207 Group#269
 
 # Instructions for the Various Games
 
-- War:
+##War:
 
 The game is normally played with six standard 52-card decks. The cards are ranked in the same way that cards in poker games are ranked, with aces being the highest cards.[2]
 
@@ -15,7 +15,7 @@ The player can surrender, in which case the player loses half the bet.
 The player can go to war, in which case the player must double their stake.
 If the player continues play in view of a tie, the dealer burns (discards) three cards before dealing each of them an additional card. If the player's card is ranked higher than the dealer's, then the player wins 1.5 times the amount of their original wager only. If the dealer's card is ranked higher than the player's, the player loses their (doubled) wager. If the ranks are equal, then the player wins the amount of their doubled wager.
 
-- BlackJack:
+##BlackJack:
 
 The game is normally played with six standard 52-card decks. 10, Jack, Queen, and King all have a value of 10, numbered cards have a value equal to their number, and ace has a value of 11 or 1 depending on whether or not an 11 would make your sum go over 21.
 
