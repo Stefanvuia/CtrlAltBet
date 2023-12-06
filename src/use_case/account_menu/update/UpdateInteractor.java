@@ -48,8 +48,6 @@ public class UpdateInteractor implements UpdateInputBoundary {
             } else {
                 userPresenter.prepareFailView(new UserDataAccessFailed("Insufficient funds"));
             }
-        } catch (Exception e) {
-            userPresenter.prepareFailView(new UserDataAccessFailed("Update user failed"));
-        }
+        } catch (Exception e) { userPresenter.prepareFailView(new UserDataAccessFailed("Update user failed")); }
     }
 }

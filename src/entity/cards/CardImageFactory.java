@@ -20,9 +20,7 @@ public class CardImageFactory implements ImageFactory {
             image = ImageIO.read(url).getScaledInstance(Constants.CARD_WIDTH,
                     Constants.CARD_HEIGHT,
                     Image.SCALE_SMOOTH);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException e) { throw new RuntimeException(e); }
 
         return image;
     }
