@@ -6,13 +6,19 @@ package use_case.games.war.war_started;
  */
 public class WarStartInputData {
 
-    /** The username for starting the game. */
+    /**
+     * The username for starting the game.
+     */
     private final String username;
 
-    /** The initial bet for starting the game. */
+    /**
+     * The initial bet for starting the game.
+     */
     private final int bet;
 
-    /** The initial bet for starting the game. */
+    /**
+     * The initial bet for starting the game.
+     */
     public WarStartInputData(String username, int bet) {
         this.username = username;
         this.bet = bet;

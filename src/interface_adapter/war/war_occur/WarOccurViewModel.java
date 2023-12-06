@@ -13,31 +13,33 @@ import java.beans.PropertyChangeSupport;
  */
 public class WarOccurViewModel extends ViewModel {
 
-    /** The initial game state for the War card game. */
-    private WarGameState state = new WarGameState();
-
-    /** The default image path for the war table background. */
+    /**
+     * The default image path for the war table background.
+     */
     public final String IMG_PATH = "img/wartable.png";
-
+    /**
+     * The PropertyChangeSupport instance responsible for managing property change listeners.
+     * It is initialized with the current instance of WarOccurViewModel.
+     */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public String GO_TO_WAR_LABEL = "go to war";
 
-    /** The label for the "Surrender" action button. */
+    /**
+     * The label for the "Surrender" action button.
+     */
     public String SURRENDER_LABEL = "surrender";
 
-    /** The label for the "Exit" action button. */
+    /**
+     * The label for the "Exit" action button.
+     */
     public String EXIT_LABEL = "exit";
+    /**
+     * The initial game state for the War card game.
+     */
+    private WarGameState state = new WarGameState();
 
     public WarOccurViewModel() {
         super("war occur");
-    }
-
-    /**
-     * Sets the current game state to the specified WarGameState.
-     *
-     * @param state The new game state to set.
-     */
-    public void setState(WarGameState state) {
-        this.state = state;
     }
 
     /**
@@ -50,10 +52,13 @@ public class WarOccurViewModel extends ViewModel {
     }
 
     /**
-     * The PropertyChangeSupport instance responsible for managing property change listeners.
-     * It is initialized with the current instance of WarOccurViewModel.
+     * Sets the current game state to the specified WarGameState.
+     *
+     * @param state The new game state to set.
      */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(WarGameState state) {
+        this.state = state;
+    }
 
     /**
      * Notifies listeners that a property change has occurred, specifically related to the

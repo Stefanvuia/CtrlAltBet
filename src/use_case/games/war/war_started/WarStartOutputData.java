@@ -9,7 +9,9 @@ import entity.game_logic.WarPlayer;
  */
 public class WarStartOutputData {
 
-    /** The updated game state after a successful start. */
+    /**
+     * The updated game state after a successful start.
+     */
     private final WarGameInterface game;
 
     /**

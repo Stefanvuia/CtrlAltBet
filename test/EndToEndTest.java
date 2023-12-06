@@ -67,7 +67,7 @@ public class EndToEndTest {
         }
         writer.close();
         reader.close();
-        assert userfile.delete();
+        assert userHistory.delete();
         assert tempHistory.renameTo(userHistory);
     }
 

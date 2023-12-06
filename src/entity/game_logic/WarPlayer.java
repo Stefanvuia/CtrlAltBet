@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents a player in a War game with specific functionality for the game.
  */
-public class WarPlayer extends Player{
+public class WarPlayer extends Player {
     /**
      * The amount of the bet placed by the War player.
      */
@@ -25,7 +25,7 @@ public class WarPlayer extends Player{
      * @param username The username of the player.
      */
     public WarPlayer(int bet, String username) {
-        this.hands = new ArrayList<Card>();
+        this.hands = new ArrayList<>();
         this.bet = bet;
         this.username = username;
     }

@@ -8,22 +8,31 @@ package interface_adapter.war.war_start;
  */
 public class WarStartState {
 
-    /** The player's username. */
+    /**
+     * The player's username.
+     */
     private String username = "";
 
-    /** The bet amount set by the player. */
+    /**
+     * The bet amount set by the player.
+     */
     private int bet = 0;
 
-    /** Any error message related to the bet input. */
+    /**
+     * Any error message related to the bet input.
+     */
     private String betError = null;
 
-    /** The available funds of the player. */
+    /**
+     * The available funds of the player.
+     */
     private int funds = 0;
 
     /**
      * Constructs a new, empty WarStartState.
      */
-    public WarStartState() {}
+    public WarStartState() {
+    }
 
     /**
      * Retrieves the player's username.

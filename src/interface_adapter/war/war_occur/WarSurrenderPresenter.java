@@ -15,14 +15,21 @@ import use_case.games.war.war_logic.WarSurrenderOutputBoundary;
  */
 public class WarSurrenderPresenter implements WarSurrenderOutputBoundary {
 
-    /** The ViewModel for the start state of the War card game. */
+    /**
+     * The ViewModel for the start state of the War card game.
+     */
     private final WarStartViewModel warStartViewModel;
 
-    /** The ViewModel for the when a war occurs of the War card game. */
+    /**
+     * The ViewModel for the when a war occurs of the War card game.
+     */
     private final WarOccurViewModel warOccurViewModel;
 
-    /** The model managing the active views in the application. */
+    /**
+     * The model managing the active views in the application.
+     */
     private final ViewManagerModel viewManagerModel;
+
     public WarSurrenderPresenter(WarStartViewModel warStartViewModel,
                                  ViewManagerModel viewManagerModel,
                                  WarOccurViewModel warOccurViewModel) {

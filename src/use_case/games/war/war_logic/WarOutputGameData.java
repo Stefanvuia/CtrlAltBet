@@ -10,7 +10,9 @@ import entity.game_logic.WarPlayer;
  */
 public class WarOutputGameData {
 
-    /** The updated game state after the action. */
+    /**
+     * The updated game state after the action.
+     */
     private final WarGameInterface game;
 
     /**

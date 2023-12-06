@@ -22,7 +22,9 @@ public class WarGoToWarController {
      *
      * @param warGoToWarInteractor The interactor responsible for handling "Go to War" actions.
      */
-    public WarGoToWarController(WarGoToWarInputBoundary warGoToWarInteractor){this.warGoToWarInteractor = warGoToWarInteractor;}
+    public WarGoToWarController(WarGoToWarInputBoundary warGoToWarInteractor) {
+        this.warGoToWarInteractor = warGoToWarInteractor;
+    }
 
     /**
      * Executes the "Go to War" action in the War card game by invoking the corresponding

@@ -8,13 +8,14 @@ import java.util.List;
 /**
  * Represents a dealer in a War game with specific functionality for the game.
  */
-public class WarDealer extends Player{
+public class WarDealer extends Player {
     /**
      * Constructs a War dealer with an empty hand.
      */
-    public WarDealer(){
-        this.hands = new ArrayList<Card>();
+    public WarDealer() {
+        this.hands = new ArrayList<>();
     }
+
     /**
      * Retrieves the hand of the War dealer.
      *

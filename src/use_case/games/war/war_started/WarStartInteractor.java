@@ -11,27 +11,35 @@ import use_case.games.GameDataAccessInterface;
  * CardsAPIInterface, GameDataAccessInterface, and HistoryDataAccessInterface. It communicates the results
  * to the WarStartOutputBoundary for presentation.
  */
-public class WarStartInteractor implements WarStartInputBoundary{
+public class WarStartInteractor implements WarStartInputBoundary {
 
-    /** Interface for drawing cards from an external API. */
+    /**
+     * Interface for drawing cards from an external API.
+     */
     final CardsAPIInterface cardsAPI;
 
-    /** Interface for accessing game-related data. */
+    /**
+     * Interface for accessing game-related data.
+     */
     final GameDataAccessInterface dataAccess;
 
-    /** Interface for accessing historical game data. */
+    /**
+     * Interface for accessing historical game data.
+     */
     final HistoryDataAccessInterface historyDAO;
 
-    /** Presenter for the "Start War" action. */
+    /**
+     * Presenter for the "Start War" action.
+     */
     final WarStartOutputBoundary warStartPresenter;
 
     /**
      * Constructs a new WarStartInteractor with the specified dependencies.
      *
-     * @param cardsAPI            Interface for drawing cards from an external API.
-     * @param dataAccess          Interface for accessing game-related data.
-     * @param historyDAO          Interface for accessing historical game data.
-     * @param warStartPresenter   Presenter for the "Start War" action.
+     * @param cardsAPI          Interface for drawing cards from an external API.
+     * @param dataAccess        Interface for accessing game-related data.
+     * @param historyDAO        Interface for accessing historical game data.
+     * @param warStartPresenter Presenter for the "Start War" action.
      */
     public WarStartInteractor(
             CardsAPIInterface cardsAPI,
@@ -67,18 +75,17 @@ public class WarStartInteractor implements WarStartInputBoundary{
             game.addToHand(player, cardsAPI.draw(game.getDeck()));
             game.addToHand(dealer, cardsAPI.draw(game.getDeck()));
 
-           if (!game.goToWar()){
-               if(game.playerWins()){
-                   dataAccess.editFund(username, 2*bet);
-                   historyDAO.addPayout(username, "war", bet);
-               } else {
-                   historyDAO.addPayout(username, "war", -bet);
-               }
-               warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
-           }
-           else{
-               warStartPresenter.prepareGoToWarView(new WarStartOutputData(game));
-           }
+            if (!game.goToWar()) {
+                if (game.playerWins()) {
+                    dataAccess.editFund(username, 2 * bet);
+                    historyDAO.addPayout(username, "war", bet);
+                } else {
+                    historyDAO.addPayout(username, "war", -bet);
+                }
+                warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
+            } else {
+                warStartPresenter.prepareGoToWarView(new WarStartOutputData(game));
+            }
 
         } else {
             warStartPresenter.prepareFailView("insufficient funds");

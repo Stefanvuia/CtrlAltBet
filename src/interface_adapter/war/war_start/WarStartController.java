@@ -30,7 +30,7 @@ public class WarStartController {
      * interactor's execute method with the provided username and bet amount.
      *
      * @param username The username of the player starting the game.
-     * @param bet The bet amount set by the player.
+     * @param bet      The bet amount set by the player.
      */
     public void execute(String username, int bet) {
         WarStartInputData startInputData = new WarStartInputData(username, bet);

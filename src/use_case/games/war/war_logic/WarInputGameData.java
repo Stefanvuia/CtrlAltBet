@@ -12,7 +12,9 @@ import entity.game_logic.WarPlayer;
  */
 public class WarInputGameData {
 
-    /** The current game state. */
+    /**
+     * The current game state.
+     */
     private final WarGameInterface game;
 
 
@@ -21,7 +23,7 @@ public class WarInputGameData {
      *
      * @param game The current game state.
      */
-    public WarInputGameData(WarGameInterface game){
+    public WarInputGameData(WarGameInterface game) {
 
         this.game = game;
     }
@@ -31,7 +33,9 @@ public class WarInputGameData {
      *
      * @return The WarGame instance.
      */
-    WarGame getGame(){ return (WarGame) this.game; }
+    WarGame getGame() {
+        return (WarGame) this.game;
+    }
 
     /**
      * Retrieves the username of the player associated with the current game.

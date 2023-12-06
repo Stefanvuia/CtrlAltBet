@@ -14,67 +14,81 @@ import java.util.List;
  */
 public class WarGameState {
 
-    /** The current bet in the War card game. */
+    /**
+     * The current bet in the War card game.
+     */
     private int bet = 0;
 
-    /** The list of images representing the player's cards. */
+    /**
+     * The list of images representing the player's cards.
+     */
     private java.util.List<Image> playerImages = new ArrayList<>();
 
-    /** The list of images representing the dealer's cards. */
+    /**
+     * The list of images representing the dealer's cards.
+     */
     private java.util.List<Image> dealerImages = new ArrayList<>();
 
-    /** The interface representing the overall state of the War card game. */
+    /**
+     * The interface representing the overall state of the War card game.
+     */
     private WarGameInterface warGameInterface = null;
 
-    /** Flag indicating whether the player has surrendered. */
+    /**
+     * Flag indicating whether the player has surrendered.
+     */
     private boolean surrendered = false;
 
-    /** Flag indicating whether the player went to war. */
+    /**
+     * Flag indicating whether the player went to war.
+     */
     private boolean wentToWar = false;
 
-    /** Error message related to the game state. */
+    /**
+     * Error message related to the game state.
+     */
     private String errorMessage = null;
 
     /**
      * Constructs a new WarGameState with default values.
      */
-    public WarGameState(){}
-
-    /**
-     * Sets the surrendered flag indicating whether the player has surrendered.
-     *
-     * @param surrendered The flag indicating surrender status.
-     */
-    public void setSurrendered(boolean surrendered){this.surrendered = surrendered;}
+    public WarGameState() {
+    }
 
     /**
      * Sets the wentToWar flag indicating whether the player went to war.
      *
      * @param wentToWar The flag indicating if the player went to war.
      */
-    public void setDidGoToWar(boolean wentToWar){this.wentToWar = wentToWar;}
+    public void setDidGoToWar(boolean wentToWar) {
+        this.wentToWar = wentToWar;
+    }
 
     /**
      * Retrieves the surrendered flag indicating whether the player has surrendered.
      *
      * @return true if the player surrendered, false otherwise.
      */
-    public boolean getSurrendered(){return surrendered;}
+    public boolean getSurrendered() {
+        return surrendered;
+    }
+
+    /**
+     * Sets the surrendered flag indicating whether the player has surrendered.
+     *
+     * @param surrendered The flag indicating surrender status.
+     */
+    public void setSurrendered(boolean surrendered) {
+        this.surrendered = surrendered;
+    }
 
     /**
      * Retrieves the wentToWar flag indicating whether the player went to war.
      *
      * @return true if the player went to war, false otherwise.
      */
-    public boolean getWentToWar(){return wentToWar;}
-
-    /**
-     * Sets the error message related to the game state.
-     *
-     * @param message The error message to set.
-     */
-    public void setErrorMessage(String message){
-        errorMessage = message;
+    public boolean getWentToWar() {
+        return wentToWar;
     }
 
     /**
@@ -82,8 +96,17 @@ public class WarGameState {
      *
      * @return The error message, or null if no error.
      */
-    public String getErrorMessage(){
+    public String getErrorMessage() {
         return errorMessage;
+    }
+
+    /**
+     * Sets the error message related to the game state.
+     *
+     * @param message The error message to set.
+     */
+    public void setErrorMessage(String message) {
+        errorMessage = message;
     }
 
     /**

@@ -23,28 +23,36 @@ import java.util.List;
  */
 public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
 
-    /** The ViewModel for the start state of the War card game. */
+    /**
+     * The ViewModel for the start state of the War card game.
+     */
     private final WarStartViewModel warStartViewModel;
 
-    /** The ViewModel for when a war occurs cards equal */
+    /**
+     * The ViewModel for when a war occurs cards equal
+     */
     private final WarOccurViewModel warOccurViewModel;
 
-    /** The model managing the active views in the application. */
+    /**
+     * The model managing the active views in the application.
+     */
     private final ViewManagerModel viewManagerModel;
-    
-    /** Image factory that creates images for cards */
+
+    /**
+     * Image factory that creates images for cards
+     */
     private final ImageFactory imageFactory = new CardImageFactory();
 
-  /**
+    /**
      * Constructs a new WarGoToWarPresenter with the specified ViewModels and ViewManagerModel.
      *
      * @param warStartViewModel The ViewModel for the start state of the War card game.
-     * @param viewManagerModel The model managing the active views in the application.
+     * @param viewManagerModel  The model managing the active views in the application.
      * @param warOccurViewModel The ViewModel for the occurrence state of the War card game.
      */
     public WarGoToWarPresenter(WarStartViewModel warStartViewModel,
-                                 ViewManagerModel viewManagerModel,
-                                 WarOccurViewModel warOccurViewModel) {
+                               ViewManagerModel viewManagerModel,
+                               WarOccurViewModel warOccurViewModel) {
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warOccurViewModel = warOccurViewModel;
@@ -70,11 +78,11 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
         this.warOccurViewModel.firePropertyChanged();
 
         // Update funds based on game outcome
-        if(warOutputGameData.getGame().playerWins()){
-            newGameState.setFunds(newGameState.getFunds() + (newGameState.getBet() * 3/2));
-        } else if (warOutputGameData.getGame().goToWar()){
+        if (warOutputGameData.getGame().playerWins()) {
+            newGameState.setFunds(newGameState.getFunds() + (newGameState.getBet() * 3 / 2));
+        } else if (warOutputGameData.getGame().goToWar()) {
             newGameState.setFunds(newGameState.getFunds() + 2 * newGameState.getBet());
-        } else{
+        } else {
             newGameState.setFunds(newGameState.getFunds() - 2 * newGameState.getBet());
         }
 
@@ -119,9 +127,9 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
      */
     private List<Image> makeImages(List<Card> imageLinks) {
         List<Image> images = new ArrayList<>();
-      
+
         images.add(imageFactory.create(imageLinks.get(0)));
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             images.add(imageFactory.create(Constants.backImage));
         }
         images.add(imageFactory.create(imageLinks.get(1)));

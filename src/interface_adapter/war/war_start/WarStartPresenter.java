@@ -22,33 +22,43 @@ import java.util.List;
  */
 public class WarStartPresenter implements WarStartOutputBoundary {
 
-    /** The ViewModel for the start state of the War card game. */
+    /**
+     * The ViewModel for the start state of the War card game.
+     */
     private final WarStartViewModel warStartViewModel;
-    /** The model managing the active views in the application. */
+    /**
+     * The model managing the active views in the application.
+     */
     private final ViewManagerModel viewManagerModel;
 
-    /** The ViewModel for the in-game state of the War card game. */
+    /**
+     * The ViewModel for the in-game state of the War card game.
+     */
     private final WarIngameViewModel warIngameViewModel;
 
-    /** The ViewModel for the occurrence state of the War card game. */
+    /**
+     * The ViewModel for the occurrence state of the War card game.
+     */
     private final WarOccurViewModel warOccurViewModel;
-    
-    /** Image factory the makes images for cards */
+
+    /**
+     * Image factory the makes images for cards
+     */
     private final ImageFactory imageFactory = new CardImageFactory();
 
     /**
      * Constructs a new WarStartPresenter with the specified ViewModels and ViewManagerModel.
      *
-     * @param warStartViewModel The ViewModel for the start state of the War card game.
-     * @param viewManagerModel The model managing the active views in the application.
+     * @param warStartViewModel  The ViewModel for the start state of the War card game.
+     * @param viewManagerModel   The model managing the active views in the application.
      * @param warIngameViewModel The ViewModel for the in-game state of the War card game.
-     * @param warOccurViewModel The ViewModel for the occurrence state of the War card game.
+     * @param warOccurViewModel  The ViewModel for the occurrence state of the War card game.
      */
 
     public WarStartPresenter(WarStartViewModel warStartViewModel,
                              ViewManagerModel viewManagerModel,
                              WarIngameViewModel warIngameViewModel,
-                             WarOccurViewModel warOccurViewModel){
+                             WarOccurViewModel warOccurViewModel) {
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warIngameViewModel = warIngameViewModel;
@@ -81,7 +91,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
         this.warIngameViewModel.firePropertyChanged();
 
         // Update funds based on game outcome
-        if(outputData.getGame().playerWins()){
+        if (outputData.getGame().playerWins()) {
             newGameState.setFunds(newGameState.getFunds() + newGameState.getBet());
         } else {
             newGameState.setFunds(newGameState.getFunds() - newGameState.getBet());
@@ -107,7 +117,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
      * @param outputData The data containing the outcome of the start action.
      */
     @Override
-    public void prepareGoToWarView(WarStartOutputData outputData){
+    public void prepareGoToWarView(WarStartOutputData outputData) {
         WarGameState ingameStateWar = new WarGameState();
 
         // Populate in-game state with relevant data
