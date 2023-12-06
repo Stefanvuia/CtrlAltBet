@@ -6,9 +6,6 @@ package use_case.games.war.war_started;
  */
 public class WarStartInputData {
 
-    private final String username;
-    private final int bet;
-
     /** The username for starting the game. */
     private final String username;
 
