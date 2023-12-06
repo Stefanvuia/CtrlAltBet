@@ -8,7 +8,9 @@ import java.util.List;
 /**
  * Represents a player in a War game with specific functionality for the game.
  */
-public class WarPlayer extends Player {
+public class WarPlayer implements Player {
+    private final List<Card> hands;
+
     /**
      * The amount of the bet placed by the War player.
      */
@@ -35,8 +37,9 @@ public class WarPlayer extends Player {
      *
      * @return The list of cards in the player's hand.
      */
+    @Override
     public List<Card> getHand() {
-        return super.getHand();
+        return hands;
     }
 
     /**
@@ -44,8 +47,9 @@ public class WarPlayer extends Player {
      *
      * @param card The card to be added to the player's hand.
      */
+    @Override
     public void addToHand(Card card) {
-        super.addToHand(card);
+        hands.add(card);
     }
 
     /**

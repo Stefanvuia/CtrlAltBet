@@ -8,13 +8,14 @@ import java.util.List;
 /**
  * Represents a player in a Baccarat game with specific functionality for the game.
  */
-public class BaccaratPlayer extends Player {
+public class BaccaratPlayer implements Player {
+    private final List<Card> hands;
 
     /**
      * Constructs a Baccarat player with an empty hand.
      */
     public BaccaratPlayer() {
-        this.hands = new ArrayList<Card>();
+        this.hands = new ArrayList<>();
     }
 
     /**
@@ -22,8 +23,9 @@ public class BaccaratPlayer extends Player {
      *
      * @return The list of cards in the player's hand.
      */
+    @Override
     public List<Card> getHand() {
-        return super.getHand();
+        return hands;
     }
 
     /**
@@ -31,7 +33,8 @@ public class BaccaratPlayer extends Player {
      *
      * @param card The card to be added to the player's hand.
      */
+    @Override
     public void addToHand(Card card) {
-        super.addToHand(card);
+        hands.add(card);
     }
 }

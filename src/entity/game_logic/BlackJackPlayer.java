@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * Represents a player in a BlackJack game with specific functionality for the game.
  */
-public class BlackJackPlayer extends Player {
+public class BlackJackPlayer implements Player {
+    private final List<Card> hands;
 
     /**
      * The amount of the bet placed by the BlackJack player.
@@ -27,7 +28,7 @@ public class BlackJackPlayer extends Player {
      * @param username The username of the player.
      */
     public BlackJackPlayer(int bet, String username) {
-        this.hands = new ArrayList<Card>();
+        this.hands = new ArrayList<>();
         this.bet = bet;
         this.username = username;
     }
@@ -37,8 +38,9 @@ public class BlackJackPlayer extends Player {
      *
      * @return The list of cards in the player's hand.
      */
+    @Override
     public List<Card> getHand() {
-        return super.getHand();
+        return hands;
     }
 
     /**
@@ -46,8 +48,9 @@ public class BlackJackPlayer extends Player {
      *
      * @param card The card to be added to the player's hand.
      */
+    @Override
     public void addToHand(Card card) {
-        super.addToHand(card);
+        hands.add(card);
     }
 
     /**

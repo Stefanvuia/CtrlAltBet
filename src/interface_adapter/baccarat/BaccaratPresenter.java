@@ -1,8 +1,8 @@
 package interface_adapter.baccarat;
 
+import constants.Constants;
 import entity.cards.Card;
-import entity.cards.CardImageFactory;
-import entity.cards.ImageFactory;
+import entity.cards.CardImageAdapter;
 import interface_adapter.ViewManagerModel;
 import use_case.games.baccarat.BaccaratOutputBoundary;
 import use_case.games.baccarat.BaccaratOutputData;
@@ -28,7 +28,6 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
      * The ViewModel representing the current state of the Baccarat game.
      */
     private final BaccaratGameViewModel baccaratGameViewModel;
-    private final ImageFactory imageFactory = new CardImageFactory();
 
     /**
      * Constructs a BaccaratPresenter with the provided ViewModels and ViewManagerModel.
@@ -97,8 +96,10 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         List<Image> cardImages = new ArrayList<>();
         for (Card card : Images) {
             Image image;
-            image = imageFactory.create(card);
-            cardImages.add(image);
+            image = new CardImageAdapter(card);
+            cardImages.add(image.getScaledInstance(Constants.CARD_WIDTH,
+                    Constants.CARD_HEIGHT,
+                    Image.SCALE_SMOOTH));
         }
         return cardImages;
     }
