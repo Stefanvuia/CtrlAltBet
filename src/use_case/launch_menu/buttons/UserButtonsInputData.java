@@ -28,7 +28,8 @@ public class UserButtonsInputData {
     /**
      * Constructs a default {@code UserButtonsInputData} instance with an empty new view.
      */
-    public UserButtonsInputData() {}
+    public UserButtonsInputData() {
+    }
 
     /**
      * Retrieves the new view associated with the user's interaction.

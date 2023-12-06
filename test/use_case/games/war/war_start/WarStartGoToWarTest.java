@@ -19,16 +19,15 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WarStartGoToWarTest {
-    private final CardsAPIInterface api = new WarTestAPIObject(true,true);
-    private InMemoryUserDataAccessObject dao;
+    private final CardsAPIInterface api = new WarTestAPIObject(true, true);
     private final HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
-
     private final WarStartOutputBoundary warPresenter = new WarStartOutputBoundary() {
 
         @Override
         public void prepareWarIngameView(WarStartOutputData outputData) {
             fail("Use case success is unexpected.");
         }
+
         @Override
         public void prepareGoToWarView(WarStartOutputData outputData) {
             assertNotNull(outputData.getGame());
@@ -41,6 +40,7 @@ public class WarStartGoToWarTest {
             fail("Use case success is unexpected.");
         }
     };
+    private InMemoryUserDataAccessObject dao;
 
     @BeforeEach
     void setUp() {

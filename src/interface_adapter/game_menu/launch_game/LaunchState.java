@@ -3,7 +3,8 @@ package interface_adapter.game_menu.launch_game;
 public class LaunchState {
     private String username = "";
 
-    public LaunchState() {}
+    public LaunchState() {
+    }
 
     public String getUsername() {
         return username;

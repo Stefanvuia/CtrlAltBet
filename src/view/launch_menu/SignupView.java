@@ -26,55 +26,47 @@ import java.beans.PropertyChangeListener;
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
 
     /**
+     * The ViewModel associated with the sign-up functionality.
+     */
+    private final SignUpViewModel signUpViewModel;
+    /**
+     * The text field for entering the desired username.
+     */
+    private final JTextField username = new JTextField(15);
+    /**
+     * The password field for entering the user's password.
+     */
+    private final JPasswordField password = new JPasswordField(15);
+    /**
+     * The password field for confirming the entered password.
+     */
+    private final JPasswordField repeatPassword = new JPasswordField(15);
+    /**
+     * The controller for handling user sign-up operations.
+     */
+    private final UserSignupController userSignupController;
+    /**
+     * The controller for handling user interactions with buttons.
+     */
+    private final UserButtonsController userButtonsController;
+    /**
+     * The button for initiating the sign-up process.
+     */
+    private final JButton signUp;
+    /**
+     * The button for canceling the sign-up process.
+     */
+    private final JButton cancel;
+    /**
      * The name of the view, used for identification.
      */
     public String viewName = "sign up";
 
     /**
-     * The ViewModel associated with the sign-up functionality.
-     */
-    private final SignUpViewModel signUpViewModel;
-
-    /**
-     * The text field for entering the desired username.
-     */
-    private final JTextField username = new JTextField(15);
-
-    /**
-     * The password field for entering the user's password.
-     */
-    private final JPasswordField password = new JPasswordField(15);
-
-    /**
-     * The password field for confirming the entered password.
-     */
-    private final JPasswordField repeatPassword = new JPasswordField(15);
-
-    /**
-     * The controller for handling user sign-up operations.
-     */
-    private final UserSignupController userSignupController;
-
-    /**
-     * The controller for handling user interactions with buttons.
-     */
-    private final UserButtonsController userButtonsController;
-
-    /**
-     * The button for initiating the sign-up process.
-     */
-    private final JButton signUp;
-
-    /**
-     * The button for canceling the sign-up process.
-     */
-    private final JButton cancel;
-
-    /**
      * Creates a new instance of the SignupView.
      *
-     * @param controller           The controller for handling user sign-up operations.
-     * @param signUpViewModel      The ViewModel associated with the sign-up functionality.
+     * @param controller            The controller for handling user sign-up operations.
+     * @param signUpViewModel       The ViewModel associated with the sign-up functionality.
      * @param userButtonsController The controller for handling user interactions with buttons.
      */
     public SignupView(UserSignupController controller, SignUpViewModel signUpViewModel,

@@ -5,8 +5,8 @@ package use_case.account_menu.update;
  */
 public class UpdateInputData {
 
-private final String username;
-private final int balance;
+    private final String username;
+    private final int balance;
 
     /**
      * Constructs a new instance of UpdateInputData with the specified username and balance.

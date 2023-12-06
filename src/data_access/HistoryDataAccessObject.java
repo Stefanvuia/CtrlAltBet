@@ -84,7 +84,7 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
                     }
 
                     accounts.put(username, userHistory);
-                 }
+                }
             }
         }
     }
@@ -105,11 +105,14 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
 
             writer.close();
 
-        } catch (IOException e) { throw new RuntimeException(e); }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Return whether a user exists with username identifier.
+     *
      * @param identifier the username to check.
      * @return whether a user exists with username identifier
      */
@@ -143,12 +146,12 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
      * If the user does not exist, they are added to the data storage.
      *
      * @param username The username of the user.
-     * @param game The game for which the payout is being recorded.
-     * @param amount The amount of the payout.
+     * @param game     The game for which the payout is being recorded.
+     * @param amount   The amount of the payout.
      */
     @Override
     public void addPayout(String username, String game, double amount) {
-        if (!existsByName(username)){
+        if (!existsByName(username)) {
             addUser(username);
         }
         accounts.get(username).setPayouts(game, amount);
@@ -159,7 +162,7 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
      * Retrieves a list of payout amounts for a specific user and game.
      *
      * @param username The username of the user.
-     * @param game The game for which the payout history is requested.
+     * @param game     The game for which the payout history is requested.
      * @return An ArrayList of Double values representing the payout history.
      */
     @Override
@@ -189,11 +192,17 @@ public class HistoryDataAccessObject implements HistoryDataAccessInterface, Rese
                     writer.newLine();
                 }
             }
-        } catch (IOException e) { throw new IOException("Error processing the file", e); }
+        } catch (IOException e) {
+            throw new IOException("Error processing the file", e);
+        }
 
-        if (!inputFile.delete()) { throw new IOException("Could not delete original file"); }
+        if (!inputFile.delete()) {
+            throw new IOException("Could not delete original file");
+        }
 
-        if (!tempFile.renameTo(inputFile)) { throw new IOException("Could not rename temp file to original file name");}
+        if (!tempFile.renameTo(inputFile)) {
+            throw new IOException("Could not rename temp file to original file name");
+        }
 
         accounts.remove(username);
     }

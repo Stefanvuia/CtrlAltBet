@@ -21,13 +21,15 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
     private final ViewManagerModel viewManagerModel;
 
     private final ImageFactory imageFactory = new CardImageFactory();
+
     public WarGoToWarPresenter(WarStartViewModel warStartViewModel,
-                                 ViewManagerModel viewManagerModel,
-                                 WarOccurViewModel warOccurViewModel) {
+                               ViewManagerModel viewManagerModel,
+                               WarOccurViewModel warOccurViewModel) {
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warOccurViewModel = warOccurViewModel;
     }
+
     @Override
     public void preparePayoutView(WarOutputGameData warOutputGameData) {
         WarGameState currentState = warOccurViewModel.getState();
@@ -38,11 +40,11 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
         currentState.setPlayerImages(makeImages(warOutputGameData.getGame().getPlayer().getHand()));
 
         this.warOccurViewModel.firePropertyChanged();
-        if(warOutputGameData.getGame().playerWins()){
-            newGameState.setFunds(newGameState.getFunds() + (newGameState.getBet() * 3/2));
-        } else if (warOutputGameData.getGame().goToWar()){
+        if (warOutputGameData.getGame().playerWins()) {
+            newGameState.setFunds(newGameState.getFunds() + (newGameState.getBet() * 3 / 2));
+        } else if (warOutputGameData.getGame().goToWar()) {
             newGameState.setFunds(newGameState.getFunds() + 2 * newGameState.getBet());
-        } else{
+        } else {
             newGameState.setFunds(newGameState.getFunds() - 2 * newGameState.getBet());
         }
         newGameState.setBet(0);
@@ -65,10 +67,11 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
         errorGameState.setErrorMessage(null);
 
     }
+
     private List<Image> makeImages(List<Card> imageLinks) {
         List<Image> images = new ArrayList<>();
         images.add(imageFactory.create(imageLinks.get(0)));
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             images.add(imageFactory.create(Constants.backImage));
         }
         images.add(imageFactory.create(imageLinks.get(1)));

@@ -9,21 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WarGameTest {
+    private final List<Card> cards = new ArrayList<>();
     private Player player;
     private Player dealer;
     private String deckId;
-
     private WarGame game;
     private Card qCard;
-
     private Card kCard;
-
     private Card jCard;
-
     private Card aCard;
-
     private Card sixCard;
-    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -86,6 +81,7 @@ public class WarGameTest {
 
         assert game.playerWins();
     }
+
     @Test
     void goToWar() {
         player.addToHand(aCard);

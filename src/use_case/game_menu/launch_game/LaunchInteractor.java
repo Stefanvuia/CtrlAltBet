@@ -20,8 +20,8 @@ public class LaunchInteractor implements LaunchInputBoundary {
     /**
      * Constructs a LaunchInteractor object with the specified dependencies.
      *
-     * @param launchDAO         Data access interface for accessing menu-related data.
-     * @param launchPresenter   Presenter for displaying the game launch view.
+     * @param launchDAO       Data access interface for accessing menu-related data.
+     * @param launchPresenter Presenter for displaying the game launch view.
      */
     public LaunchInteractor(MenuDataAccessInterface launchDAO,
                             LaunchOutputBoundary launchPresenter) {

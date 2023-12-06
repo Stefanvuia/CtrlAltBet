@@ -83,6 +83,7 @@ public class FileUserDataAccessObject implements
 
     /**
      * Return whether a user exists with username identifier.
+     *
      * @param identifier the username to check.
      * @return whether a user exists with username identifier
      */
@@ -96,9 +97,11 @@ public class FileUserDataAccessObject implements
         accounts.put(requestModel.getName(), requestModel);
         this.save();
     }
+
     public User getUserByName(String username) {
         return accounts.get(username);
     }
+
     public boolean validatePassword(String username, String password) {
         User user = accounts.get(username);
         return user.getPassword().equals(password);

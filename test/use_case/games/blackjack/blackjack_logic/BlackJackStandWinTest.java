@@ -21,11 +21,6 @@ public class BlackJackStandWinTest {
     private final InMemoryUserDataAccessObject uDao = new InMemoryUserDataAccessObject();
 
     private final HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
-
-    private Player player;
-
-    private BlackJackGameInterface game;
-
     private final BlackJackStandOutputBoundary presenter = new BlackJackStandOutputBoundary() {
         @Override
         public void prepareWinView(BlackJackOutputGameData outputGameData) {
@@ -44,6 +39,8 @@ public class BlackJackStandWinTest {
             fail("push is unexpected");
         }
     };
+    private Player player;
+    private BlackJackGameInterface game;
 
     @BeforeEach
     void setUp() {

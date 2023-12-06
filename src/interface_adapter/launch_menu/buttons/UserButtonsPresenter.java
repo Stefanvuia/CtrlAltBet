@@ -33,8 +33,8 @@ public class UserButtonsPresenter implements UserButtonsOutputBoundary {
      * Creates a new instance of the UserButtonsPresenter.
      *
      * @param viewManagerModel The model for managing the active view.
-     * @param loginViewModel    The ViewModel associated with the login functionality.
-     * @param signUpViewModel   The ViewModel associated with the sign-up functionality.
+     * @param loginViewModel   The ViewModel associated with the login functionality.
+     * @param signUpViewModel  The ViewModel associated with the sign-up functionality.
      */
     public UserButtonsPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignUpViewModel signUpViewModel) {
         this.viewManagerModel = viewManagerModel;

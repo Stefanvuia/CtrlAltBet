@@ -26,10 +26,12 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public User getUserByName(String username) {
         return users.get(username);
     }
+
     public boolean validatePassword(String username, String password) {
         User user = users.get(username);
         return user.getPassword().equals(password);
     }
+
     /**
      * @param user the data to save
      */

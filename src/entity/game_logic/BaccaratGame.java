@@ -16,16 +16,6 @@ public class BaccaratGame implements BaccaratGameInterface {
     private final Set<String> VALUES = Set.of("JACK", "QUEEN", "KING", "10");
 
     /**
-     * Player object representing the player in the game.
-     */
-    private final Player player;
-
-    /**
-     * Player object representing the banker in the game.
-     */
-    private final Player banker;
-
-    /**
      * Unique identifier for the deck used in the game.
      */
     private final String deckId;
@@ -33,13 +23,9 @@ public class BaccaratGame implements BaccaratGameInterface {
     /**
      * Constructs a Baccarat game with the specified player, banker, and deck.
      *
-     * @param player  The player in the game.
-     * @param banker  The banker in the game.
-     * @param deckId  The unique identifier for the deck used in the game.
+     * @param deckId The unique identifier for the deck used in the game.
      */
-    public BaccaratGame(Player player, Player banker, String deckId) {
-        this.player = player;
-        this.banker = banker;
+    public BaccaratGame(String deckId) {
         this.deckId = deckId;
     }
 

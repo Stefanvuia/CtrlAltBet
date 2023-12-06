@@ -12,6 +12,7 @@ public interface WarGameInterface extends Game {
     int sumHand(Player player);
 
     boolean playerWins();
+
     Player getPlayer();
 
     Player getDealer();

@@ -5,9 +5,8 @@ import interface_adapter.game_menu.launch_game.LaunchViewModel;
 import use_case.game_menu.exit.ExitOutputBoundary;
 
 public class ExitPresenter implements ExitOutputBoundary {
-    private final LaunchViewModel launchViewModel;
-
     final ViewManagerModel viewManagerModel;
+    private final LaunchViewModel launchViewModel;
 
     public ExitPresenter(LaunchViewModel launchViewModel,
                          ViewManagerModel viewManagerModel) {

@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class BlackJackStartFailTest {
     private final CardsAPIInterface api = new BlackJackTestAPIObject("JACK");
-    private InMemoryUserDataAccessObject dao;
-
     private final BlackJackStartOutputBoundary failPresenter = new BlackJackStartOutputBoundary() {
 
         @Override
@@ -29,6 +27,7 @@ public class BlackJackStartFailTest {
             assertEquals("insufficient funds", error);
         }
     };
+    private InMemoryUserDataAccessObject dao;
 
     @BeforeEach
     void setUp() {

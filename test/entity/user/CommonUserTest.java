@@ -38,6 +38,7 @@ class CommonUserTest {
     }
 
 }
+
 class CommonUserFactoryTest {
 
     @Test

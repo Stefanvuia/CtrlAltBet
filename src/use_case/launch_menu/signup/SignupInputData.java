@@ -26,8 +26,8 @@ public class SignupInputData {
     /**
      * Constructs a {@code SignupInputData} instance with the specified user name, password, and repeated password.
      *
-     * @param name The user's name provided during signup.
-     * @param password The password provided during signup.
+     * @param name           The user's name provided during signup.
+     * @param password       The password provided during signup.
      * @param repeatPassword The repeated password provided during signup for confirmation.
      */
     public SignupInputData(String name, String password, String repeatPassword) {

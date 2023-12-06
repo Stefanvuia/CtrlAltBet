@@ -19,7 +19,8 @@ public class BlackJackGameState {
 
     private boolean gameEnd = false;
 
-    public BlackJackGameState(){}
+    public BlackJackGameState() {
+    }
 
     public int getBet() {
         return bet;

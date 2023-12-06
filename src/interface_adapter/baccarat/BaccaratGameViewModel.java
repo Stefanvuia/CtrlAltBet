@@ -11,29 +11,23 @@ import java.beans.PropertyChangeSupport;
 public class BaccaratGameViewModel extends ViewModel {
 
     /**
-     * The current state of the Baccarat game.
+     * PropertyChangeSupport instance for managing property change listeners.
      */
-    private BaccaratGameState state = new BaccaratGameState();
-
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     /**
      * The path to the image representing the Baccarat table.
      */
     public String IMG_PATH = "img/baccarattable.png";
+    /**
+     * The current state of the Baccarat game.
+     */
+    private BaccaratGameState state = new BaccaratGameState();
 
     /**
      * Constructs a BaccaratGameViewModel with a default name.
      */
     public BaccaratGameViewModel() {
         super("baccarat during");
-    }
-
-    /**
-     * Sets the state of the Baccarat game.
-     *
-     * @param state The new state of the Baccarat game.
-     */
-    public void setState(BaccaratGameState state) {
-        this.state = state;
     }
 
     /**
@@ -46,9 +40,13 @@ public class BaccaratGameViewModel extends ViewModel {
     }
 
     /**
-     * PropertyChangeSupport instance for managing property change listeners.
+     * Sets the state of the Baccarat game.
+     *
+     * @param state The new state of the Baccarat game.
      */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(BaccaratGameState state) {
+        this.state = state;
+    }
 
     /**
      * Fires a property change event for the "baccarat during" property.

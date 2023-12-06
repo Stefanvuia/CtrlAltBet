@@ -39,9 +39,9 @@ public class SignupInteractor implements SignupInputBoundary {
      * {@code signupOutputBoundary}, {@code userFactory}, and {@code historyDAO}.
      *
      * @param signupUserDataAccessInterface The interface for accessing user data during signup.
-     * @param signupOutputBoundary The presenter responsible for handling the output of user signup interactions.
-     * @param userFactory The factory responsible for creating user objects.
-     * @param historyDAO The interface for accessing user history data during signup.
+     * @param signupOutputBoundary          The presenter responsible for handling the output of user signup interactions.
+     * @param userFactory                   The factory responsible for creating user objects.
+     * @param historyDAO                    The interface for accessing user history data during signup.
      */
     public SignupInteractor(SignupUserDataAccessInterface signupUserDataAccessInterface, SignupOutputBoundary signupOutputBoundary,
                             UserFactory userFactory, HistoryDataAccessInterface historyDAO) {

@@ -17,20 +17,17 @@ import java.util.List;
 public class BaccaratPresenter implements BaccaratOutputBoundary {
 
     /**
+     * The ViewManagerModel for managing active views.
+     */
+    final ViewManagerModel viewManagerModel;
+    /**
      * The ViewModel representing the Baccarat start state.
      */
     private final BaccaratStartViewModel baccaratStartViewModel;
-
     /**
      * The ViewModel representing the current state of the Baccarat game.
      */
     private final BaccaratGameViewModel baccaratGameViewModel;
-
-    /**
-     * The ViewManagerModel for managing active views.
-     */
-    final ViewManagerModel viewManagerModel;
-
     private final ImageFactory imageFactory = new CardImageFactory();
 
     /**

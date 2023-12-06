@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BlackJackStartSuccessTest {
     private final CardsAPIInterface api = new BlackJackTestAPIObject("JACk");
-    private InMemoryUserDataAccessObject dao;
-
     private final BlackJackStartOutputBoundary successPresenter = new BlackJackStartOutputBoundary() {
 
         @Override
@@ -30,6 +28,7 @@ class BlackJackStartSuccessTest {
             fail("Use case failure is unexpected.");
         }
     };
+    private InMemoryUserDataAccessObject dao;
 
     @BeforeEach
     void setUp() {
@@ -37,6 +36,7 @@ class BlackJackStartSuccessTest {
         User user = new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000);
         dao.save(user);
     }
+
     @Test
     void successTest() {
         BlackJackStartInputData inputData = new BlackJackStartInputData("cakev", 1000);

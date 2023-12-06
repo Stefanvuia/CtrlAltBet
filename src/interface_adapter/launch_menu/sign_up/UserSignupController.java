@@ -25,9 +25,9 @@ public class UserSignupController {
     /**
      * Initiates the user sign-up process with the provided username and passwords.
      *
-     * @param username   The username entered by the user.
-     * @param password1  The first password entered by the user.
-     * @param password2  The second password entered by the user for confirmation.
+     * @param username  The username entered by the user.
+     * @param password1 The first password entered by the user.
+     * @param password2 The second password entered by the user for confirmation.
      */
     public void create(String username, String password1, String password2) {
         SignupInputData signupInputData = new SignupInputData(

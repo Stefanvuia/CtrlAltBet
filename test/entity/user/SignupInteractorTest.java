@@ -15,78 +15,6 @@ import static org.junit.Assert.*;
  */
 public class SignupInteractorTest {
 
-    /**
-     * Fake implementation of SignupUserDataAccessInterface for testing purposes.
-     */
-    private class FakeSignupUserDataAccess implements SignupUserDataAccessInterface {
-        private boolean userExists;
-
-        @Override
-        public boolean existsByName(String identifier) {
-            return userExists;
-        }
-
-        @Override
-        public void save(User requestModel) {
-            // Implement save method if needed for testing
-        }
-    }
-
-    /**
-     * Fake implementation of SignupOutputBoundary for testing purposes.
-     */
-    private class FakeSignupOutputBoundary implements SignupOutputBoundary {
-        private SignupOutputData successData;
-        private UserDataAccessFailed failureData;
-
-        @Override
-        public void prepareSuccessView(SignupOutputData user) {
-            this.successData = user;
-        }
-
-        @Override
-        public void prepareFailView(UserDataAccessFailed error) {
-            this.failureData = error;
-        }
-    }
-
-    /**
-     * Fake implementation of UserFactory for testing purposes.
-     */
-    private class FakeUserFactory implements UserFactory {
-        @Override
-        public User create(String name, String password, LocalDateTime creationTime, int balance) {
-            return new CommonUser(name, password, creationTime, balance);
-        }
-    }
-
-    /**
-     * Fake implementation of HistoryDataAccessInterface for testing purposes.
-     */
-    private class FakeHistoryDataAccess implements HistoryDataAccessInterface {
-        private String addedUser;
-
-        @Override
-        public void addPayout(String username, String game, double amount) {
-            // Implement addPayout method if needed for testing
-        }
-
-        @Override
-        public ArrayList<Double> getPayouts(String username, String game) {
-            return null;
-        }
-
-        @Override
-        public boolean existsByName(String identifier) {
-            return false;
-        }
-
-        @Override
-        public void addUser(String username) {
-            this.addedUser = username;
-        }
-    }
-
     private SignupInteractor signupInteractor;
     private FakeSignupUserDataAccess fakeUserDataAccess;
     private FakeSignupOutputBoundary fakeOutputBoundary;
@@ -178,5 +106,77 @@ public class SignupInteractorTest {
         assertNotNull(fakeOutputBoundary.failureData);
         assertEquals("User password must have more than 5 characters", fakeOutputBoundary.failureData.getMessage());
         assertNull(fakeHistoryDAO.addedUser);
+    }
+
+    /**
+     * Fake implementation of SignupUserDataAccessInterface for testing purposes.
+     */
+    private class FakeSignupUserDataAccess implements SignupUserDataAccessInterface {
+        private boolean userExists;
+
+        @Override
+        public boolean existsByName(String identifier) {
+            return userExists;
+        }
+
+        @Override
+        public void save(User requestModel) {
+            // Implement save method if needed for testing
+        }
+    }
+
+    /**
+     * Fake implementation of SignupOutputBoundary for testing purposes.
+     */
+    private class FakeSignupOutputBoundary implements SignupOutputBoundary {
+        private SignupOutputData successData;
+        private UserDataAccessFailed failureData;
+
+        @Override
+        public void prepareSuccessView(SignupOutputData user) {
+            this.successData = user;
+        }
+
+        @Override
+        public void prepareFailView(UserDataAccessFailed error) {
+            this.failureData = error;
+        }
+    }
+
+    /**
+     * Fake implementation of UserFactory for testing purposes.
+     */
+    private class FakeUserFactory implements UserFactory {
+        @Override
+        public User create(String name, String password, LocalDateTime creationTime, int balance) {
+            return new CommonUser(name, password, creationTime, balance);
+        }
+    }
+
+    /**
+     * Fake implementation of HistoryDataAccessInterface for testing purposes.
+     */
+    private class FakeHistoryDataAccess implements HistoryDataAccessInterface {
+        private String addedUser;
+
+        @Override
+        public void addPayout(String username, String game, double amount) {
+            // Implement addPayout method if needed for testing
+        }
+
+        @Override
+        public ArrayList<Double> getPayouts(String username, String game) {
+            return null;
+        }
+
+        @Override
+        public boolean existsByName(String identifier) {
+            return false;
+        }
+
+        @Override
+        public void addUser(String username) {
+            this.addedUser = username;
+        }
     }
 }

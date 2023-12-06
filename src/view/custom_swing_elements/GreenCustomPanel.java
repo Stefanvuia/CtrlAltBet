@@ -7,22 +7,19 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class GreenCustomPanel extends JPanel {
-    private final GridBagConstraints gbc = new GridBagConstraints();
-    public GreenCustomPanel(){
+
+    public GreenCustomPanel() {
         super();
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
         layout.setConstraints(this, gbc);
 
         this.setFont(new Font("Courier", Font.BOLD, 28));
         this.setOpaque(true);
         this.setBorder(new CompoundBorder(
-                new LineBorder(new Color(144, 227, 154),1),
+                new LineBorder(new Color(144, 227, 154), 1),
                 new EmptyBorder(10, 10, 10, 10)));
         this.setBackground(new Color(53, 70, 62));
-    }
-
-    public GridBagConstraints getGbc() {
-        return gbc;
     }
 }

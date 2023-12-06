@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BaccaratGameTest {
+    private final List<Card> cards = new ArrayList<>();
     private Player player;
     private Player banker;
     private String deckId;
     private BaccaratGame game;
-
     private Card jCard;
-
     private Card aCard;
-
     private Card sixCard;
-    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -33,7 +30,7 @@ class BaccaratGameTest {
         cards.add(aCard);
         cards.add(jCard);
 
-        game = new BaccaratGame(player, banker, deckId);
+        game = new BaccaratGame(deckId);
     }
 
     @Test

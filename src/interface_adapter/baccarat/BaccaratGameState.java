@@ -27,7 +27,8 @@ public class BaccaratGameState {
     /**
      * Constructs an empty BaccaratGameState.
      */
-    public BaccaratGameState() {}
+    public BaccaratGameState() {
+    }
 
     /**
      * Gets the list of images representing the player's hand.

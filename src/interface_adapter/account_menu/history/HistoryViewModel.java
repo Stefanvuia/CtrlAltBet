@@ -11,21 +11,19 @@ public class HistoryViewModel extends ViewModel {
     public static final String BACCARAT_BUTTON_LABEL = "baccarat";
     public static final String WAR_BUTTON_LABEl = "war";
     public static final String RESET_GRAPH_LABEL = "reset";
-
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     private HistoryState historyState = new HistoryState();
 
     public HistoryViewModel() {
         super("history");
     }
 
-    public void setHistoryState(HistoryState historyState) {
-        this.historyState = historyState;
-    }
-
-    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
     public HistoryState getHistoryState() {
         return historyState;
+    }
+
+    public void setHistoryState(HistoryState historyState) {
+        this.historyState = historyState;
     }
 
     @Override

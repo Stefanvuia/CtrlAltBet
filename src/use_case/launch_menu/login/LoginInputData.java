@@ -20,7 +20,7 @@ public class LoginInputData {
     /**
      * Constructs a {@code LoginInputData} instance with the specified user name and password.
      *
-     * @param name The user's name provided during login.
+     * @param name     The user's name provided during login.
      * @param password The password provided during login.
      */
     public LoginInputData(String name, String password) {

@@ -31,9 +31,9 @@ public class LoginPresenter implements LoginOutputBoundary {
     /**
      * Creates a new instance of the LoginPresenter.
      *
-     * @param loginViewModel    The ViewModel associated with the login functionality.
-     * @param launchViewModel   The ViewModel associated with the launch game functionality.
-     * @param viewManagerModel  The model for managing the active view.
+     * @param loginViewModel   The ViewModel associated with the login functionality.
+     * @param launchViewModel  The ViewModel associated with the launch game functionality.
+     * @param viewManagerModel The model for managing the active view.
      */
     public LoginPresenter(LoginViewModel loginViewModel, LaunchViewModel launchViewModel, ViewManagerModel viewManagerModel) {
         this.loginViewModel = loginViewModel;

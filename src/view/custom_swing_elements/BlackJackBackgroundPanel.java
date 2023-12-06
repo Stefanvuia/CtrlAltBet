@@ -12,11 +12,11 @@ public class BlackJackBackgroundPanel extends JPanel {
     private final JPanel top = new JPanel();
     private final JPanel bottom = new JPanel();
 
-    private final GridBagConstraints gbc = new GridBagConstraints();
     public BlackJackBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
         layout.setConstraints(this, gbc);
 
         gbc.gridy = 0;
@@ -28,7 +28,7 @@ public class BlackJackBackgroundPanel extends JPanel {
 
         gbc.gridy++;
         bottom.setOpaque(false);
-        this.add(bottom,gbc);
+        this.add(bottom, gbc);
 
 
         try {

@@ -1,10 +1,12 @@
 package entity.user;
+
 import org.junit.jupiter.api.Test;
 import use_case.launch_menu.login.*;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Unit tests for the LoginInteractor class.
  */

@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class CardImageFactory implements ImageFactory {
-    public CardImageFactory(){}
+    public CardImageFactory() {
+    }
 
     public Image create(Card card) {
         URL url;
@@ -19,7 +20,9 @@ public class CardImageFactory implements ImageFactory {
             image = ImageIO.read(url).getScaledInstance(Constants.CARD_WIDTH,
                     Constants.CARD_HEIGHT,
                     Image.SCALE_SMOOTH);
-        } catch (IOException e) {throw new RuntimeException(e);}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return image;
     }

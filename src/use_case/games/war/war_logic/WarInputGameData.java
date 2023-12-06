@@ -9,12 +9,15 @@ public class WarInputGameData {
     private final WarGameInterface game;
 
 
-    public WarInputGameData(WarGameInterface game){
+    public WarInputGameData(WarGameInterface game) {
 
         this.game = game;
     }
 
-    WarGame getGame(){ return (WarGame) this.game; }
+    WarGame getGame() {
+        return (WarGame) this.game;
+    }
+
     public String getUser() {
         WarPlayer user = (WarPlayer) game.getPlayer();
         return user.getUsername();

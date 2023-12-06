@@ -24,7 +24,7 @@ public class LoginInteractor implements LoginInputBoundary {
      * and {@code userPresenter}.
      *
      * @param loginUserDataAccessInterface The interface for accessing user data during login.
-     * @param userPresenter The presenter responsible for handling the output of user login interactions.
+     * @param userPresenter                The presenter responsible for handling the output of user login interactions.
      */
     public LoginInteractor(LoginUserDataAccessInterface loginUserDataAccessInterface, LoginOutputBoundary userPresenter) {
         this.loginUserDataAccessInterface = loginUserDataAccessInterface;

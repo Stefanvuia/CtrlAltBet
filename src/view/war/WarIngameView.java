@@ -35,14 +35,14 @@ public class WarIngameView extends JPanel implements PropertyChangeListener {
         WarGameState currState = warIngameViewModel.getState();
         showPlayerHand(currState.getPlayerImages());
         showDealerHand(currState.getDealerImages());
-        if (currState.getGame().playerWins()){
+        if (currState.getGame().playerWins()) {
             JOptionPane.showMessageDialog(this, "You win!");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "You lost");
         }
 
     }
+
     private void showPlayerHand(java.util.List<Image> imgs) {
         tablePanel.getBottom().removeAll();
         JLabel label = new JLabel();

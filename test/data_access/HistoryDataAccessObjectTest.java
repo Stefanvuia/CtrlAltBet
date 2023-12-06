@@ -16,10 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HistoryDataAccessObjectTest {
 
-    private HistoryDataAccessObject historyDAO;
-
     @TempDir
     Path tempDir;
+    private HistoryDataAccessObject historyDAO;
 
     @BeforeEach
     void setUp() throws IOException {

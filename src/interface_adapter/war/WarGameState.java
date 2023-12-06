@@ -8,8 +8,6 @@ import java.util.List;
 
 public class WarGameState {
     private int bet = 0;
-    private final String gameMessage = null;
-
     private java.util.List<Image> playerImages = new ArrayList<>();
 
     private java.util.List<Image> dealerImages = new ArrayList<>();
@@ -19,16 +17,31 @@ public class WarGameState {
     private boolean wentToWar = false;
     private String errorMessage = null;
 
-    public WarGameState(){}
-    public void setSurrendered(boolean surrendered){this.surrendered = surrendered;}
-    public void setDidGoToWar(boolean wentToWar){this.wentToWar = wentToWar;}
-    public boolean getSurrendered(){return surrendered;}
-    public boolean getWentToWar(){return wentToWar;}
-    public void setErrorMessage(String message){
-        errorMessage = message;
+    public WarGameState() {
     }
-    public String getErrorMessage(){
+
+    public void setDidGoToWar(boolean wentToWar) {
+        this.wentToWar = wentToWar;
+    }
+
+    public boolean getSurrendered() {
+        return surrendered;
+    }
+
+    public void setSurrendered(boolean surrendered) {
+        this.surrendered = surrendered;
+    }
+
+    public boolean getWentToWar() {
+        return wentToWar;
+    }
+
+    public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setErrorMessage(String message) {
+        errorMessage = message;
     }
 
     public int getBet() {

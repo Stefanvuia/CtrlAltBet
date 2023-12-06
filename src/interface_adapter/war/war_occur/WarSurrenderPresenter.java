@@ -13,8 +13,8 @@ public class WarSurrenderPresenter implements WarSurrenderOutputBoundary {
     private final ViewManagerModel viewManagerModel;
 
     public WarSurrenderPresenter(WarStartViewModel warStartViewModel,
-                               ViewManagerModel viewManagerModel,
-                               WarOccurViewModel warOccurViewModel) {
+                                 ViewManagerModel viewManagerModel,
+                                 WarOccurViewModel warOccurViewModel) {
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warOccurViewModel = warOccurViewModel;

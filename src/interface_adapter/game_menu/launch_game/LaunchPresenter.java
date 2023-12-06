@@ -11,13 +11,10 @@ import use_case.game_menu.launch_game.LaunchOutputBoundary;
 import use_case.game_menu.launch_game.LaunchOutputData;
 
 public class LaunchPresenter implements LaunchOutputBoundary {
-    private final BlackJackStartViewModel blackJackStartViewModel;
-
-    private final BaccaratStartViewModel baccaratStartViewModel;
-
-    private final WarStartViewModel warStartViewModel;
-
     final ViewManagerModel viewManagerModel;
+    private final BlackJackStartViewModel blackJackStartViewModel;
+    private final BaccaratStartViewModel baccaratStartViewModel;
+    private final WarStartViewModel warStartViewModel;
 
     public LaunchPresenter(BlackJackStartViewModel blackJackStartViewModel,
                            BaccaratStartViewModel baccaratStartViewModel,

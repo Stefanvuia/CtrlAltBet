@@ -17,6 +17,7 @@ class StubUpdateUserDataAccess implements UpdateUserDataAccessInterface {
         // Simulate fetching a user from a data source
         return new User() {
             private int balance = 0; // initialize balance to 0
+
             @Override
             public boolean passwordIsValid() {
                 return false;
@@ -59,7 +60,7 @@ class StubUpdateUserDataAccess implements UpdateUserDataAccessInterface {
         return savedUser;
     }
 
-    public void setThrowException(boolean b) {
+    public void setThrowException() {
     }
 }
 
@@ -131,7 +132,7 @@ public class UpdateInteractorTest {
     public void testUpdateUserException() {
         // Arrange
         UpdateInputData input = new UpdateInputData("testUser", 50);
-        stubUserDataAccess.setThrowException(true);
+        stubUserDataAccess.setThrowException();
 
         // Act and Assert
         try {

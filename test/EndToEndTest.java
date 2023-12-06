@@ -22,6 +22,55 @@ public class EndToEndTest {
 
     private JPanel jp;
 
+    @AfterAll
+    public static void reset() {
+        try {
+            deleteLine();
+        } catch (IOException e) {
+            Assertions.fail("Cannot clear line");
+        }
+    }
+
+    private static void deleteLine() throws IOException {
+        // Deletes the temporarily added user
+        File userfile = new File("users.csv");
+        File tempFile = new File("tempUsers.csv");
+
+        BufferedReader reader = new BufferedReader(new FileReader(userfile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String row;
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
+            if (!col[0].equals("kevinin")) {
+                writer.write(row);
+                writer.newLine();
+            }
+        }
+        writer.close();
+        reader.close();
+        assert userfile.delete();
+        assert tempFile.renameTo(userfile);
+
+        // Deletes the test user's history
+        File userHistory = new File("history.csv");
+        File tempHistory = new File("tempHistory.csv");
+        reader = new BufferedReader(new FileReader(userHistory));
+        writer = new BufferedWriter(new FileWriter(tempHistory));
+
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
+            if (!col[0].equals("kevinin")) {
+                writer.write(row);
+                writer.newLine();
+            }
+        }
+        writer.close();
+        reader.close();
+        assert userfile.delete();
+        assert tempHistory.renameTo(userHistory);
+    }
+
     private void getApp() {
         JFrame app = null;
         Window[] windows = Window.getWindows();
@@ -55,15 +104,6 @@ public class EndToEndTest {
         Window[] windows = Window.getWindows();
         for (Window window : windows) {
             window.dispose();
-        }
-    }
-
-    @AfterAll
-    public static void reset() {
-        try {
-            deleteLine();
-        } catch (IOException e) {
-            Assertions.fail("Cannot clear line");
         }
     }
 
@@ -178,7 +218,7 @@ public class EndToEndTest {
         assert av.isVisible();
 
         // Check username
-        JLabel usernameLabel = (JLabel) ((JPanel) av.getComponent(1)) .getComponent(0);
+        JLabel usernameLabel = (JLabel) ((JPanel) av.getComponent(1)).getComponent(0);
         Assertions.assertEquals("current user: kevinin", usernameLabel.getText());
 
         // Deposit test
@@ -189,7 +229,7 @@ public class EndToEndTest {
         assert popUpDiscovered;
         Assertions.assertEquals("Successfully edited funds!", message);
         // Check new funds
-        JLabel fundsLabel = (JLabel) ((JPanel) av.getComponent(2)) .getComponent(0);
+        JLabel fundsLabel = (JLabel) ((JPanel) av.getComponent(2)).getComponent(0);
         Assertions.assertEquals("current funds: 1000", fundsLabel.getText());
 
         // Withdraw test
@@ -200,7 +240,7 @@ public class EndToEndTest {
         assert popUpDiscovered;
         Assertions.assertEquals("Successfully edited funds!", message);
         // Check new funds
-        fundsLabel = (JLabel) ((JPanel) av.getComponent(2)) .getComponent(0);
+        fundsLabel = (JLabel) ((JPanel) av.getComponent(2)).getComponent(0);
         Assertions.assertEquals("current funds: 0", fundsLabel.getText());
 
         ((JButton) av.getComponent(6)).doClick();
@@ -240,49 +280,5 @@ public class EndToEndTest {
         Timer t = new Timer(milliseconds, close);
         t.setRepeats(false);
         return t;
-    }
-
-    private static void deleteLine() throws IOException {
-        // Deletes the temporarily added user
-        File userfile = new File("users.csv");
-        File tempFile = new File("tempUsers.csv");
-
-        BufferedReader reader = new BufferedReader(new FileReader(userfile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String row;
-        while ((row = reader.readLine()) != null) {
-            String[] col = row.split(",");
-            if (!col[0].equals("kevinin")) {
-                writer.write(row);
-                writer.newLine();
-            }
-        }
-        writer.close();
-        reader.close();
-        if (!userfile.delete()) {
-            System.out.println("Could not delete file");
-        }
-        tempFile.renameTo(userfile);
-
-        // Deletes the test user's history
-        File userHistory = new File("history.csv");
-        File tempHistory = new File("tempHistory.csv");
-        reader = new BufferedReader(new FileReader(userHistory));
-        writer = new BufferedWriter(new FileWriter(tempHistory));
-
-        while ((row = reader.readLine()) != null) {
-            String[] col = row.split(",");
-            if (!col[0].equals("kevinin")) {
-                writer.write(row);
-                writer.newLine();
-            }
-        }
-        writer.close();
-        reader.close();
-        if (!userHistory.delete()) {
-            System.out.println("Could not delete file");
-        }
-        tempHistory.renameTo(userHistory);
     }
 }

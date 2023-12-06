@@ -5,12 +5,12 @@ import entity.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WarPlayer extends Player{
+public class WarPlayer extends Player {
     private final int bet;
     private final String username;
 
     public WarPlayer(int bet, String username) {
-        this.hands = new ArrayList<Card>();
+        this.hands = new ArrayList<>();
         this.bet = bet;
         this.username = username;
     }

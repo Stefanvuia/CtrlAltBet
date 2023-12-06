@@ -92,7 +92,7 @@ public class BaccaratGameLogic {
         player = new BaccaratPlayer();
         String deckId = cardsAPI.shuffleNew(8);
 
-        game = new BaccaratGame(player, banker, deckId);
+        game = new BaccaratGame(deckId);
         game.addToHand(player, cardsAPI.draw(deckId, 2));
         game.addToHand(banker, cardsAPI.draw(deckId, 2));
     }

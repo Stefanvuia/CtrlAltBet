@@ -7,29 +7,26 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class WarOccurViewModel extends ViewModel {
-    private WarGameState state = new WarGameState();
-
     public final String IMG_PATH = "img/wartable.png";
-
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public String GO_TO_WAR_LABEL = "go to war";
 
     public String SURRENDER_LABEL = "surrender";
 
     public String EXIT_LABEL = "exit";
+    private WarGameState state = new WarGameState();
 
     public WarOccurViewModel() {
         super("war occur");
-    }
-
-    public void setState(WarGameState state) {
-        this.state = state;
     }
 
     public WarGameState getState() {
         return state;
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(WarGameState state) {
+        this.state = state;
+    }
 
     @Override
     public void firePropertyChanged() {

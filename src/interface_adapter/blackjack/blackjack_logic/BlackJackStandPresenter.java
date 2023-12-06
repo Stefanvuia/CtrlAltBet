@@ -38,7 +38,7 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
     @Override
     public void prepareLoseView(BlackJackOutputGameData outputGameData) {
         gameFinishHelper("Dealer hand wins! You lose " + -outputGameData.getChange() + "!",
-                outputGameData.getChange(),outputGameData);
+                outputGameData.getChange(), outputGameData);
     }
 
     @Override

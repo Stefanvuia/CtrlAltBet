@@ -4,7 +4,7 @@ import entity.cards.Card;
 
 import java.util.List;
 
-public interface BlackJackGameInterface extends Game{
+public interface BlackJackGameInterface extends Game {
     int sumHand(Player player);
 
     void addToHand(Player player, Card card);

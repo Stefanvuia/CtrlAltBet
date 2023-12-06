@@ -4,7 +4,7 @@ package use_case.game_menu.exit;
  * Represents the interactor for handling exit-related operations in the game menu.
  * Implements the ExitInputBoundary interface.
  */
-public class ExitInteractor implements ExitInputBoundary{
+public class ExitInteractor implements ExitInputBoundary {
 
     /**
      * The presenter responsible for handling exit-related output.

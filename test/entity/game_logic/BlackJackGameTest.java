@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BlackJackGameTest {
+    private final List<Card> cards = new ArrayList<>();
     private Player player;
     private Player dealer;
     private String deckId;
     private BlackJackGame game;
-
     private Card jCard;
-
     private Card aCard;
-
     private Card sixCard;
-    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

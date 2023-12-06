@@ -1,7 +1,6 @@
 package interface_adapter.war.war_start;
 
 
-
 public class WarStartState {
     private String username = "";
 
@@ -11,14 +10,8 @@ public class WarStartState {
 
     private int funds = 0;
 
-    public WarStartState(WarStartState copy) {
-        username = copy.username;
-        bet = copy.bet;
-        funds = copy.funds;
-        betError = copy.betError;
+    public WarStartState() {
     }
-
-    public WarStartState() {}
 
     public String getUsername() {
         return username;

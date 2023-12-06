@@ -60,9 +60,9 @@ public class BaccaratDataAccess {
     /**
      * Calculates and updates the user's fund based on the outcome of the Baccarat game.
      *
-     * @param bet     The map containing the bets on different outcomes (tie, banker, player).
-     * @param winner  The winner of the Baccarat game.
-     * @param betSum  The total amount of bets placed.
+     * @param bet    The map containing the bets on different outcomes (tie, banker, player).
+     * @param winner The winner of the Baccarat game.
+     * @param betSum The total amount of bets placed.
      * @return The payout amount for the user.
      */
     public int payoutHelper(Map<String, Integer> bet, String winner, int betSum) {

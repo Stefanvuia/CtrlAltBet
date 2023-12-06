@@ -24,30 +24,18 @@ import java.text.NumberFormat;
 
 public class BlackJackStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "bj start";
-
-    private final BlackJackStartViewModel blackJackStartViewModel;
-
-    private final ExitController exitController;
-
-    JFormattedTextField betField;
-
     final JButton start;
-
     final JButton info;
-
     final JButton exit;
-
     final JButton max;
-
     final JButton min;
-
     final JButton half;
-
-    private int maxBet;
-
-    private int halfBet;
-
+    private final BlackJackStartViewModel blackJackStartViewModel;
+    private final ExitController exitController;
     private final BlackJackStartController blackJackStartController;
+    JFormattedTextField betField;
+    private int maxBet;
+    private int halfBet;
 
     public BlackJackStartView(BlackJackStartViewModel blackJackStartViewModel,
                               ExitController exitController,
@@ -175,8 +163,10 @@ public class BlackJackStartView extends JPanel implements ActionListener, Proper
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {}
+    public void removeUpdate(DocumentEvent e) {
+    }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+    }
 }

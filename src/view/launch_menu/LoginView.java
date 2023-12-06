@@ -26,50 +26,43 @@ import java.beans.PropertyChangeListener;
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     /**
+     * The text field for entering the username.
+     */
+    final JTextField username = new JTextField(15);
+    /**
+     * The password field for entering the user's password.
+     */
+    final JPasswordField password = new JPasswordField(15);
+    /**
+     * The login button for initiating the login process.
+     */
+    final JButton logIn;
+    /**
+     * The cancel button for canceling the login process.
+     */
+    final JButton cancel;
+    /**
+     * The ViewModel associated with the login functionality.
+     */
+    private final LoginViewModel loginViewModel;
+    /**
+     * The controller for handling user interactions with buttons.
+     */
+    private final UserButtonsController userButtonsController;
+    /**
+     * The controller responsible for handling user login operations.
+     */
+    private final UserLoginController userLoginController;
+    /**
      * The name of the view, used for identification.
      */
     public String viewName = "log in";
 
     /**
-     * The ViewModel associated with the login functionality.
-     */
-    private final LoginViewModel loginViewModel;
-
-    /**
-     * The controller for handling user interactions with buttons.
-     */
-    private final UserButtonsController userButtonsController;
-
-    /**
-     * The text field for entering the username.
-     */
-    final JTextField username = new JTextField(15);
-
-    /**
-     * The password field for entering the user's password.
-     */
-    final JPasswordField password = new JPasswordField(15);
-
-    /**
-     * The login button for initiating the login process.
-     */
-    final JButton logIn;
-
-    /**
-     * The cancel button for canceling the login process.
-     */
-    final JButton cancel;
-
-    /**
-     * The controller responsible for handling user login operations.
-     */
-    private final UserLoginController userLoginController;
-
-    /**
      * Creates a new instance of the LoginView.
      *
-     * @param userLoginController  The controller for handling user login operations.
-     * @param loginViewModel       The ViewModel associated with the login functionality.
+     * @param userLoginController   The controller for handling user login operations.
+     * @param loginViewModel        The ViewModel associated with the login functionality.
      * @param userButtonsController The controller for handling user interactions with buttons.
      */
     public LoginView(UserLoginController userLoginController, LoginViewModel loginViewModel,

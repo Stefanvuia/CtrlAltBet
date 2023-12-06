@@ -23,24 +23,16 @@ import java.text.NumberFormat;
 
 public class BaccaratStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "baccarat start";
+    final JButton start;
+    final JButton info;
+    final JButton exit;
+    final JPanel fundPanel;
     private final BaccaratStartViewModel baccaratStartViewModel;
     private final BaccaratController baccaratController;
-
     private final ExitController exitController;
-
     JFormattedTextField bankerBet;
-
     JFormattedTextField playerBet;
-
     JFormattedTextField tieBet;
-
-    final JButton start;
-
-    final JButton info;
-
-    final JButton exit;
-
-    final JPanel fundPanel;
 
     public BaccaratStartView(BaccaratStartViewModel baccaratStartViewModel,
                              BaccaratController baccaratController,
@@ -165,8 +157,10 @@ public class BaccaratStartView extends JPanel implements ActionListener, Propert
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {}
+    public void removeUpdate(DocumentEvent e) {
+    }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+    }
 }

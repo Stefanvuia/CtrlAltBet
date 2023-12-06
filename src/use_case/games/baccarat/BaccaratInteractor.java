@@ -34,10 +34,10 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
     /**
      * Constructs a BaccaratInteractor object with the specified dependencies.
      *
-     * @param cardsAPI           The interface for interacting with the Cards API.
-     * @param gameDAO            Data access interface for handling game-related data.
-     * @param baccaratPresenter  Presenter for displaying Baccarat game output.
-     * @param historyDAO         Data access interface for handling user history data.
+     * @param cardsAPI          The interface for interacting with the Cards API.
+     * @param gameDAO           Data access interface for handling game-related data.
+     * @param baccaratPresenter Presenter for displaying Baccarat game output.
+     * @param historyDAO        Data access interface for handling user history data.
      */
     public BaccaratInteractor(CardsAPIInterface cardsAPI,
                               GameDataAccessInterface gameDAO,

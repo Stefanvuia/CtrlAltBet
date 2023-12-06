@@ -74,6 +74,7 @@ public class BlackJackIngameView extends JPanel implements ActionListener, Prope
         this.tablePanel = new BlackJackBackgroundPanel(blackJackIngameViewModel.IMG_PATH);
         gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, 8, 7, 1, 1);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         BlackJackGameState currstate = blackJackIngameViewModel.getState();

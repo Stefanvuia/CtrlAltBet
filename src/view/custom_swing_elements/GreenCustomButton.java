@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 public class GreenCustomButton extends JButton {
     private final Color darkGreen = new Color(53, 70, 62);
     private final Color lightGreen = new Color(144, 227, 154);
+
     public GreenCustomButton(String text) {
         super(text);
         this.setContentAreaFilled(false);

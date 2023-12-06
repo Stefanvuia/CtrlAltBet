@@ -8,15 +8,13 @@ import java.util.Map;
  */
 public class BaccaratStartState {
     /**
-     * The username of the player.
-     */
-    private String username = "";
-
-    /**
      * The betting amounts for different outcomes (player, banker, tie).
      */
     private final Map<String, Integer> bet = initBetMap();
-
+    /**
+     * The username of the player.
+     */
+    private String username = "";
     /**
      * The available funds for the player.
      */
@@ -30,7 +28,8 @@ public class BaccaratStartState {
     /**
      * Constructs an instance of the BaccaratStartState class.
      */
-    public BaccaratStartState() {}
+    public BaccaratStartState() {
+    }
 
     /**
      * Gets the username of the player.

@@ -24,9 +24,6 @@ class BaccaratSuccessTest {
     private final String username = "cakev";
 
     private final Map<String, Integer> bet = new HashMap<>();
-
-    private CardsAPIInterface cardDrawer;
-
     private final BaccaratOutputBoundary presenter = new BaccaratOutputBoundary() {
         @Override
         public void preparePayoutView(BaccaratOutputData baccaratOutputData) {
@@ -42,6 +39,7 @@ class BaccaratSuccessTest {
             fail("fail is unexpected");
         }
     };
+    private CardsAPIInterface cardDrawer;
 
     @BeforeEach
     void setUp() {

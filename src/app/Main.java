@@ -130,7 +130,7 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         LaunchViewModel launchViewModel = new LaunchViewModel();
 
-        BlackJackStartViewModel blackJackStartViewModel= new BlackJackStartViewModel();
+        BlackJackStartViewModel blackJackStartViewModel = new BlackJackStartViewModel();
         BlackJackIngameViewModel blackJackIngameViewModel = new BlackJackIngameViewModel();
         BaccaratStartViewModel baccaratStartViewModel = new BaccaratStartViewModel();
         BaccaratGameViewModel baccaratGameViewModel = new BaccaratGameViewModel();
@@ -146,7 +146,7 @@ public class Main {
         BlackJackHitOutputBoundary hitPresenter = new BlackJackHitPresenter(blackJackStartViewModel, viewManagerModel, blackJackIngameViewModel);
         BlackJackStandOutputBoundary standPresenter = new BlackJackStandPresenter(blackJackStartViewModel, blackJackIngameViewModel, viewManagerModel);
 
-        BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel,  baccaratGameViewModel, viewManagerModel);
+        BaccaratOutputBoundary baccaratPresenter = new BaccaratPresenter(baccaratStartViewModel, baccaratGameViewModel, viewManagerModel);
 
         WarStartOutputBoundary warstartPresenter = new WarStartPresenter(warStartViewModel, viewManagerModel, warIngameViewModel, warOccurViewModel);
         WarGoToWarOutputBoundary warGoToWarPresenter = new WarGoToWarPresenter(warStartViewModel, viewManagerModel, warOccurViewModel);
@@ -158,11 +158,11 @@ public class Main {
         SignOutOutputBoundary signOutPresenter = new SignOutPresenter(welcomeViewModel, viewManagerModel);
         UpdateOutputBoundary updatePresenter = new UpdatePresenter(accountInfoViewModel);
         HistoryOutputBoundary historyPresenter = new HistoryPresenter(historyViewModel);
-      
+
 
         BlackJackHitInputBoundary hitInteractor = new BlackJackHitInteractor(cardsAPI, hitPresenter, historyDAO);
         BlackJackStandInputBoundary standInteractor = new BlackJackStandInteractor(cardsAPI, userDataAccessObject, standPresenter, historyDAO);
-        BlackJackStartInputBoundary blackJackStartInteractor= new BlackJackStartInteractor(cardsAPI, userDataAccessObject, blackJackStartPresenter);
+        BlackJackStartInputBoundary blackJackStartInteractor = new BlackJackStartInteractor(cardsAPI, userDataAccessObject, blackJackStartPresenter);
         BaccaratInputBoundary baccaratInteractor = new BaccaratInteractor(cardsAPI, userDataAccessObject, baccaratPresenter, historyDAO);
         WarStartInputBoundary warStartInputInteractor = new WarStartInteractor(cardsAPI, userDataAccessObject, historyDAO, warstartPresenter);
         WarGoToWarInputBoundary warGoToWarInteractor = new WarGoToWarInteractor(cardsAPI, userDataAccessObject, historyDAO, warGoToWarPresenter);
@@ -217,7 +217,7 @@ public class Main {
         WarStartView warStartView = new WarStartView(warStartViewModel, exitController, warStartController);
         WarIngameView warIngameView = new WarIngameView(warIngameViewModel);
         WarOccurView warOccurView = new WarOccurView(warOccurViewModel, warGoToWarController, warSurrenderController, exitController);
-        
+
         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
         views.add(welcomeView, welcomeView.viewName);

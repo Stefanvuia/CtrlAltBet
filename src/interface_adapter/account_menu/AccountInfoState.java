@@ -10,7 +10,7 @@ public class AccountInfoState {
     private int funds = 0;
 
     private int withdraw = 0;
-  
+
     private String username = "";
 
     private String errorMessage = null;
@@ -18,7 +18,8 @@ public class AccountInfoState {
     /**
      * Constructs a new AccountInfoState with default values.
      */
-    public AccountInfoState() {}
+    public AccountInfoState() {
+    }
 
     /**
      * Retrieves the username associated with the account.

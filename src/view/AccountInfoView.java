@@ -41,45 +41,28 @@ import java.text.NumberFormat;
  * @see javax.swing.event.DocumentListener
  */
 public class AccountInfoView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
-    public String viewName = "account info";
     private final AccountInfoViewModel accountInfoViewModel;
-
     private final HistoryController historyController;
-
     private final HistoryViewModel historyViewModel;
-
     private final ExitController exitController;
-
     private final UserUpdateController updateController;
-
     private final SignOutController signOutController;
-
     private final ResetController resetController;
-
     private final JButton deposit;
     private final JButton withdraw;
     private final JButton signout;
     private final JButton exit;
-
     private final JFormattedTextField depositField;
-
     private final JFormattedTextField withdrawField;
-
     private final JPanel fundsPanel;
-
     private final JPanel userPanel;
-
-    private JLabel fundsLabel;
-
-    private JLabel userLabel;
-
     private final JButton blackJackButton;
-
     private final JButton baccaratButton;
-
     private final JButton warButton;
-
     private final JButton resetGraph;
+    public String viewName = "account info";
+    private JLabel fundsLabel;
+    private JLabel userLabel;
 
     /**
      * Constructs an AccountInfoView with the given models and controllers.
@@ -284,10 +267,12 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {}
+    public void removeUpdate(DocumentEvent e) {
+    }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+    }
 
     private void displayChart(XYChart chart) {
         // Create a new frame for the chart popup

@@ -24,13 +24,13 @@ public class GridBagUtils {
     /**
      * Adds a component to the Container with specified constraints using GridBagLayout.
      *
-     * @param component The component to be added.
-     * @param gridx     The column at which the component will be placed.
-     * @param gridy     The row at which the component will be placed.
-     * @param gridwidth The number of columns the component will span.
+     * @param component  The component to be added.
+     * @param gridx      The column at which the component will be placed.
+     * @param gridy      The row at which the component will be placed.
+     * @param gridwidth  The number of columns the component will span.
      * @param gridheight The number of rows the component will span.
-     * @param weightx   The horizontal weight of the component.
-     * @param weighty   The vertical weight of the component.
+     * @param weightx    The horizontal weight of the component.
+     * @param weighty    The vertical weight of the component.
      */
     public void addComponentWithConstraints(Component component, int gridx, int gridy, int gridwidth, int gridheight, double weightx, double weighty) {
         GridBagConstraints gbc = new GridBagConstraints();

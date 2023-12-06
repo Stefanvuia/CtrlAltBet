@@ -27,8 +27,8 @@ public class BlackJackStartInteractor implements BlackJackStartInputBoundary {
     /**
      * Constructs a BlackJackStartInteractor object with the specified dependencies.
      *
-     * @param cardsAPI               The interface for interacting with the Cards API.
-     * @param dataAccess             Data access interface for handling game-related data.
+     * @param cardsAPI                The interface for interacting with the Cards API.
+     * @param dataAccess              Data access interface for handling game-related data.
      * @param blackJackStartPresenter Presenter for displaying the result of initiating the Blackjack game.
      */
     public BlackJackStartInteractor(

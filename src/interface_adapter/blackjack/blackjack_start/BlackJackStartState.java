@@ -9,14 +9,8 @@ public class BlackJackStartState {
 
     private int funds = 0;
 
-    public BlackJackStartState(BlackJackStartState copy) {
-        username = copy.username;
-        bet = copy.bet;
-        funds = copy.funds;
-        betError = copy.betError;
+    public BlackJackStartState() {
     }
-
-    public BlackJackStartState() {}
 
     public String getUsername() {
         return username;

@@ -21,15 +21,17 @@ public class WarStartPresenter implements WarStartOutputBoundary {
     private final WarOccurViewModel warOccurViewModel;
 
     private final ImageFactory imageFactory = new CardImageFactory();
+
     public WarStartPresenter(WarStartViewModel warStartViewModel,
                              ViewManagerModel viewManagerModel,
                              WarIngameViewModel warIngameViewModel,
-                             WarOccurViewModel warOccurViewModel){
+                             WarOccurViewModel warOccurViewModel) {
         this.warStartViewModel = warStartViewModel;
         this.viewManagerModel = viewManagerModel;
         this.warIngameViewModel = warIngameViewModel;
         this.warOccurViewModel = warOccurViewModel;
     }
+
     @Override
     public void prepareWarIngameView(WarStartOutputData outputData) {
         WarGameState ingameStateWar = new WarGameState();
@@ -46,7 +48,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
 
         this.warIngameViewModel.firePropertyChanged();
 
-        if(outputData.getGame().playerWins()){
+        if (outputData.getGame().playerWins()) {
             newGameState.setFunds(newGameState.getFunds() + newGameState.getBet());
         } else {
             newGameState.setFunds(newGameState.getFunds() - newGameState.getBet());
@@ -60,8 +62,9 @@ public class WarStartPresenter implements WarStartOutputBoundary {
         this.viewManagerModel.setActiveView(warStartViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
+
     @Override
-    public void prepareGoToWarView(WarStartOutputData outputData){
+    public void prepareGoToWarView(WarStartOutputData outputData) {
         WarGameState ingameStateWar = new WarGameState();
         ingameStateWar.setBet(outputData.getBet());
         ingameStateWar.setGame(outputData.getGame());
@@ -75,6 +78,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
 
 
     }
+
     @Override
     public void prepareFailView(String error) {
         WarStartState errorGameState = warStartViewModel.getState();
@@ -83,6 +87,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
         warStartViewModel.firePropertyChanged();
 
     }
+
     private java.util.List<Image> makeImages(java.util.List<Card> imageLinks) {
         List<Image> images = new ArrayList<>();
         for (Card card : imageLinks) {

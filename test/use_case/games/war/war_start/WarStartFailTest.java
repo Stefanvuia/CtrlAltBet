@@ -20,16 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class WarStartFailTest {
-    private final CardsAPIInterface api = new WarTestAPIObject(false,false);
-    private InMemoryUserDataAccessObject dao;
+    private final CardsAPIInterface api = new WarTestAPIObject(false, false);
     private final HistoryDataAccessInterface hDao = new InMemoryHistoryDataAccessObject();
-
     private final WarStartOutputBoundary failPresenter = new WarStartOutputBoundary() {
 
         @Override
         public void prepareWarIngameView(WarStartOutputData outputData) {
             fail("Use case success is unexpected.");
         }
+
         @Override
         public void prepareGoToWarView(WarStartOutputData outputData) {
             fail("Use case success is unexpected.");
@@ -40,6 +39,7 @@ public class WarStartFailTest {
             assertEquals("insufficient funds", error);
         }
     };
+    private InMemoryUserDataAccessObject dao;
 
     @BeforeEach
     void setUp() {

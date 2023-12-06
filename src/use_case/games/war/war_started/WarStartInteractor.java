@@ -5,7 +5,7 @@ import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
-public class WarStartInteractor implements WarStartInputBoundary{
+public class WarStartInteractor implements WarStartInputBoundary {
     final CardsAPIInterface cardsAPI;
     final GameDataAccessInterface dataAccess;
     final HistoryDataAccessInterface historyDAO;
@@ -41,18 +41,17 @@ public class WarStartInteractor implements WarStartInputBoundary{
             game.addToHand(player, cardsAPI.draw(game.getDeck()));
             game.addToHand(dealer, cardsAPI.draw(game.getDeck()));
 
-           if (!game.goToWar()){
-               if(game.playerWins()){
-                   dataAccess.editFund(username, 2*bet);
-                   historyDAO.addPayout(username, "war", bet);
-               } else {
-                   historyDAO.addPayout(username, "war", -bet);
-               }
-               warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
-           }
-           else{
-               warStartPresenter.prepareGoToWarView(new WarStartOutputData(game));
-           }
+            if (!game.goToWar()) {
+                if (game.playerWins()) {
+                    dataAccess.editFund(username, 2 * bet);
+                    historyDAO.addPayout(username, "war", bet);
+                } else {
+                    historyDAO.addPayout(username, "war", -bet);
+                }
+                warStartPresenter.prepareWarIngameView(new WarStartOutputData(game));
+            } else {
+                warStartPresenter.prepareGoToWarView(new WarStartOutputData(game));
+            }
 
         } else {
             warStartPresenter.prepareFailView("insufficient funds");

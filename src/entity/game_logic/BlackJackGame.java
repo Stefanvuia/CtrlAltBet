@@ -27,9 +27,9 @@ public class BlackJackGame implements BlackJackGameInterface {
     /**
      * Constructs a BlackJack game with the specified user, dealer, and deck.
      *
-     * @param user    The user in the BlackJack game.
-     * @param dealer  The dealer in the BlackJack game.
-     * @param deckId  The unique identifier for the deck used in the BlackJack game.
+     * @param user   The user in the BlackJack game.
+     * @param dealer The dealer in the BlackJack game.
+     * @param deckId The unique identifier for the deck used in the BlackJack game.
      */
     public BlackJackGame(Player user, Player dealer, String deckId) {
         this.user = user;

@@ -34,16 +34,14 @@ public class SignUpViewModel extends ViewModel {
      * The label for the password confirmation field.
      */
     public final String PASSWORD_CONFIRM = "confirm password";
-
-    /**
-     * The current state of the sign-up view.
-     */
-    private SignupState state = new SignupState();
-
     /**
      * The PropertyChangeSupport instance for notifying listeners about property changes.
      */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    /**
+     * The current state of the sign-up view.
+     */
+    private SignupState state = new SignupState();
 
     /**
      * Constructs a new instance of SignUpViewModel with the initial view name "sign up".

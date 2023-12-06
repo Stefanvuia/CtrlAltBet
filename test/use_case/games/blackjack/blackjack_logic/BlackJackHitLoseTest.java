@@ -46,6 +46,7 @@ class BlackJackHitLoseTest {
         lGame.addToHand(lPlayer, api.draw(""));
         lGame.addToHand(lPlayer, new StandardCard("ACE", ""));
     }
+
     @Test
     void loseTest() {
         BlackJackHitInputBoundary interactor = new BlackJackHitInteractor(api, lPresenter, hDao);

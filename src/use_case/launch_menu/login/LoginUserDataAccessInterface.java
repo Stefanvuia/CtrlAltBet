@@ -28,9 +28,9 @@ public interface LoginUserDataAccessInterface {
      * Validates the password for a user with the specified identifier (e.g., name).
      *
      * @param identifier The identifier (e.g., name) of the user.
-     * @param password The password to validate.
+     * @param password   The password to validate.
      * @return {@code true} if the password is valid for the user with the specified identifier,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     boolean validatePassword(String identifier, String password);
 }

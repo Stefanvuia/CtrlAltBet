@@ -23,22 +23,18 @@ import java.text.NumberFormat;
 
 public class WarStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "war start";
-    private final WarStartViewModel warStartViewModel;
-    private final ExitController exitController;
-    JFormattedTextField betField;
     final JButton start;
     final JButton info;
     final JButton exit;
     final JButton max;
-
     final JButton min;
-
     final JButton half;
-
-    private int maxBet;
-
-    private int halfBet;
+    private final WarStartViewModel warStartViewModel;
+    private final ExitController exitController;
     private final WarStartController warStartController;
+    JFormattedTextField betField;
+    private int maxBet;
+    private int halfBet;
 
     public WarStartView(WarStartViewModel warStartViewModel,
                         ExitController exitController,
@@ -95,6 +91,7 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
         gridBagUtils.addComponentWithConstraints(tablePanel, 0, 0, 8, 6, 1, 1);
 
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         WarStartState currentState = warStartViewModel.getState();
@@ -130,6 +127,7 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
             betField.setValue(0);
         }
     }
+
     private void makeBetFields() {
         NumberFormat format = NumberFormat.getIntegerInstance();
         format.setGroupingUsed(false);
@@ -156,6 +154,7 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
         warStartViewModel.setState(currentState);
         betField.setValue(newBet);
     }
+
     @Override
     public void insertUpdate(DocumentEvent e) {
         WarStartState currentState = warStartViewModel.getState();
@@ -164,8 +163,10 @@ public class WarStartView extends JPanel implements ActionListener, PropertyChan
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {}
+    public void removeUpdate(DocumentEvent e) {
+    }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {}
+    public void changedUpdate(DocumentEvent e) {
+    }
 }

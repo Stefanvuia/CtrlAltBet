@@ -18,13 +18,12 @@ public class ViewManager implements PropertyChangeListener {
     private final JPanel views;
 
     private final ViewManagerModel viewManagerModel;
-//    private AccountInfoViewModel userViewModel = null;
 
     /**
      * Constructs a new ViewManager with the specified parameters.
      *
-     * @param views The JPanel containing the views to be managed.
-     * @param cardLayout The CardLayout used for switching between views.
+     * @param views            The JPanel containing the views to be managed.
+     * @param cardLayout       The CardLayout used for switching between views.
      * @param viewManagerModel The model representing the state of the view manager.
      */
     public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel) {
@@ -38,7 +37,7 @@ public class ViewManager implements PropertyChangeListener {
 
     /**
      * Responds to property change events in the associated ViewManagerModel.
-     *
+     * <p>
      * This method is called when the associated ViewManagerModel undergoes a property change.
      * It updates the displayed view based on the change in the model's state.
      *

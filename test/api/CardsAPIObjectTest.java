@@ -25,7 +25,7 @@ class CardsAPIObjectTest {
     void testDraw() {
         List<Card> cards = api.draw(deckId, 2);
         assert !cards.isEmpty();
-        for(Card card: cards) {
+        for (Card card : cards) {
             assert card != null;
         }
     }

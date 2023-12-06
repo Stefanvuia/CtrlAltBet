@@ -5,11 +5,12 @@ import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
-public class WarSurrenderInteractor implements WarSurrenderInputBoundary{
+public class WarSurrenderInteractor implements WarSurrenderInputBoundary {
     final CardsAPIInterface cardsAPI;
     final GameDataAccessInterface dataAccess;
     final HistoryDataAccessInterface historyDAO;
     final WarSurrenderOutputBoundary warSurrenderPresenter;
+
     public WarSurrenderInteractor(CardsAPIInterface cardsAPI,
                                   GameDataAccessInterface dataAccess,
                                   HistoryDataAccessInterface historyDAO,
@@ -27,7 +28,7 @@ public class WarSurrenderInteractor implements WarSurrenderInputBoundary{
         String username = warInputGameData.getUser();
 
         dataAccess.editFund(username, bet / 2);
-        historyDAO.addPayout(username, "war", - (bet / 2));
+        historyDAO.addPayout(username, "war", -((double) bet / 2));
         warSurrenderPresenter.prepareSurrenderView(new WarOutputGameData(game));
     }
 }

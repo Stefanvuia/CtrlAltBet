@@ -11,34 +11,29 @@ import java.beans.PropertyChangeSupport;
 public class LoginViewModel extends ViewModel {
 
     /**
-     * The current state of the login view.
-     */
-    private LoginState state = new LoginState();
-
-    /**
      * The label for the login button.
      */
     public final String LOGIN_LABEL = "log in";
-
     /**
      * The label for the cancel button.
      */
     public final String CANCEL_LABEL = "cancel";
-
     /**
      * The label for the username field.
      */
     public final String USERNAME_LABEL = "username";
-
     /**
      * The label for the password field.
      */
     public final String PASSWORD_LABEL = "password";
-
     /**
      * The PropertyChangeSupport instance for notifying listeners about property changes.
      */
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    /**
+     * The current state of the login view.
+     */
+    private LoginState state = new LoginState();
 
     /**
      * Constructs a new instance of LoginViewModel with the initial view name "log in".

@@ -10,10 +10,9 @@ import java.beans.PropertyChangeSupport;
  */
 public class BaccaratStartViewModel extends ViewModel {
     /**
-     * The current state of the Baccarat start screen, including user information, betting details, fund, and error messages.
+     * Fires a property change event to notify observers about changes in the Baccarat start screen state.
      */
-    private BaccaratStartState state = new BaccaratStartState();
-
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     /**
      * The path to the image representing the Baccarat table.
      */
@@ -53,21 +52,16 @@ public class BaccaratStartViewModel extends ViewModel {
      * The key representing the tie bet in the betting amounts map.
      */
     public String TIE_BET = "tie";
+    /**
+     * The current state of the Baccarat start screen, including user information, betting details, fund, and error messages.
+     */
+    private BaccaratStartState state = new BaccaratStartState();
 
     /**
      * Constructs an instance of the BaccaratStartViewModel class.
      */
     public BaccaratStartViewModel() {
         super("baccarat start");
-    }
-
-    /**
-     * Sets the current state of the Baccarat start screen.
-     *
-     * @param state The new state of the Baccarat start screen.
-     */
-    public void setState(BaccaratStartState state) {
-        this.state = state;
     }
 
     /**
@@ -80,9 +74,13 @@ public class BaccaratStartViewModel extends ViewModel {
     }
 
     /**
-     * Fires a property change event to notify observers about changes in the Baccarat start screen state.
+     * Sets the current state of the Baccarat start screen.
+     *
+     * @param state The new state of the Baccarat start screen.
      */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(BaccaratStartState state) {
+        this.state = state;
+    }
 
     @Override
     public void firePropertyChanged() {

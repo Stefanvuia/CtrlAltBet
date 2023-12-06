@@ -9,18 +9,8 @@ import java.beans.PropertyChangeSupport;
  * in the active view name.
  */
 public class ViewManagerModel {
-    private String activeViewName;
-
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    /**
-     * Gets the name of the currently active view.
-     *
-     * @return The name of the active view.
-     */
-    public String getActiveView() {
-        return activeViewName;
-    }
+    private String activeViewName;
 
     /**
      * Sets the name of the currently active view.

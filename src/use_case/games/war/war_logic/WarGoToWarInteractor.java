@@ -5,7 +5,7 @@ import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
 
-public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
+public class WarGoToWarInteractor implements WarGoToWarInputBoundary {
     final CardsAPIInterface cardsAPI;
     final GameDataAccessInterface dataAccess;
     final HistoryDataAccessInterface historyDAO;
@@ -14,19 +14,20 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
     public WarGoToWarInteractor(CardsAPIInterface cardsAPI,
                                 GameDataAccessInterface dataAccess,
                                 HistoryDataAccessInterface historyDAO,
-                                WarGoToWarOutputBoundary warGoToWarPresenter){
+                                WarGoToWarOutputBoundary warGoToWarPresenter) {
         this.cardsAPI = cardsAPI;
         this.dataAccess = dataAccess;
         this.warGoToWarPresenter = warGoToWarPresenter;
         this.historyDAO = historyDAO;
     }
+
     @Override
     public void execute(WarInputGameData warInputGameData) {
         WarGameInterface game = warInputGameData.getGame();
         int bet = warInputGameData.getBet();
         String username = warInputGameData.getUser();
 
-        if(dataAccess.getFund(username) >= bet){
+        if (dataAccess.getFund(username) >= bet) {
             dataAccess.editFund(username, -bet);
 
             bet = bet * 2;
@@ -39,17 +40,17 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
             game.addToHand(game.getDealer(), cardsAPI.draw(game.getDeck()));
 
             int change = 0;
-            if(!game.goToWar()){
-                if(game.playerWins()){
-                    change = bet + bet * 3/4;
+            if (!game.goToWar()) {
+                if (game.playerWins()) {
+                    change = bet + bet * 3 / 4;
                 }
-            }else {
+            } else {
                 change = bet * 2;
             }
             historyDAO.addPayout(username, "war", change - bet);
             dataAccess.editFund(username, change);
             warGoToWarPresenter.preparePayoutView(new WarOutputGameData(game));
-        } else{
+        } else {
             warGoToWarPresenter.prepareFailView("insufficient funds to double the wager");
         }
 

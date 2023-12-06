@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterface {
     private final Map<String, Map<String, ArrayList<Double>>> history = new HashMap<>();
+
     @Override
     public void addPayout(String username, String game, double amount) {
         history.get(username).get(game).add(amount);

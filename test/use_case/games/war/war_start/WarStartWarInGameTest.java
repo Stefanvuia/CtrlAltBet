@@ -24,17 +24,14 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WarStartWarInGameTest {
-    private CardsAPIInterface cardDrawer;
     private final FileUserDataAccessObject dao = getDAO();
-
     private final HistoryDataAccessInterface hDao = getHistoryDAO();
-
     private final WarStartOutputBoundary warPresenter = new WarStartOutputBoundary() {
 
         @Override
         public void prepareWarIngameView(WarStartOutputData outputData) {
-            ArrayList<Double> array1 = new ArrayList<Double>();
-            ArrayList<Double> array2 = new ArrayList<Double>();
+            ArrayList<Double> array1 = new ArrayList<>();
+            ArrayList<Double> array2 = new ArrayList<>();
             array1.add(0.0);
             array1.add(500.0);
             array2.add(0.0);
@@ -43,15 +40,16 @@ public class WarStartWarInGameTest {
             assertNotNull(outputData.getGame());
             assertEquals(500, outputData.getBet());
             assertEquals("cakev", outputData.getUser());
-            if(outputData.getGame().playerWins()){
+            if (outputData.getGame().playerWins()) {
                 assertEquals(1500, dao.getFund("cakev"));
-                assertEquals(array1 ,hDao.getPayouts("cakev","war"));
-            } else{
+                assertEquals(array1, hDao.getPayouts("cakev", "war"));
+            } else {
                 assertEquals(500, dao.getFund("cakev"));
-                assertEquals(array2 ,hDao.getPayouts("cakev","war"));
+                assertEquals(array2, hDao.getPayouts("cakev", "war"));
             }
 
         }
+
         @Override
         public void prepareGoToWarView(WarStartOutputData outputData) {
             fail("Use case success is unexpected.");
@@ -62,36 +60,7 @@ public class WarStartWarInGameTest {
             fail("Use case success is unexpected.");
         }
     };
-
-    @BeforeEach
-    void setUp() {
-        User user = new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000);
-        dao.save(user);
-
-    }
-    @AfterEach
-    void deleteFiles() {
-        File file1 = new File("testusers.csv");
-        File file2 = new File("./testhistory.csv");
-        file1.delete();
-        file2.delete();
-
-    }
-
-    @Test
-    void WarTestWin() {
-        cardDrawer = new WarTestAPIObject(false, true);
-        WarStartInputData inputData = new WarStartInputData("cakev", 500);
-        WarStartInteractor interactor = new WarStartInteractor(cardDrawer, dao, hDao, warPresenter);
-        interactor.execute(inputData);
-    }
-    @Test
-    void WarTestLose() {
-        cardDrawer = new WarTestAPIObject(false, false);
-        WarStartInputData inputData = new WarStartInputData("cakev", 500);
-        WarStartInteractor interactor = new WarStartInteractor(cardDrawer, dao, hDao, warPresenter);
-        interactor.execute(inputData);
-    }
+    private CardsAPIInterface cardDrawer;
 
     private static FileUserDataAccessObject getDAO() {
         FileUserDataAccessObject fileUserDataAccessObject;
@@ -111,5 +80,37 @@ public class WarStartWarInGameTest {
             throw new RuntimeException("Could not create file.");
         }
         return historyDataAccessObject;
+    }
+
+    @BeforeEach
+    void setUp() {
+        User user = new CommonUser("cakev", "qwerty", LocalDateTime.now(), 1000);
+        dao.save(user);
+
+    }
+
+    @AfterEach
+    void deleteFiles() {
+        File file1 = new File("testusers.csv");
+        File file2 = new File("./testhistory.csv");
+        assert file1.delete();
+        assert file2.delete();
+
+    }
+
+    @Test
+    void WarTestWin() {
+        cardDrawer = new WarTestAPIObject(false, true);
+        WarStartInputData inputData = new WarStartInputData("cakev", 500);
+        WarStartInteractor interactor = new WarStartInteractor(cardDrawer, dao, hDao, warPresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void WarTestLose() {
+        cardDrawer = new WarTestAPIObject(false, false);
+        WarStartInputData inputData = new WarStartInputData("cakev", 500);
+        WarStartInteractor interactor = new WarStartInteractor(cardDrawer, dao, hDao, warPresenter);
+        interactor.execute(inputData);
     }
 }

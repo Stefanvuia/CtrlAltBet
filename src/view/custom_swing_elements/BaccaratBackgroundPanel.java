@@ -12,11 +12,11 @@ public class BaccaratBackgroundPanel extends JPanel {
     private final JPanel left = new JPanel();
     private final JPanel right = new JPanel();
 
-    private final GridBagConstraints gbc = new GridBagConstraints();
     public BaccaratBackgroundPanel(String path) throws IOException {
         super();
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
         layout.setConstraints(this, gbc);
 
         gbc.gridy = 0;

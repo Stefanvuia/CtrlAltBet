@@ -6,31 +6,28 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class BlackJackIngameViewModel extends ViewModel {
-    private BlackJackGameState state = new BlackJackGameState();
-
     public final String IMG_PATH = "img/blackjacktable.png";
-
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public String STAND_LABEL = "stand";
 
     public String HIT_LABEL = "hit";
 
     public String EXIT_LABEL = "exit";
 
-    public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
+
+    private BlackJackGameState state = new BlackJackGameState();
 
     public BlackJackIngameViewModel() {
         super("bj ingame");
-    }
-
-    public void setState(BlackJackGameState state) {
-        this.state = state;
     }
 
     public BlackJackGameState getState() {
         return state;
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(BlackJackGameState state) {
+        this.state = state;
+    }
 
     @Override
     public void firePropertyChanged() {

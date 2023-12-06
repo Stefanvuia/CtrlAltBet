@@ -44,10 +44,10 @@ public class BaccaratOutputData {
     /**
      * Constructs a BaccaratOutputData object with the specified message, ending funds, player hand, and banker hand.
      *
-     * @param message      The message conveying information about the Baccarat game outcome.
-     * @param endFunds     The ending funds after the Baccarat game.
-     * @param playerHand   The list of cards in the player's hand.
-     * @param bankerHand   The list of cards in the banker's hand.
+     * @param message    The message conveying information about the Baccarat game outcome.
+     * @param endFunds   The ending funds after the Baccarat game.
+     * @param playerHand The list of cards in the player's hand.
+     * @param bankerHand The list of cards in the banker's hand.
      */
     public BaccaratOutputData(String message, int endFunds, List<Card> playerHand, List<Card> bankerHand) {
         this.message = message;

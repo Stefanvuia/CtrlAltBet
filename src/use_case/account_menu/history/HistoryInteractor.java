@@ -29,11 +29,11 @@ public class HistoryInteractor implements HistoryInputBoundary {
      *
      * @param historyInputData An object containing the username and game with getter methods for each respectively.
      *                         They are used to fetch the correct payout data.
-     *
-     * Note: This method does not return anything but is stored in the Output Data.
-     *
-     * Usage example:
-     * createChart(new HistoryInputData("John", "blackjack"));
+     *                         <p>
+     *                         Note: This method does not return anything but is stored in the Output Data.
+     *                         <p>
+     *                         Usage example:
+     *                         createChart(new HistoryInputData("John", "blackjack"));
      */
     @Override
     public void createChart(HistoryInputData historyInputData) {
@@ -52,7 +52,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
             List<Double> yDataBelow = new ArrayList<>();
 
             double total = 0;
-            double previousTotal = 0;
+            double previousTotal;
 
             for (int i = 0; i < payouts.size(); i++) {
                 previousTotal = total;
@@ -67,15 +67,15 @@ public class HistoryInteractor implements HistoryInputBoundary {
                     yDataBelow.add(0.0);
                 }
                 if (total == 0) {
-                    xDataAbove.add((double)i);
+                    xDataAbove.add((double) i);
                     yDataAbove.add(total);
-                    xDataBelow.add((double)i);
+                    xDataBelow.add((double) i);
                     yDataBelow.add(total);
-                } else if (total < 0){
-                    xDataBelow.add((double)i);
+                } else if (total < 0) {
+                    xDataBelow.add((double) i);
                     yDataBelow.add(total);
                 } else {
-                    xDataAbove.add((double)i);
+                    xDataAbove.add((double) i);
                     yDataAbove.add(total);
                 }
             }

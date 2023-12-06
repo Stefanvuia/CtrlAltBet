@@ -16,19 +16,20 @@ import java.util.List;
 
 public class CardsAPIObject implements CardsAPIInterface {
 
-    public CardsAPIObject(){}
+    public CardsAPIObject() {
+    }
 
     /**
      * Returns a list of cards with the cards drawn from the deck corresponding to the id
      *
-     * @param deckId    a valid deckId generated from shuffleNew()
-     * @param cards the number of cards to draw
-     * @return      a list of cards constructed from the API response
+     * @param deckId a valid deckId generated from shuffleNew()
+     * @param cards  the number of cards to draw
+     * @return a list of cards constructed from the API response
      */
     @Override
     public List<Card> draw(String deckId, int cards) {
         JSONArray output = (JSONArray) deckHelper(deckId + "/draw/?count=" + cards).get("cards");
-        List<Card> newCards = new ArrayList<Card>(cards);
+        List<Card> newCards = new ArrayList<>(cards);
         for (int i = 0; i < output.length(); i++) {
             newCards.add(cardHelper(output, i));
         }
@@ -39,8 +40,8 @@ public class CardsAPIObject implements CardsAPIInterface {
     /**
      * Return a single card drawn from the deck corresponding to the id
      *
-     * @param deckId    a valid deckId generated from shuffleNew()
-     * @return  a Card constructed from the API response
+     * @param deckId a valid deckId generated from shuffleNew()
+     * @return a Card constructed from the API response
      */
     @Override
     public Card draw(String deckId) {
@@ -52,7 +53,7 @@ public class CardsAPIObject implements CardsAPIInterface {
      * Returns a String with the deckId from the generated deck
      *
      * @param decks the number of decks to create and shuffle
-     * @return      a String of the deckId from the API response
+     * @return a String of the deckId from the API response
      */
     @Override
     public String shuffleNew(int decks) {
@@ -63,8 +64,8 @@ public class CardsAPIObject implements CardsAPIInterface {
      * Private helper method which executes the API call, only meant to be
      * called from other methods within the class
      *
-     * @param call  a String which details the specific API call
-     * @return      a JSONObject constructed from the API response body
+     * @param call a String which details the specific API call
+     * @return a JSONObject constructed from the API response body
      */
     private JSONObject deckHelper(String call) {
         OkHttpClient client = new OkHttpClient();
@@ -78,7 +79,9 @@ public class CardsAPIObject implements CardsAPIInterface {
             assert response.body() != null;
             String responseBody = response.body().string();
             return new JSONObject(responseBody);
-        } catch (IOException | JSONException e) { throw new RuntimeException(e); }
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -88,7 +91,7 @@ public class CardsAPIObject implements CardsAPIInterface {
      *
      * @param input a JSONArray from the API draw call
      * @param index the index of the desired JSONObject from the input
-     * @return      a Card constructed from the JSONObject at the specified index from the input
+     * @return a Card constructed from the JSONObject at the specified index from the input
      */
     private Card cardHelper(JSONArray input, int index) {
         String value = input.getJSONObject(index).getString("value");

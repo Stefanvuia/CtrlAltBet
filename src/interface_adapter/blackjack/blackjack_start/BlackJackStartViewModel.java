@@ -21,22 +21,20 @@ public class BlackJackStartViewModel extends ViewModel {
     public final String IMG_PATH = "img/blackjacktable.png";
 
     public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
-
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private BlackJackStartState state = new BlackJackStartState();
 
     public BlackJackStartViewModel() {
         super("bj start");
     }
 
-    public void setState(BlackJackStartState state) {
-        this.state = state;
-    }
-
     public BlackJackStartState getState() {
         return state;
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public void setState(BlackJackStartState state) {
+        this.state = state;
+    }
 
     @Override
     public void firePropertyChanged() {

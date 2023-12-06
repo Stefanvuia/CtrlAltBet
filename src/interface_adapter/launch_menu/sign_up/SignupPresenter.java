@@ -31,8 +31,8 @@ public class SignupPresenter implements SignupOutputBoundary {
     /**
      * Creates a new instance of SignupPresenter.
      *
-     * @param loginViewModel  The ViewModel associated with the login functionality.
-     * @param signUpViewModel The ViewModel associated with the sign-up functionality.
+     * @param loginViewModel   The ViewModel associated with the login functionality.
+     * @param signUpViewModel  The ViewModel associated with the sign-up functionality.
      * @param viewManagerModel The model for managing the active view.
      */
     public SignupPresenter(LoginViewModel loginViewModel, SignUpViewModel signUpViewModel, ViewManagerModel viewManagerModel) {

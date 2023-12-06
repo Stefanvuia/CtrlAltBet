@@ -22,26 +22,19 @@ public class MainMenuView extends JPanel implements ActionListener {
      * The name associated with this view.
      */
     public final String viewName = "main menu";
-
-    private final LaunchViewModel launchViewModel;
-
-    private final AccountController accountController;
-
-    private final LaunchController launchController;
-
     final JButton blackjack;
-
     final JButton baccarat;
-
     final JButton war;
-
     final JButton account;
+    private final LaunchViewModel launchViewModel;
+    private final AccountController accountController;
+    private final LaunchController launchController;
 
     /**
      * Constructs a new MainMenuView with the specified parameters.
      *
-     * @param launchViewModel The view model providing data for the launch menu view.
-     * @param launchController The controller responsible for handling game launch operations.
+     * @param launchViewModel   The view model providing data for the launch menu view.
+     * @param launchController  The controller responsible for handling game launch operations.
      * @param accountController The controller responsible for handling account-related operations.
      */
     public MainMenuView(LaunchViewModel launchViewModel, LaunchController launchController, AccountController accountController) {
@@ -79,7 +72,7 @@ public class MainMenuView extends JPanel implements ActionListener {
 
     /**
      * Responds to button click events in the main menu.
-     *
+     * <p>
      * This method is called when a button in the main menu is clicked. It delegates the execution
      * of the corresponding operation to the appropriate controller based on the clicked button.
      *

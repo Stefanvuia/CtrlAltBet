@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WarTestAPIObject implements CardsAPIInterface {
-    private boolean war;
     private final boolean win;
+    private boolean war;
 
     public WarTestAPIObject(boolean war, boolean win) {
         this.war = war;
@@ -38,9 +38,9 @@ public class WarTestAPIObject implements CardsAPIInterface {
 
 
     private String getValue() {
-        if (war){
+        if (war) {
             return "JACK";
-        }else if (win){
+        } else if (win) {
             this.war = true;
             return "QUEEN";
         } else {

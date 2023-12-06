@@ -6,12 +6,8 @@ public class HistoryState {
 
     private XYChart chart = null;
 
-    public HistoryState(HistoryState copy) {
-        chart = copy.chart;
-    }
-
     // Because of the previous copy constructor, the default constructor must be explicit.
-    public HistoryState(){
+    public HistoryState() {
     }
 
     public XYChart getChart() {
@@ -21,8 +17,6 @@ public class HistoryState {
     public void setChart(XYChart chart) {
         this.chart = chart;
     }
-
-
 
 
 }

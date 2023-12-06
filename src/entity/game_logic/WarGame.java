@@ -9,17 +9,18 @@ public class WarGame implements WarGameInterface {
     Player dealer;
     String deckId;
 
-    public WarGame(Player user, Player dealer, String deckId){
+    public WarGame(Player user, Player dealer, String deckId) {
         this.user = user;
         this.dealer = dealer;
         this.deckId = deckId;
     }
+
     @Override
     public int sumHand(Player player) {
         List<Card> hand = player.getHand();
         int value;
         Card card = hand.get(hand.size() - 1);
-        if (card.getValue().equals("JACK")){
+        if (card.getValue().equals("JACK")) {
             value = 11;
         } else if (card.getValue().equals("QUEEN")) {
             value = 12;
