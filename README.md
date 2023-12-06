@@ -2,7 +2,9 @@
 Coding assignment 207 Group#269
 
 # Instructions for the Various Games
+
 - War:
+
 The game is normally played with six standard 52-card decks. The cards are ranked in the same way that cards in poker games are ranked, with aces being the highest cards.[2]
 
 One card each is dealt to a dealer and to a player. If the player's card is higher, they win the wager they bet. However, if the dealer's card is higher, the player loses their bet.[3]
