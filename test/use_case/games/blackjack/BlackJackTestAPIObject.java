@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlackJackTestAPIObject implements CardsAPIInterface {
-    private String value;
+    private final String value;
 
     public BlackJackTestAPIObject(String value) {
         this.value = value;

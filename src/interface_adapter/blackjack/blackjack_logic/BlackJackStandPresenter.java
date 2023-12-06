@@ -4,8 +4,8 @@ import entity.cards.Card;
 import entity.cards.CardImageFactory;
 import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import use_case.games.blackjack.blackjack_logic.BlackJackOutputGameData;
 import use_case.games.blackjack.blackjack_logic.BlackJackStandOutputBoundary;
 

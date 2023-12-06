@@ -13,12 +13,12 @@ public class BaccaratDataAccess {
     /**
      * Data access interface for handling user history data.
      */
-    private HistoryDataAccessInterface historyDAO;
+    private final HistoryDataAccessInterface historyDAO;
 
     /**
      * Data access interface for handling game-related data.
      */
-    private GameDataAccessInterface gameDAO;
+    private final GameDataAccessInterface gameDAO;
 
     /**
      * The username associated with the Baccarat game data.

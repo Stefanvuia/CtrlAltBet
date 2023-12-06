@@ -17,7 +17,7 @@ public class BaccaratGameLogic {
     /**
      * Interface for interacting with the Cards API.
      */
-    private CardsAPIInterface cardsAPI;
+    private final CardsAPIInterface cardsAPI;
 
     /**
      * Player representing the user in the Baccarat game.

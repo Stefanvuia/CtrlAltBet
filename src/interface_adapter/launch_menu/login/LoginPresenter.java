@@ -7,9 +7,6 @@ import interface_adapter.game_menu.launch_game.LaunchViewModel;
 import use_case.launch_menu.login.LoginOutputBoundary;
 import use_case.launch_menu.login.LoginOutputData;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Presenter class responsible for handling the output and presentation logic
  * related to user login in the launch menu.

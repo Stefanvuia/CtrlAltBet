@@ -1,7 +1,6 @@
 package use_case.games.war.war_logic;
 
 import entity.game_logic.WarGameInterface;
-import entity.game_logic.WarPlayer;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;

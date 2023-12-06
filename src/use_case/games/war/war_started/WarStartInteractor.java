@@ -2,8 +2,8 @@ package use_case.games.war.war_started;
 
 import entity.game_logic.*;
 import use_case.account_menu.history.HistoryDataAccessInterface;
-import use_case.games.GameDataAccessInterface;
 import use_case.games.CardsAPIInterface;
+import use_case.games.GameDataAccessInterface;
 
 public class WarStartInteractor implements WarStartInputBoundary{
     final CardsAPIInterface cardsAPI;

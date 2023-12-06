@@ -8,7 +8,6 @@ import use_case.InMemoryHistoryDataAccessObject;
 import use_case.InMemoryUserDataAccessObject;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
-import use_case.games.blackjack.BlackJackTestAPIObject;
 import use_case.games.war.WarTestAPIObject;
 import use_case.games.war.war_started.WarStartInputData;
 import use_case.games.war.war_started.WarStartInteractor;

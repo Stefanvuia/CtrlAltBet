@@ -244,10 +244,10 @@ public class EndToEndTest {
 
     private static void deleteLine() throws IOException {
         // Deletes the temporarily added user
-        File file = new File("users.csv");
+        File userfile = new File("users.csv");
         File tempFile = new File("tempUsers.csv");
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader(new FileReader(userfile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
         String row;
@@ -260,9 +260,29 @@ public class EndToEndTest {
         }
         writer.close();
         reader.close();
-        if (!file.delete()) {
+        if (!userfile.delete()) {
             System.out.println("Could not delete file");
         }
-        tempFile.renameTo(file);
+        tempFile.renameTo(userfile);
+
+        // Deletes the test user's history
+        File userHistory = new File("history.csv");
+        File tempHistory = new File("tempHistory.csv");
+        reader = new BufferedReader(new FileReader(userHistory));
+        writer = new BufferedWriter(new FileWriter(tempHistory));
+
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
+            if (!col[0].equals("kevinin")) {
+                writer.write(row);
+                writer.newLine();
+            }
+        }
+        writer.close();
+        reader.close();
+        if (!userHistory.delete()) {
+            System.out.println("Could not delete file");
+        }
+        tempHistory.renameTo(userHistory);
     }
 }

@@ -7,7 +7,7 @@ import use_case.account_menu.sign_out.SignOutInputBoundary;
  * Acts as a bridge between the user interface and the SignOutInputBoundary use case.
  */
 public class SignOutController {
-    private SignOutInputBoundary signOutInteractor;
+    private final SignOutInputBoundary signOutInteractor;
 
     /**
      * Constructs a new SignOutController with the specified SignOutInputBoundary.

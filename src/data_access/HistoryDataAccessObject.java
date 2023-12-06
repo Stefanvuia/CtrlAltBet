@@ -6,7 +6,10 @@ import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.account_menu.reset_graph.ResetDataAccessInterface;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * A data access object (DAO) for handling user history game data persistence.

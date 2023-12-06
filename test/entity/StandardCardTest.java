@@ -1,11 +1,13 @@
 package entity;
 
+import entity.cards.Card;
+import entity.cards.CardBack;
 import entity.cards.StandardCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class StandardCardTest {
-    private StandardCard card;
+    private Card card;
 
     @BeforeEach
     void setUp() {
@@ -20,5 +22,11 @@ class StandardCardTest {
     @Test
     void getImg() {
         assert card.getImg().equals("https://www.deckofcardsapi.com/static/img/8C.png");
+    }
+
+    @Test
+    void getBackImg() {
+        card = new CardBack();
+        assert card.getValue().equals("0");
     }
 }

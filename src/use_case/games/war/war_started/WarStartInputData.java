@@ -1,8 +1,8 @@
 package use_case.games.war.war_started;
 
 public class WarStartInputData {
-    private String username;
-    private int bet;
+    private final String username;
+    private final int bet;
 
     public WarStartInputData(String username, int bet) {
         this.username = username;

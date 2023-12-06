@@ -2,6 +2,7 @@ package view;
 
 
 import interface_adapter.ViewManagerModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -16,7 +17,7 @@ public class ViewManager implements PropertyChangeListener {
     private final CardLayout cardLayout;
     private final JPanel views;
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 //    private AccountInfoViewModel userViewModel = null;
 
     /**

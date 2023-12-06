@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WarTestAPIObject implements CardsAPIInterface {
     private boolean war;
-    private boolean win;
+    private final boolean win;
 
     public WarTestAPIObject(boolean war, boolean win) {
         this.war = war;

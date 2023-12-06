@@ -10,9 +10,9 @@ import java.util.List;
 public class BaccaratTestAPIObject implements CardsAPIInterface {
     private static int counter;
 
-    private String valueA;
+    private final String valueA;
 
-    private String valueB;
+    private final String valueB;
 
     public BaccaratTestAPIObject(String valueA, String valueB) {
         counter = 0;

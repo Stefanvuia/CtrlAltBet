@@ -1,11 +1,13 @@
 package view.launch_menu;
 
+import interface_adapter.launch_menu.buttons.UserButtonsController;
 import interface_adapter.launch_menu.sign_up.SignUpViewModel;
 import interface_adapter.launch_menu.sign_up.SignupState;
 import interface_adapter.launch_menu.sign_up.UserSignupController;
 import tools.GridBagUtils;
-import view.custom_swing_elements.*;
-import interface_adapter.launch_menu.buttons.UserButtonsController;
+import view.custom_swing_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomJLabel;
+import view.custom_swing_elements.GreenCustomPanel;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

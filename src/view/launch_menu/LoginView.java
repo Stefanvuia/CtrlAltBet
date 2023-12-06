@@ -1,5 +1,14 @@
 package view.launch_menu;
 
+import interface_adapter.launch_menu.buttons.UserButtonsController;
+import interface_adapter.launch_menu.login.LoginState;
+import interface_adapter.launch_menu.login.LoginViewModel;
+import interface_adapter.launch_menu.login.UserLoginController;
+import tools.GridBagUtils;
+import view.custom_swing_elements.GreenCustomButton;
+import view.custom_swing_elements.GreenCustomJLabel;
+import view.custom_swing_elements.GreenCustomPanel;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -9,15 +18,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import interface_adapter.launch_menu.login.LoginState;
-import interface_adapter.launch_menu.login.LoginViewModel;
-import interface_adapter.launch_menu.login.UserLoginController;
-import tools.GridBagUtils;
-import view.custom_swing_elements.GreenCustomButton;
-import view.custom_swing_elements.GreenCustomJLabel;
-import view.custom_swing_elements.GreenCustomPanel;
-import interface_adapter.launch_menu.buttons.UserButtonsController;
 
 /**
  * The graphical representation of the login view for the application.

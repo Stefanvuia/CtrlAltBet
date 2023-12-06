@@ -1,12 +1,12 @@
 package use_case.games.blackjack.blackjack_start;
 
-import use_case.games.blackjack.BlackJackTestAPIObject;
-import use_case.InMemoryUserDataAccessObject;
 import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.InMemoryUserDataAccessObject;
 import use_case.games.CardsAPIInterface;
+import use_case.games.blackjack.BlackJackTestAPIObject;
 
 import java.time.LocalDateTime;
 

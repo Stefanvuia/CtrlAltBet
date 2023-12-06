@@ -9,11 +9,11 @@ import java.util.Map;
  */
 public class CommonUserHistory implements UserHistory {
 
-    private String username;
-    private ArrayList<Double> blackjackPayout;
-    private ArrayList<Double> baccaratPayout;
-    private ArrayList<Double> warPayout;
-    private Map<String, ArrayList<Double>> payoutMap = new HashMap<>();
+    private final String username;
+    private final ArrayList<Double> blackjackPayout;
+    private final ArrayList<Double> baccaratPayout;
+    private final ArrayList<Double> warPayout;
+    private final Map<String, ArrayList<Double>> payoutMap = new HashMap<>();
 
     /**
      * Constructs a new instance of CommonUserHistory with the specified username.

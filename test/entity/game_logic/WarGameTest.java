@@ -23,7 +23,7 @@ public class WarGameTest {
     private Card aCard;
 
     private Card sixCard;
-    private List<Card> cards = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

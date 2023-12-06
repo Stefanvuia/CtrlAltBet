@@ -8,7 +8,7 @@ import java.util.List;
 
 public class WarGameState {
     private int bet = 0;
-    private String gameMessage = null;
+    private final String gameMessage = null;
 
     private java.util.List<Image> playerImages = new ArrayList<>();
 

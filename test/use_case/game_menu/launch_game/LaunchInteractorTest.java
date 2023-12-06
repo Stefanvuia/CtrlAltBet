@@ -7,11 +7,11 @@ import use_case.game_menu.MenuDataAccessInterface;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LaunchInteractorTest {
-    private MenuDataAccessInterface dao = new InMemoryUserDataAccessObject();
-    private LaunchOutputBoundary presenter = new LaunchOutputBoundary() {
+    private final MenuDataAccessInterface dao = new InMemoryUserDataAccessObject();
+    private final LaunchOutputBoundary presenter = new LaunchOutputBoundary() {
         @Override
         public void prepareGameView(LaunchOutputData outputData) {
             assertEquals("blackjack", outputData.getGame());

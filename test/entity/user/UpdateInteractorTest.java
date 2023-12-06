@@ -2,11 +2,7 @@ package entity.user;
 
 import org.junit.Before;
 import org.junit.Test;
-import use_case.account_menu.update.UpdateInputData;
-import use_case.account_menu.update.UpdateInteractor;
-import use_case.account_menu.update.UpdateOutputData;
-import use_case.account_menu.update.UpdateUserDataAccessInterface;
-import use_case.account_menu.update.UpdateOutputBoundary;
+import use_case.account_menu.update.*;
 
 import java.time.LocalDateTime;
 

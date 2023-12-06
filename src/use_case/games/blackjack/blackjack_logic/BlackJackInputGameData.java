@@ -1,6 +1,5 @@
 package use_case.games.blackjack.blackjack_logic;
 
-import entity.game_logic.BlackJackGame;
 import entity.game_logic.BlackJackGameInterface;
 
 /**

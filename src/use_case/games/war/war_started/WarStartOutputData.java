@@ -1,11 +1,10 @@
 package use_case.games.war.war_started;
 
-import entity.game_logic.BlackJackPlayer;
-import entity.game_logic.WarPlayer;
 import entity.game_logic.WarGameInterface;
+import entity.game_logic.WarPlayer;
 
 public class WarStartOutputData {
-    private WarGameInterface game;
+    private final WarGameInterface game;
 
     public WarStartOutputData(WarGameInterface game) {
         this.game = game;

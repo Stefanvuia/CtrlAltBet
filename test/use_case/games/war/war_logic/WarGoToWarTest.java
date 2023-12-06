@@ -2,7 +2,10 @@ package use_case.games.war.war_logic;
 
 import data_access.FileUserDataAccessObject;
 import data_access.HistoryDataAccessObject;
-import entity.game_logic.*;
+import entity.game_logic.Player;
+import entity.game_logic.WarDealer;
+import entity.game_logic.WarGame;
+import entity.game_logic.WarPlayer;
 import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -19,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class WarGoToWarTest {
     private CardsAPIInterface cardDrawer = new WarTestAPIObject(true, true);
@@ -94,21 +96,21 @@ public class WarGoToWarTest {
     @Test
     void GoToWarTestWin() {
         cardDrawer = new WarTestAPIObject(false, true);
-        WarInputGameData inputData = new WarInputGameData((WarGameInterface) game);
+        WarInputGameData inputData = new WarInputGameData(game);
         WarGoToWarInteractor interactor = new WarGoToWarInteractor(cardDrawer, dao, hDao, warPresenter);
         interactor.execute(inputData);
     }
     @Test
     void GoToWarTestLose() {
         cardDrawer = new WarTestAPIObject(false, false);
-        WarInputGameData inputData = new WarInputGameData((WarGameInterface) game);
+        WarInputGameData inputData = new WarInputGameData(game);
         WarGoToWarInteractor interactor = new WarGoToWarInteractor(cardDrawer, dao, hDao, warPresenter);
         interactor.execute(inputData);
     }
     @Test
     void GoToWarTestWar() {
         cardDrawer = new WarTestAPIObject(true, false);
-        WarInputGameData inputData = new WarInputGameData((WarGameInterface) game);
+        WarInputGameData inputData = new WarInputGameData(game);
         WarGoToWarInteractor interactor = new WarGoToWarInteractor(cardDrawer, dao, hDao, warPresenter);
         interactor.execute(inputData);
     }

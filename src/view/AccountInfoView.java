@@ -1,17 +1,16 @@
 package view;
 
+import interface_adapter.account_menu.AccountInfoState;
+import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.account_menu.history.HistoryController;
 import interface_adapter.account_menu.history.HistoryState;
 import interface_adapter.account_menu.history.HistoryViewModel;
-import interface_adapter.account_menu.AccountInfoState;
-import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.account_menu.reset_graph.ResetController;
 import interface_adapter.account_menu.sign_out.SignOutController;
-import interface_adapter.game_menu.exit.ExitController;
 import interface_adapter.account_menu.update.UserUpdateController;
+import interface_adapter.game_menu.exit.ExitController;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
-
 import tools.GridBagUtils;
 import view.custom_swing_elements.*;
 
@@ -74,13 +73,13 @@ public class AccountInfoView extends JPanel implements ActionListener, PropertyC
 
     private JLabel userLabel;
 
-    private JButton blackJackButton;
+    private final JButton blackJackButton;
 
     private final JButton baccaratButton;
 
-    private JButton warButton;
+    private final JButton warButton;
 
-    private JButton resetGraph;
+    private final JButton resetGraph;
 
     /**
      * Constructs an AccountInfoView with the given models and controllers.

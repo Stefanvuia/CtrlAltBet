@@ -1,11 +1,11 @@
 package use_case.games.baccarat;
 
-import use_case.InMemoryHistoryDataAccessObject;
-import use_case.InMemoryUserDataAccessObject;
 import entity.user.CommonUser;
 import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.InMemoryHistoryDataAccessObject;
+import use_case.InMemoryUserDataAccessObject;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 
@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BaccaratFailTest {
     private final InMemoryUserDataAccessObject uDao = new InMemoryUserDataAccessObject();
@@ -22,9 +23,9 @@ public class BaccaratFailTest {
 
     private final String username = "cakev";
 
-    private Map<String, Integer> bet = new HashMap<>();
+    private final Map<String, Integer> bet = new HashMap<>();
 
-    private CardsAPIInterface cardDrawer = new BaccaratTestAPIObject("ACE", "ACE");
+    private final CardsAPIInterface cardDrawer = new BaccaratTestAPIObject("ACE", "ACE");
 
     private final BaccaratOutputBoundary presenter = new BaccaratOutputBoundary() {
         @Override

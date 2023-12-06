@@ -1,8 +1,8 @@
 package use_case.games.blackjack.blackjack_start;
 
 import entity.game_logic.*;
-import use_case.games.GameDataAccessInterface;
 import use_case.games.CardsAPIInterface;
+import use_case.games.GameDataAccessInterface;
 
 /**
  * Interactor class for initiating a Blackjack game.
