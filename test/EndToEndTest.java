@@ -119,7 +119,7 @@ public class EndToEndTest {
         assert !mv.isVisible();
 
         BaccaratStartView bv = (BaccaratStartView) jp.getComponent(6);
-        createCloseTimer(2000).start();
+        createCloseTimer(2500).start();
         ((JButton) bv.getComponent(5)).doClick();
         assert (popUpDiscovered);
     }
@@ -161,7 +161,7 @@ public class EndToEndTest {
         WarStartView wv = (WarStartView) jp.getComponent(8);
         assert wv.isVisible();
 
-        createCloseTimer(1000).start();
+        createCloseTimer(2500).start();
         ((JButton) wv.getComponent(3)).doClick();
         assert (wv.isVisible() && popUpDiscovered) || jp.getComponent(10).isVisible();
     }

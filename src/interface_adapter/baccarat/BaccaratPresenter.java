@@ -56,12 +56,6 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
      */
     @Override
     public void preparePayoutView(BaccaratOutputData baccaratOutputData) {
-
-        ActionListener resetView = e -> {
-            viewManagerModel.setActiveView(baccaratStartViewModel.getViewName());
-            viewManagerModel.firePropertyChanged();
-        };
-
         BaccaratGameState currGameState = baccaratGameViewModel.getState();
         BaccaratStartState currStartState = baccaratStartViewModel.getState();
 
@@ -83,9 +77,8 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         baccaratGameViewModel.firePropertyChanged();
         baccaratStartViewModel.firePropertyChanged();
 
-        Timer timer = new Timer(1000, resetView);
-        timer.setRepeats(false);
-        timer.start();
+        viewManagerModel.setActiveView(baccaratStartViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     /**
