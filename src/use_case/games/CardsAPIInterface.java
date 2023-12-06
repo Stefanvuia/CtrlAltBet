@@ -1,6 +1,6 @@
 package use_case.games;
 
-import entity.Card;
+import entity.cards.Card;
 
 import java.util.List;
 

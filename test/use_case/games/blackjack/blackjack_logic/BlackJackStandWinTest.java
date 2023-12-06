@@ -3,7 +3,7 @@ package use_case.games.blackjack.blackjack_logic;
 import use_case.games.blackjack.BlackJackTestAPIObject;
 import use_case.InMemoryHistoryDataAccessObject;
 import use_case.InMemoryUserDataAccessObject;
-import entity.StandardCard;
+import entity.cards.StandardCard;
 import entity.game_logic.*;
 import entity.user.CommonUser;
 import entity.user.User;

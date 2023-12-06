@@ -2,7 +2,6 @@ package use_case.games.war.war_logic;
 
 import data_access.FileUserDataAccessObject;
 import data_access.HistoryDataAccessObject;
-import entity.StandardCard;
 import entity.game_logic.*;
 import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
@@ -13,9 +12,6 @@ import org.junit.jupiter.api.Test;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.war.WarTestAPIObject;
-import use_case.games.war.war_started.WarStartInputData;
-import use_case.games.war.war_started.WarStartInteractor;
-import use_case.games.war.war_started.WarStartOutputData;
 
 import java.io.File;
 import java.io.IOException;

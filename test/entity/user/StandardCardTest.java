@@ -1,7 +1,7 @@
 package entity.user;
 
-import entity.StandardCard;
-import entity.Card;
+import entity.cards.StandardCard;
+import entity.cards.Card;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

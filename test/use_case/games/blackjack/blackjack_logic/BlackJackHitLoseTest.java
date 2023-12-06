@@ -2,7 +2,7 @@ package use_case.games.blackjack.blackjack_logic;
 
 import use_case.games.blackjack.BlackJackTestAPIObject;
 import use_case.InMemoryHistoryDataAccessObject;
-import entity.StandardCard;
+import entity.cards.StandardCard;
 import entity.game_logic.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

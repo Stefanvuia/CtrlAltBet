@@ -1,18 +1,16 @@
 package interface_adapter.blackjack.blackjack_start;
 
 import constants.Constants;
-import entity.Card;
-import entity.ImageFactory;
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.blackjack.blackjack_logic.BlackJackIngameViewModel;
 import interface_adapter.blackjack.blackjack_logic.BlackJackGameState;
 import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
 import use_case.games.blackjack.blackjack_start.BlackJackStartOutputData;
 
-import javax.imageio.ImageIO;
 import java.awt.Image;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class BlackJackStartPresenter implements BlackJackStartOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
 
-    private final ImageFactory imageFactory = new ImageFactory();
+    private final ImageFactory imageFactory = new CardImageFactory();
 
     public BlackJackStartPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                    ViewManagerModel viewManagerModel,
@@ -41,26 +39,8 @@ public class BlackJackStartPresenter implements BlackJackStartOutputBoundary {
         ingameStateBlackJack.setGame(outputData.getGame());
         ingameStateBlackJack.setPlayerImages(makeImages(outputData.getGame().getPlayer().getHand()));
         List<Image> dealerImages = new ArrayList<>();
-
-        try {
-            dealerImages.add(
-                    ImageIO.read(
-                            new URL(outputData.getGame().getDealer().getHand().get(0).getImg())).getScaledInstance(
-                            Constants.CARD_WIDTH,
-                            Constants.CARD_HEIGHT,
-                            Image.SCALE_SMOOTH)
-            );
-            dealerImages.add(
-                    ImageIO.read(
-                            new URL(blackJackIngameViewModel.CARD_BACK_URL)).getScaledInstance(
-                            Constants.CARD_WIDTH,
-                            Constants.CARD_HEIGHT,
-                            Image.SCALE_SMOOTH)
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        dealerImages.add(imageFactory.create(outputData.getGame().getDealer().getHand().get(0)));
+        dealerImages.add(imageFactory.create(Constants.backImage));
         ingameStateBlackJack.setDealerImages(dealerImages);
 
         this.blackJackIngameViewModel.setState(ingameStateBlackJack);

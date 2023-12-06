@@ -1,7 +1,5 @@
-package entity;
+package entity.cards;
 
-
-import entity.Card;
 
 /**
  * Represents a standard playing card with a specific value and image.

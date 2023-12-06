@@ -1,6 +1,6 @@
 package use_case.games.baccarat;
 
-import entity.Card;
+import entity.cards.Card;
 import entity.game_logic.BaccaratGame;
 import entity.game_logic.BaccaratGameInterface;
 import entity.game_logic.BaccaratPlayer;

@@ -1,6 +1,6 @@
 package use_case.games.baccarat;
 
-import entity.Card;
+import entity.cards.Card;
 
 import java.util.ArrayList;
 import java.util.List;

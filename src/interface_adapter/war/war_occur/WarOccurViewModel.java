@@ -11,17 +11,11 @@ public class WarOccurViewModel extends ViewModel {
 
     public final String IMG_PATH = "img/wartable.png";
 
-    public final int CARD_HEIGHT = 157;
-
-    public final int CARD_WIDTH = 108;
-
     public String GO_TO_WAR_LABEL = "go to war";
 
     public String SURRENDER_LABEL = "surrender";
 
     public String EXIT_LABEL = "exit";
-
-    public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
 
     public WarOccurViewModel() {
         super("war occur");

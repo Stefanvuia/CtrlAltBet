@@ -1,5 +1,9 @@
 package entity;
 
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
+import entity.cards.StandardCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +19,7 @@ class ImageFactoryTest {
 
     @Test
     void create() {
-        ImageFactory factory = new ImageFactory();
+        ImageFactory factory = new CardImageFactory();
         assertNotNull(factory.create(card));
     }
 }

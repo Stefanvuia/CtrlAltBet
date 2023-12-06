@@ -1,18 +1,16 @@
 package interface_adapter.war.war_start;
 
-import entity.Card;
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.war.WarGameState;
 import interface_adapter.war.war_logic.WarIngameViewModel;
 import interface_adapter.war.war_occur.WarOccurViewModel;
 import use_case.games.war.war_started.WarStartOutputBoundary;
 import use_case.games.war.war_started.WarStartOutputData;
-import view.war.WarIngameView;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,8 @@ public class WarStartPresenter implements WarStartOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final WarIngameViewModel warIngameViewModel;
     private final WarOccurViewModel warOccurViewModel;
+
+    private final ImageFactory imageFactory = new CardImageFactory();
     public WarStartPresenter(WarStartViewModel warStartViewModel,
                              ViewManagerModel viewManagerModel,
                              WarIngameViewModel warIngameViewModel,
@@ -86,17 +86,7 @@ public class WarStartPresenter implements WarStartOutputBoundary {
     private java.util.List<Image> makeImages(java.util.List<Card> imageLinks) {
         List<Image> images = new ArrayList<>();
         for (Card card : imageLinks) {
-            URL url;
-            Image image;
-            try {
-                url = new URL(card.getImg());
-                image = ImageIO.read(url).getScaledInstance(warIngameViewModel.CARD_WIDTH,
-                        warIngameViewModel.CARD_HEIGHT,
-                        Image.SCALE_SMOOTH);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            images.add(image);
+            images.add(imageFactory.create(card));
         }
         return images;
     }

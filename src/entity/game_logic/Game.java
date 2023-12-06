@@ -1,6 +1,6 @@
 package entity.game_logic;
 
-import entity.Card;
+import entity.cards.Card;
 
 public interface Game {
     String getDeck();

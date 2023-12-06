@@ -1,14 +1,13 @@
 package interface_adapter.baccarat;
 
-import entity.Card;
-import entity.ImageFactory;
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import use_case.games.baccarat.BaccaratOutputBoundary;
 import use_case.games.baccarat.BaccaratOutputData;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
      */
     final ViewManagerModel viewManagerModel;
 
-    private final ImageFactory imageFactory = new ImageFactory();
+    private final ImageFactory imageFactory = new CardImageFactory();
 
     /**
      * Constructs a BaccaratPresenter with the provided ViewModels and ViewManagerModel.
@@ -94,7 +93,6 @@ public class BaccaratPresenter implements BaccaratOutputBoundary {
         currState.setBet("tie", 0);
         currState.setBet("player", 0);
         baccaratStartViewModel.setState(currState);
-
         baccaratStartViewModel.firePropertyChanged();
     }
 

@@ -32,7 +32,7 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
 
             bet = bet * 2;
 
-            /*entity.Card card = cardsAPI.draw(game.getDeck());
+            /*entity.cards.Card card = cardsAPI.draw(game.getDeck());
             game.addToHand(game.getPlayer(), card);
             game.addToHand(game.getDealer(), card);*/
 
