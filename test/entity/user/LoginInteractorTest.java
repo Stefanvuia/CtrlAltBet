@@ -114,7 +114,7 @@ class TestLoginUserDataAccess implements LoginUserDataAccessInterface {
 
     @Override
     public User getUserByName(String username) {
-        return new CommonUserFactory().create("testUser", "testPassword", LocalDateTime.now(), 0);
+        return new CommonUserFactory().create(username, "testPassword", LocalDateTime.now(), 0);
     }
 
     @Override
@@ -136,6 +136,7 @@ class TestLoginOutputBoundary implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData user) {
+        assertEquals("validUser", user.getUser().getName());
         successViewCalled = true;
     }
 

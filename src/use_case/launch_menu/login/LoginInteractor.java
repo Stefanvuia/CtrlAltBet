@@ -50,8 +50,7 @@ public class LoginInteractor implements LoginInputBoundary {
         } else {
             User user = loginUserDataAccessInterface.getUserByName(loginInputData.getName());
 
-            LocalDateTime now = LocalDateTime.now();
-            LoginOutputData loginResponseModel = new LoginOutputData(user, now.toString());
+            LoginOutputData loginResponseModel = new LoginOutputData(user);
             userPresenter.prepareSuccessView(loginResponseModel);
         }
     }

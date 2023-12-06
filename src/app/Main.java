@@ -187,7 +187,6 @@ public class Main {
         UserLoginController loginController = makeUserLoginController(loginViewModel, launchViewModel, viewManagerModel, userDataAccessObject);
         ResetController resetController = makeResetController(historyDAO);
 
-        // TODO more helpers if time
         BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
         BlackJackStandController standController = new BlackJackStandController(standInteractor);
         BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
@@ -227,19 +226,22 @@ public class Main {
         
         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
+        views.add(welcomeView, welcomeView.viewName);
+        views.add(signupView, signupView.viewName);
+        views.add(loginView, loginView.viewName);
+
+        views.add(mainMenuView, mainMenuView.viewName);
+
         views.add(startView, startView.viewName);
-        views.add(baccaratGameView, baccaratGameView.viewName);
         views.add(ingameView, ingameView.viewName);
+
+        views.add(baccaratStartView, baccaratStartView.viewName);
+        views.add(baccaratGameView, baccaratGameView.viewName);
 
         views.add(warStartView, warStartView.viewName);
         views.add(warIngameView, warIngameView.viewName);
         views.add(warOccurView, warOccurView.viewName);
 
-        views.add(mainMenuView, mainMenuView.viewName);
-        views.add(baccaratStartView, baccaratStartView.viewName);
-        views.add(welcomeView, welcomeView.viewName);
-        views.add(signupView, signupView.viewName);
-        views.add(loginView, loginView.viewName);
         views.add(accountInfoView, accountInfoView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);
