@@ -114,7 +114,7 @@ class HistoryInteractorTest {
             assertNotNull(seriesBelow);
 
             assertTrue(Arrays.stream(seriesAbove.getYData()).allMatch(y -> y == 0.0));
-            assertTrue(Arrays.stream(seriesAbove.getYData()).allMatch(y -> y == 0.0));
+            assertTrue(Arrays.stream(seriesBelow.getYData()).allMatch(y -> y == 0.0));
 
             return true;
         }));
