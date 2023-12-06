@@ -7,9 +7,6 @@ import interface_adapter.game_menu.launch_game.LaunchViewModel;
 import use_case.launch_menu.login.LoginOutputBoundary;
 import use_case.launch_menu.login.LoginOutputData;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Presenter class responsible for handling the output and presentation logic
  * related to user login in the launch menu.
@@ -51,9 +48,6 @@ public class LoginPresenter implements LoginOutputBoundary {
      */
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        LocalDateTime responseTime = LocalDateTime.parse(response.getLoginTime());
-        response.setLoginTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
-
         LaunchState currState = launchViewModel.getState();
         currState.setUsername(response.getUser().getName());
         launchViewModel.setState(currState);

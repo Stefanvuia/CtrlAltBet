@@ -1,12 +1,10 @@
 package api;
 
-import entity.Card;
+import entity.cards.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CardsAPIObjectTest {
     private CardsAPIObject api;

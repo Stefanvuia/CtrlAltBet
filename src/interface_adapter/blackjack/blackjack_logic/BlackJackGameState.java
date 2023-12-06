@@ -1,6 +1,5 @@
 package interface_adapter.blackjack.blackjack_logic;
 
-import entity.Card;
 import entity.game_logic.BlackJackGameInterface;
 
 import java.awt.*;

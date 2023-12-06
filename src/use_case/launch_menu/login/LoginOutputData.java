@@ -15,19 +15,12 @@ public class LoginOutputData {
     private final User user;
 
     /**
-     * The time at which the user logged in.
-     */
-    private String loginTime;
-
-    /**
      * Constructs a {@code LoginOutputData} instance with the specified {@code user} and {@code loginTime}.
      *
      * @param user The user object representing the logged-in user.
-     * @param loginTime The time at which the user logged in.
      */
-    public LoginOutputData(User user, String loginTime) {
+    public LoginOutputData(User user) {
         this.user = user;
-        this.loginTime = loginTime;
     }
 
     /**
@@ -37,23 +30,5 @@ public class LoginOutputData {
      */
     public User getUser() {
         return user;
-    }
-
-    /**
-     * Retrieves the time at which the user logged in.
-     *
-     * @return The login time.
-     */
-    public String getLoginTime() {
-        return loginTime;
-    }
-
-    /**
-     * Sets the login time to the specified value.
-     *
-     * @param loginTime The new login time.
-     */
-    public void setLoginTime(String loginTime) {
-        this.loginTime = loginTime;
     }
 }

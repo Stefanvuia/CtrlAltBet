@@ -2,16 +2,15 @@ package use_case.game_menu.account;
 
 import entity.user.CommonUser;
 import org.junit.jupiter.api.Test;
-import use_case.InMemoryHistoryDataAccessObject;
-import use_case.game_menu.MenuDataAccessInterface;
 import use_case.InMemoryUserDataAccessObject;
+import use_case.game_menu.MenuDataAccessInterface;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccountInteractorTest {
-    private AccountOutputBoundary presenter = new AccountOutputBoundary() {
+    private final AccountOutputBoundary presenter = new AccountOutputBoundary() {
         @Override
         public void prepareSwapView(AccountOutputData accountOutputData) {
             assertEquals("cakev", accountOutputData.getUsername());
@@ -19,7 +18,7 @@ class AccountInteractorTest {
         }
     };
 
-    private MenuDataAccessInterface dao = new InMemoryUserDataAccessObject();
+    private final MenuDataAccessInterface dao = new InMemoryUserDataAccessObject();
 
     @Test
     void accountTest() {

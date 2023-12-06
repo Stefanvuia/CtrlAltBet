@@ -2,8 +2,8 @@ package use_case.launch_menu.signup;
 
 import constants.Constants;
 import entity.user.User;
-import entity.user.UserFactory;
 import entity.user.UserDataAccessFailed;
+import entity.user.UserFactory;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 
 import java.time.LocalDateTime;
@@ -76,7 +76,7 @@ public class SignupInteractor implements SignupInputBoundary {
             userDsGateway.save(user);
             historyDAO.addUser(user.getName());
 
-            SignupOutputData accountResponseModel = new SignupOutputData(user.getName(), now.toString());
+            SignupOutputData accountResponseModel = new SignupOutputData(user.getName());
             userPresenter.prepareSuccessView(accountResponseModel);
         }
     }

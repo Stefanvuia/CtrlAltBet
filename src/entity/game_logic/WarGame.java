@@ -1,6 +1,6 @@
 package entity.game_logic;
 
-import entity.Card;
+import entity.cards.Card;
 
 import java.util.List;
 /**

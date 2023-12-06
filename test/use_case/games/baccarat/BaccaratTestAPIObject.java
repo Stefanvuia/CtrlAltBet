@@ -1,7 +1,7 @@
 package use_case.games.baccarat;
 
-import entity.Card;
-import entity.StandardCard;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import use_case.games.CardsAPIInterface;
 
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import java.util.List;
 public class BaccaratTestAPIObject implements CardsAPIInterface {
     private static int counter;
 
-    private String valueA;
+    private final String valueA;
 
-    private String valueB;
+    private final String valueB;
 
     public BaccaratTestAPIObject(String valueA, String valueB) {
         counter = 0;

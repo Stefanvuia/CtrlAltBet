@@ -1,7 +1,7 @@
 package entity.game_logic;
 
-import entity.Card;
-import entity.StandardCard;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class WarGameTest {
     private Card aCard;
 
     private Card sixCard;
-    private List<Card> cards = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

@@ -9,8 +9,8 @@ import org.mockito.MockitoAnnotations;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
 
 public class GridBagUtilsTest {
 

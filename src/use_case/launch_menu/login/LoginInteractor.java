@@ -3,8 +3,6 @@ package use_case.launch_menu.login;
 import entity.user.User;
 import entity.user.UserDataAccessFailed;
 
-import java.time.LocalDateTime;
-
 /**
  * The {@code LoginInteractor} class implements the {@code LoginInputBoundary} interface and is responsible
  * for handling user login interactions in the launch menu.
@@ -50,8 +48,7 @@ public class LoginInteractor implements LoginInputBoundary {
         } else {
             User user = loginUserDataAccessInterface.getUserByName(loginInputData.getName());
 
-            LocalDateTime now = LocalDateTime.now();
-            LoginOutputData loginResponseModel = new LoginOutputData(user, now.toString());
+            LoginOutputData loginResponseModel = new LoginOutputData(user);
             userPresenter.prepareSuccessView(loginResponseModel);
         }
     }

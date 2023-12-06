@@ -1,8 +1,8 @@
 package view.blackjack;
 
 import interface_adapter.blackjack.blackjack_start.BlackJackStartController;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_swing_elements.*;
@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.*;
+import java.text.NumberFormat;
 
 
 public class BlackJackStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {

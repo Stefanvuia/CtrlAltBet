@@ -1,8 +1,7 @@
 package use_case.games.war;
 
-import de.erichseifert.vectorgraphics2d.VectorHints;
-import entity.Card;
-import entity.StandardCard;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import use_case.games.CardsAPIInterface;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class WarTestAPIObject implements CardsAPIInterface {
     private boolean war;
-    private boolean win;
+    private final boolean win;
 
     public WarTestAPIObject(boolean war, boolean win) {
         this.war = war;

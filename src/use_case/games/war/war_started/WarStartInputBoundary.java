@@ -12,5 +12,6 @@ public interface WarStartInputBoundary {
      *
      * @param warStartInputData The input data containing the username and initial bet for starting the game.
      */
+
     void execute(WarStartInputData warStartInputData);
 }

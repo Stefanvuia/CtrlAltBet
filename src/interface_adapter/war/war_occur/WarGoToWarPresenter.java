@@ -1,6 +1,9 @@
 package interface_adapter.war.war_occur;
 
-import entity.Card;
+import constants.Constants;
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.war.WarGameState;
 import interface_adapter.war.war_start.WarStartState;
@@ -8,10 +11,7 @@ import interface_adapter.war.war_start.WarStartViewModel;
 import use_case.games.war.war_logic.WarGoToWarOutputBoundary;
 import use_case.games.war.war_logic.WarOutputGameData;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +31,11 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
 
     /** The model managing the active views in the application. */
     private final ViewManagerModel viewManagerModel;
+    
+    /** Image factory that creates images for cards */
+    private final ImageFactory imageFactory = new CardImageFactory();
 
-    /**
+  /**
      * Constructs a new WarGoToWarPresenter with the specified ViewModels and ViewManagerModel.
      *
      * @param warStartViewModel The ViewModel for the start state of the War card game.
@@ -116,36 +119,13 @@ public class WarGoToWarPresenter implements WarGoToWarOutputBoundary {
      */
     private List<Image> makeImages(List<Card> imageLinks) {
         List<Image> images = new ArrayList<>();
-            URL url;
-            Image image;
-            try {
-                // Add the first card image
-                url = new URL(imageLinks.get(0).getImg());
-                image = ImageIO.read(url).getScaledInstance(warOccurViewModel.CARD_WIDTH,
-                        warOccurViewModel.CARD_HEIGHT,
-                        Image.SCALE_SMOOTH);
-                images.add(image);
+      
+        images.add(imageFactory.create(imageLinks.get(0)));
+        for (int i = 0; i < 3; i++){
+            images.add(imageFactory.create(Constants.backImage));
+        }
+        images.add(imageFactory.create(imageLinks.get(1)));
 
-                // Add three card back images
-                for (int i = 0; i < 3; i++){
-                    images.add(
-                            ImageIO.read(
-                                    new URL(warOccurViewModel.CARD_BACK_URL)).getScaledInstance(
-                                    warOccurViewModel.CARD_WIDTH,
-                                    warOccurViewModel.CARD_HEIGHT,
-                                    Image.SCALE_SMOOTH)
-                    );
-                }
-
-                // Add the second card image
-                url = new URL(imageLinks.get(1).getImg());
-                image = ImageIO.read(url).getScaledInstance(warOccurViewModel.CARD_WIDTH,
-                        warOccurViewModel.CARD_HEIGHT,
-                        Image.SCALE_SMOOTH);
-                images.add(image);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         return images;
     }
 }

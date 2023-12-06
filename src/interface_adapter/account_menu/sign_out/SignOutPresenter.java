@@ -10,8 +10,8 @@ import use_case.account_menu.sign_out.SignOutOutputBoundary;
  * and the user interface.
  */
 public class SignOutPresenter implements SignOutOutputBoundary {
-    private WelcomeViewModel welcomeViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final WelcomeViewModel welcomeViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructs a new SignOutPresenter with the specified WelcomeViewModel and ViewManagerModel.

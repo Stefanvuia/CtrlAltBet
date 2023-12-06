@@ -19,13 +19,6 @@ public class WarOccurViewModel extends ViewModel {
     /** The default image path for the war table background. */
     public final String IMG_PATH = "img/wartable.png";
 
-    /** The height of the cards displayed in the game. */
-    public final int CARD_HEIGHT = 157;
-
-    /** The width of the cards displayed in the game. */
-    public final int CARD_WIDTH = 108;
-
-    /** The label for the "Go to War" action button. */
     public String GO_TO_WAR_LABEL = "go to war";
 
     /** The label for the "Surrender" action button. */
@@ -34,12 +27,6 @@ public class WarOccurViewModel extends ViewModel {
     /** The label for the "Exit" action button. */
     public String EXIT_LABEL = "exit";
 
-    /** The URL for the card back image. */
-    public String CARD_BACK_URL = "https://www.deckofcardsapi.com/static/img/back.png";
-
-    /**
-     * Constructs a new WarOccurViewModel with the default title "war occur."
-     */
     public WarOccurViewModel() {
         super("war occur");
     }

@@ -1,9 +1,9 @@
 package entity.game_logic;
 
-import entity.Card;
-import entity.StandardCard;
-import org.junit.jupiter.api.Test;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class BaccaratPlayerTest {
     private BaccaratPlayer player;

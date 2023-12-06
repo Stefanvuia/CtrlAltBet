@@ -1,17 +1,15 @@
 package interface_adapter.blackjack.blackjack_logic;
 
-import entity.Card;
-import entity.ImageFactory;
+import entity.cards.Card;
+import entity.cards.CardImageFactory;
+import entity.cards.ImageFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
+import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
 import use_case.games.blackjack.blackjack_logic.BlackJackOutputGameData;
 import use_case.games.blackjack.blackjack_logic.BlackJackStandOutputBoundary;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class BlackJackStandPresenter implements BlackJackStandOutputBoundary {
     private final BlackJackIngameViewModel blackJackIngameViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    private final ImageFactory imageFactory = new ImageFactory();
+    private final ImageFactory imageFactory = new CardImageFactory();
 
     public BlackJackStandPresenter(BlackJackStartViewModel blackJackStartViewModel,
                                    BlackJackIngameViewModel blackJackIngameViewModel,

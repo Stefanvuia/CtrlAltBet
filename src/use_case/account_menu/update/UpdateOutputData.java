@@ -1,8 +1,6 @@
 package use_case.account_menu.update;
 
 
-import entity.user.User;
-
 /**
  * Represents the response body for a successful user balance update operation.
  */

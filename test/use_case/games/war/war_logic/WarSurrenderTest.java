@@ -2,7 +2,10 @@ package use_case.games.war.war_logic;
 
 import data_access.FileUserDataAccessObject;
 import data_access.HistoryDataAccessObject;
-import entity.game_logic.*;
+import entity.game_logic.Player;
+import entity.game_logic.WarDealer;
+import entity.game_logic.WarGame;
+import entity.game_logic.WarPlayer;
 import entity.user.CommonUser;
 import entity.user.CommonUserFactory;
 import entity.user.User;
@@ -18,10 +21,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class WarSurrenderTest {
-    private CardsAPIInterface cardDrawer = new WarTestAPIObject(true, true);
+    private final CardsAPIInterface cardDrawer = new WarTestAPIObject(true, true);
     private final FileUserDataAccessObject dao = getDAO();
 
     private final HistoryDataAccessInterface hDao = getHistoryDAO();
@@ -72,7 +76,7 @@ public class WarSurrenderTest {
 
     @Test
     void SurrenderTest() {
-        WarInputGameData inputData = new WarInputGameData((WarGameInterface) game);
+        WarInputGameData inputData = new WarInputGameData(game);
         WarSurrenderInteractor interactor = new WarSurrenderInteractor(cardDrawer, dao, hDao, warPresenter);
         interactor.execute(inputData);
     }

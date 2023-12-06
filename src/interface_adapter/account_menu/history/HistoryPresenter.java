@@ -1,8 +1,8 @@
 package interface_adapter.account_menu.history;
 
+import org.knowm.xchart.XYChart;
 import use_case.account_menu.history.HistoryOutputBoundary;
 import use_case.account_menu.history.HistoryOutputData;
-import org.knowm.xchart.XYChart;
 
 /**
  * Presenter for displaying user history charts.

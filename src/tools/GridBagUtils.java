@@ -10,7 +10,7 @@ public class GridBagUtils {
     /**
      * The Container to which components will be added using GridBagLayout.
      */
-    private Container container;
+    private final Container container;
 
     /**
      * Constructs a GridBagUtils object with the specified Container.

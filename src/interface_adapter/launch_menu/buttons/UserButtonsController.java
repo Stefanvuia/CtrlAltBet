@@ -12,7 +12,7 @@ public class UserButtonsController {
     /**
      * The use case interactor responsible for processing user button interactions.
      */
-    private UserButtonsInputBoundary welcomeInteractor;
+    private final UserButtonsInputBoundary welcomeInteractor;
 
     /**
      * Constructs a new instance of UserButtonsController.

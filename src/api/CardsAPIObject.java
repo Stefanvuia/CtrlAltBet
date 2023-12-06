@@ -1,7 +1,7 @@
 package api;
 
-import entity.Card;
-import entity.StandardCard;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

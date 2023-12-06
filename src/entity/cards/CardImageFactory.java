@@ -1,4 +1,4 @@
-package entity;
+package entity.cards;
 
 import constants.Constants;
 
@@ -7,8 +7,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
-public class ImageFactory {
-    public ImageFactory(){}
+public class CardImageFactory implements ImageFactory {
+    public CardImageFactory(){}
 
     public Image create(Card card) {
         URL url;

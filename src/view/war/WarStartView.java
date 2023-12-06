@@ -7,8 +7,10 @@ import interface_adapter.war.war_start.WarStartViewModel;
 import tools.GridBagUtils;
 import view.custom_swing_elements.*;
 
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +20,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.NumberFormat;
-import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 
 public class WarStartView extends JPanel implements ActionListener, PropertyChangeListener, DocumentListener {
     public final String viewName = "war start";

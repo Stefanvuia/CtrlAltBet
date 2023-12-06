@@ -12,7 +12,7 @@ public class UserButtonsInteractor implements UserButtonsInputBoundary {
     /**
      * The presenter responsible for handling the output of user button interactions.
      */
-    private UserButtonsOutputBoundary welcomeButtonsPresenter;
+    private final UserButtonsOutputBoundary welcomeButtonsPresenter;
 
     /**
      * Constructs a {@code UserButtonsInteractor} with the specified {@code welcomeButtonsPresenter}.

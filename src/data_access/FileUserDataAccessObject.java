@@ -2,11 +2,11 @@ package data_access;
 
 import entity.user.User;
 import entity.user.UserFactory;
-import use_case.games.GameDataAccessInterface;
+import use_case.account_menu.update.UpdateUserDataAccessInterface;
 import use_case.game_menu.MenuDataAccessInterface;
+import use_case.games.GameDataAccessInterface;
 import use_case.launch_menu.login.LoginUserDataAccessInterface;
 import use_case.launch_menu.signup.SignupUserDataAccessInterface;
-import use_case.account_menu.update.UpdateUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -41,7 +41,7 @@ public class FileUserDataAccessObject implements
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
+                assert header.equals("username,password,creation_time,balance");
 
                 String row;
                 while ((row = reader.readLine()) != null) {

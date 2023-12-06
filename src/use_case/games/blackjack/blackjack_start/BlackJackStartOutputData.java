@@ -1,7 +1,7 @@
 package use_case.games.blackjack.blackjack_start;
 
-import entity.game_logic.BlackJackPlayer;
 import entity.game_logic.BlackJackGameInterface;
+import entity.game_logic.BlackJackPlayer;
 
 /**
  * Represents output data after initiating a Blackjack game, including the game interface, user, and bet information.

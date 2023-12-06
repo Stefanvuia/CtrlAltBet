@@ -4,12 +4,10 @@ import api.CardsAPIObject;
 import data_access.FileUserDataAccessObject;
 import data_access.HistoryDataAccessObject;
 import entity.user.CommonUserFactory;
-
-import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.account_menu.AccountInfoViewModel;
 import interface_adapter.account_menu.history.HistoryController;
 import interface_adapter.account_menu.history.HistoryPresenter;
-
 import interface_adapter.account_menu.history.HistoryViewModel;
 import interface_adapter.account_menu.reset_graph.ResetController;
 import interface_adapter.account_menu.sign_out.SignOutController;
@@ -40,18 +38,15 @@ import interface_adapter.launch_menu.login.UserLoginController;
 import interface_adapter.launch_menu.sign_up.SignUpViewModel;
 import interface_adapter.launch_menu.sign_up.SignupPresenter;
 import interface_adapter.launch_menu.sign_up.UserSignupController;
-
-import use_case.account_menu.history.HistoryDataAccessInterface;
-import use_case.account_menu.history.HistoryInputBoundary;
-import use_case.account_menu.history.HistoryInteractor;
-import use_case.account_menu.history.HistoryOutputBoundary;
-
 import interface_adapter.war.war_logic.WarIngameViewModel;
 import interface_adapter.war.war_occur.*;
 import interface_adapter.war.war_start.WarStartController;
 import interface_adapter.war.war_start.WarStartPresenter;
 import interface_adapter.war.war_start.WarStartViewModel;
-
+import use_case.account_menu.history.HistoryDataAccessInterface;
+import use_case.account_menu.history.HistoryInputBoundary;
+import use_case.account_menu.history.HistoryInteractor;
+import use_case.account_menu.history.HistoryOutputBoundary;
 import use_case.account_menu.reset_graph.ResetDataAccessInterface;
 import use_case.account_menu.reset_graph.ResetInputBoundary;
 import use_case.account_menu.reset_graph.ResetInteractor;
@@ -64,7 +59,12 @@ import use_case.account_menu.update.UpdateOutputBoundary;
 import use_case.game_menu.account.AccountInputBoundary;
 import use_case.game_menu.account.AccountInteractor;
 import use_case.game_menu.account.AccountOutputBoundary;
+import use_case.game_menu.exit.ExitInputBoundary;
+import use_case.game_menu.exit.ExitInteractor;
 import use_case.game_menu.exit.ExitOutputBoundary;
+import use_case.game_menu.launch_game.LaunchInputBoundary;
+import use_case.game_menu.launch_game.LaunchInteractor;
+import use_case.game_menu.launch_game.LaunchOutputBoundary;
 import use_case.games.CardsAPIInterface;
 import use_case.games.baccarat.BaccaratInputBoundary;
 import use_case.games.baccarat.BaccaratInteractor;
@@ -73,17 +73,10 @@ import use_case.games.blackjack.blackjack_logic.*;
 import use_case.games.blackjack.blackjack_start.BlackJackStartInputBoundary;
 import use_case.games.blackjack.blackjack_start.BlackJackStartInteractor;
 import use_case.games.blackjack.blackjack_start.BlackJackStartOutputBoundary;
-import use_case.game_menu.exit.ExitInputBoundary;
-import use_case.game_menu.exit.ExitInteractor;
-import use_case.game_menu.launch_game.LaunchInputBoundary;
-import use_case.game_menu.launch_game.LaunchInteractor;
-import use_case.game_menu.launch_game.LaunchOutputBoundary;
-
 import use_case.games.war.war_logic.*;
 import use_case.games.war.war_started.WarStartInputBoundary;
 import use_case.games.war.war_started.WarStartInteractor;
 import use_case.games.war.war_started.WarStartOutputBoundary;
-
 import use_case.launch_menu.buttons.UserButtonsInputBoundary;
 import use_case.launch_menu.buttons.UserButtonsInteractor;
 import use_case.launch_menu.buttons.UserButtonsOutputBoundary;
@@ -93,7 +86,9 @@ import use_case.launch_menu.login.LoginOutputBoundary;
 import use_case.launch_menu.signup.SignupInputBoundary;
 import use_case.launch_menu.signup.SignupInteractor;
 import use_case.launch_menu.signup.SignupOutputBoundary;
-import view.*;
+import view.AccountInfoView;
+import view.MainMenuView;
+import view.ViewManager;
 import view.baccarat.BaccaratGameView;
 import view.baccarat.BaccaratStartView;
 import view.blackjack.BlackJackIngameView;
@@ -101,7 +96,6 @@ import view.blackjack.BlackJackStartView;
 import view.launch_menu.LoginView;
 import view.launch_menu.SignupView;
 import view.launch_menu.WelcomeView;
-
 import view.war.WarIngameView;
 import view.war.WarOccurView;
 import view.war.WarStartView;
@@ -187,7 +181,6 @@ public class Main {
         UserLoginController loginController = makeUserLoginController(loginViewModel, launchViewModel, viewManagerModel, userDataAccessObject);
         ResetController resetController = makeResetController(historyDAO);
 
-        // TODO more helpers if time
         BlackJackHitController hitController = new BlackJackHitController(hitInteractor);
         BlackJackStandController standController = new BlackJackStandController(standInteractor);
         BlackJackStartController startController = new BlackJackStartController(blackJackStartInteractor);
@@ -227,19 +220,22 @@ public class Main {
         
         MainMenuView mainMenuView = new MainMenuView(launchViewModel, launchController, accountController);
 
+        views.add(welcomeView, welcomeView.viewName);
+        views.add(signupView, signupView.viewName);
+        views.add(loginView, loginView.viewName);
+
+        views.add(mainMenuView, mainMenuView.viewName);
+
         views.add(startView, startView.viewName);
-        views.add(baccaratGameView, baccaratGameView.viewName);
         views.add(ingameView, ingameView.viewName);
+
+        views.add(baccaratStartView, baccaratStartView.viewName);
+        views.add(baccaratGameView, baccaratGameView.viewName);
 
         views.add(warStartView, warStartView.viewName);
         views.add(warIngameView, warIngameView.viewName);
         views.add(warOccurView, warOccurView.viewName);
 
-        views.add(mainMenuView, mainMenuView.viewName);
-        views.add(baccaratStartView, baccaratStartView.viewName);
-        views.add(welcomeView, welcomeView.viewName);
-        views.add(signupView, signupView.viewName);
-        views.add(loginView, loginView.viewName);
         views.add(accountInfoView, accountInfoView.viewName);
 
         viewManagerModel.setActiveView(welcomeView.viewName);

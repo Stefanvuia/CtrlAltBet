@@ -1,14 +1,14 @@
 package use_case.games.blackjack;
 
-import entity.Card;
-import entity.StandardCard;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import use_case.games.CardsAPIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlackJackTestAPIObject implements CardsAPIInterface {
-    private String value;
+    private final String value;
 
     public BlackJackTestAPIObject(String value) {
         this.value = value;

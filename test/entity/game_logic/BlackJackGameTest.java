@@ -1,16 +1,12 @@
 package entity.game_logic;
 
-import entity.Card;
-import entity.StandardCard;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import entity.cards.Card;
+import entity.cards.StandardCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BlackJackGameTest {
     private Player player;
@@ -23,7 +19,7 @@ class BlackJackGameTest {
     private Card aCard;
 
     private Card sixCard;
-    private List<Card> cards = new ArrayList<>();
+    private final List<Card> cards = new ArrayList<>();
 
     @BeforeEach
     void setUp() {

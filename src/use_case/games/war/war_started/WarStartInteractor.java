@@ -2,8 +2,8 @@ package use_case.games.war.war_started;
 
 import entity.game_logic.*;
 import use_case.account_menu.history.HistoryDataAccessInterface;
-import use_case.games.GameDataAccessInterface;
 import use_case.games.CardsAPIInterface;
+import use_case.games.GameDataAccessInterface;
 
 /**
  * The WarStartInteractor class is responsible for initializing the War card game.
@@ -60,7 +60,7 @@ public class WarStartInteractor implements WarStartInputBoundary{
             Player dealer = new WarDealer();
 
             WarGameInterface game = new WarGame(player, dealer, deckId);
-            /*entity.Card card = cardsAPI.draw(game.getDeck());
+            /*entity.cards.Card card = cardsAPI.draw(game.getDeck());
             game.addToHand(player, card);
             game.addToHand(dealer, card);*/
 

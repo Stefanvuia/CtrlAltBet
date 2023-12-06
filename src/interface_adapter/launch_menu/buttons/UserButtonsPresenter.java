@@ -17,17 +17,17 @@ public class UserButtonsPresenter implements UserButtonsOutputBoundary {
     /**
      * The model responsible for managing the active view in the application.
      */
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * The ViewModel associated with the login functionality.
      */
-    private LoginViewModel loginViewModel;
+    private final LoginViewModel loginViewModel;
 
     /**
      * The ViewModel associated with the sign-up functionality.
      */
-    private SignUpViewModel signUpViewModel;
+    private final SignUpViewModel signUpViewModel;
 
     /**
      * Creates a new instance of the UserButtonsPresenter.

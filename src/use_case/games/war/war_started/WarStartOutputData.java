@@ -1,7 +1,7 @@
 package use_case.games.war.war_started;
 
-import entity.game_logic.WarPlayer;
 import entity.game_logic.WarGameInterface;
+import entity.game_logic.WarPlayer;
 
 /**
  * The WarStartOutputData class represents the output data for the "Start War" action in the War card game.

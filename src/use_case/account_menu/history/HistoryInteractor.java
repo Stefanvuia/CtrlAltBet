@@ -1,11 +1,12 @@
 package use_case.account_menu.history;
 
-import org.knowm.xchart.*;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
-import java.awt.Color;
-
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

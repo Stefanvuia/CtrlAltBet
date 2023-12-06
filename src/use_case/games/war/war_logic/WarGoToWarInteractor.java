@@ -1,7 +1,6 @@
 package use_case.games.war.war_logic;
 
 import entity.game_logic.WarGameInterface;
-import entity.game_logic.WarPlayer;
 import use_case.account_menu.history.HistoryDataAccessInterface;
 import use_case.games.CardsAPIInterface;
 import use_case.games.GameDataAccessInterface;
@@ -60,7 +59,7 @@ public class WarGoToWarInteractor implements WarGoToWarInputBoundary{
 
             bet = bet * 2;
 
-            /*entity.Card card = cardsAPI.draw(game.getDeck());
+            /*entity.cards.Card card = cardsAPI.draw(game.getDeck());
             game.addToHand(game.getPlayer(), card);
             game.addToHand(game.getDealer(), card);*/
 
