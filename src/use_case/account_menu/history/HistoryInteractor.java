@@ -29,11 +29,11 @@ public class HistoryInteractor implements HistoryInputBoundary {
      *
      * @param historyInputData An object containing the username and game with getter methods for each respectively.
      *                         They are used to fetch the correct payout data.
-     *                         <p>
-     *                         Note: This method does not return anything but is stored in the Output Data.
-     *                         <p>
-     *                         Usage example:
-     *                         createChart(new HistoryInputData("John", "blackjack"));
+     *
+     * Note: This method does not return anything but is stored in the Output Data.
+     *
+     * Usage example:
+     * createChart(new HistoryInputData("John", "blackjack"));
      */
     @Override
     public void createChart(HistoryInputData historyInputData) {
@@ -84,6 +84,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
             XYChart chart = new XYChartBuilder().width(800).height(600).title(game.toUpperCase() + " Payout History").xAxisTitle("Game").yAxisTitle("Total Payout").theme(Styler.ChartTheme.GGPlot2).build();
 
             chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Area);
+            chart.getStyler().setXAxisDecimalPattern("#");
 
             XYSeries seriesAbove = chart.addSeries("Up by", xDataAbove, yDataAbove);
             XYSeries seriesBelow = chart.addSeries("Down by", xDataBelow, yDataBelow);
