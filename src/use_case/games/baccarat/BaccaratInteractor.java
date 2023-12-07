@@ -26,10 +26,6 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
      */
     final BaccaratOutputBoundary baccaratPresenter;
 
-    /**
-     * Data access interface for handling user history data.
-     */
-    final HistoryDataAccessInterface historyDAO;
 
     /**
      * Constructs a BaccaratInteractor object with the specified dependencies.
@@ -46,7 +42,6 @@ public class BaccaratInteractor implements BaccaratInputBoundary {
         this.baccaratGameLogic = new BaccaratGameLogic(cardsAPI);
         this.baccaratDataAccess = new BaccaratDataAccess(historyDAO, gameDAO);
         this.baccaratPresenter = baccaratPresenter;
-        this.historyDAO = historyDAO;
     }
 
     /**

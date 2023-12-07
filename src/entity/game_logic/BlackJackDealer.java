@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * Represents a dealer in a BlackJack game with specific functionality for the game.
  */
-public class BlackJackDealer extends Player {
+public class BlackJackDealer implements Player {
+    private final List<Card> hands;
 
     /**
      * Constructs a BlackJack dealer with an empty hand.
@@ -22,8 +23,9 @@ public class BlackJackDealer extends Player {
      *
      * @return The list of cards in the dealer's hand.
      */
+    @Override
     public List<Card> getHand() {
-        return super.getHand();
+        return hands;
     }
 
     /**
@@ -31,7 +33,8 @@ public class BlackJackDealer extends Player {
      *
      * @param card The card to be added to the dealer's hand.
      */
+    @Override
     public void addToHand(Card card) {
-        super.addToHand(card);
+        hands.add(card);
     }
 }

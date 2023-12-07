@@ -1,9 +1,9 @@
 package view.blackjack;
 
-import interface_adapter.blackjack.blackjack_logic.BlackJackGameState;
-import interface_adapter.blackjack.blackjack_logic.BlackJackHitController;
-import interface_adapter.blackjack.blackjack_logic.BlackJackIngameViewModel;
-import interface_adapter.blackjack.blackjack_logic.BlackJackStandController;
+import interface_adapter.games.blackjack.blackjack_logic.BlackJackGameState;
+import interface_adapter.games.blackjack.blackjack_logic.BlackJackHitController;
+import interface_adapter.games.blackjack.blackjack_logic.BlackJackIngameViewModel;
+import interface_adapter.games.blackjack.blackjack_logic.BlackJackStandController;
 import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_swing_elements.BlackJackBackgroundPanel;
