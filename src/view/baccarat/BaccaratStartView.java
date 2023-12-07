@@ -1,8 +1,8 @@
 package view.baccarat;
 
-import interface_adapter.baccarat.BaccaratController;
-import interface_adapter.baccarat.BaccaratStartState;
-import interface_adapter.baccarat.BaccaratStartViewModel;
+import interface_adapter.games.baccarat.BaccaratController;
+import interface_adapter.games.baccarat.BaccaratStartState;
+import interface_adapter.games.baccarat.BaccaratStartViewModel;
 import interface_adapter.game_menu.exit.ExitController;
 import tools.GridBagUtils;
 import view.custom_swing_elements.*;

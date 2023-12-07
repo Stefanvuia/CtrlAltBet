@@ -1,7 +1,7 @@
 package view.war;
 
-import interface_adapter.war.WarGameState;
-import interface_adapter.war.war_logic.WarIngameViewModel;
+import interface_adapter.games.war.WarGameState;
+import interface_adapter.games.war.war_logic.WarIngameViewModel;
 import tools.GridBagUtils;
 import view.custom_swing_elements.BlackJackBackgroundPanel;
 

@@ -1,7 +1,7 @@
 package view.baccarat;
 
-import interface_adapter.baccarat.BaccaratGameState;
-import interface_adapter.baccarat.BaccaratGameViewModel;
+import interface_adapter.games.baccarat.BaccaratGameState;
+import interface_adapter.games.baccarat.BaccaratGameViewModel;
 import tools.GridBagUtils;
 import view.custom_swing_elements.BaccaratBackgroundPanel;
 

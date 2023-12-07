@@ -1,9 +1,9 @@
 package view.war;
 
 import interface_adapter.game_menu.exit.ExitController;
-import interface_adapter.war.war_start.WarStartController;
-import interface_adapter.war.war_start.WarStartState;
-import interface_adapter.war.war_start.WarStartViewModel;
+import interface_adapter.games.war.war_start.WarStartController;
+import interface_adapter.games.war.war_start.WarStartState;
+import interface_adapter.games.war.war_start.WarStartViewModel;
 import tools.GridBagUtils;
 import view.custom_swing_elements.*;
 

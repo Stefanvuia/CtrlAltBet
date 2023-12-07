@@ -1,10 +1,10 @@
 package view.war;
 
 import interface_adapter.game_menu.exit.ExitController;
-import interface_adapter.war.WarGameState;
-import interface_adapter.war.war_occur.WarGoToWarController;
-import interface_adapter.war.war_occur.WarOccurViewModel;
-import interface_adapter.war.war_occur.WarSurrenderController;
+import interface_adapter.games.war.WarGameState;
+import interface_adapter.games.war.war_occur.WarGoToWarController;
+import interface_adapter.games.war.war_occur.WarOccurViewModel;
+import interface_adapter.games.war.war_occur.WarSurrenderController;
 import tools.GridBagUtils;
 import view.custom_swing_elements.BlackJackBackgroundPanel;
 import view.custom_swing_elements.GreenCustomButton;

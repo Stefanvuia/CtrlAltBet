@@ -1,12 +1,12 @@
 package interface_adapter.game_menu.launch_game;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.baccarat.BaccaratStartState;
-import interface_adapter.baccarat.BaccaratStartViewModel;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartState;
-import interface_adapter.blackjack.blackjack_start.BlackJackStartViewModel;
-import interface_adapter.war.war_start.WarStartState;
-import interface_adapter.war.war_start.WarStartViewModel;
+import interface_adapter.games.baccarat.BaccaratStartState;
+import interface_adapter.games.baccarat.BaccaratStartViewModel;
+import interface_adapter.games.blackjack.blackjack_start.BlackJackStartState;
+import interface_adapter.games.blackjack.blackjack_start.BlackJackStartViewModel;
+import interface_adapter.games.war.war_start.WarStartState;
+import interface_adapter.games.war.war_start.WarStartViewModel;
 import use_case.game_menu.launch_game.LaunchOutputBoundary;
 import use_case.game_menu.launch_game.LaunchOutputData;
 
