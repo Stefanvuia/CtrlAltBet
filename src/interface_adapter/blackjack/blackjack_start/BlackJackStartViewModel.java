@@ -20,7 +20,7 @@ public class BlackJackStartViewModel extends ViewModel {
 
     public final String IMG_PATH = "img/blackjacktable.png";
 
-    public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
+    public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet#blackjack";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private BlackJackStartState state = new BlackJackStartState();
 
