@@ -36,7 +36,7 @@ public class BaccaratStartViewModel extends ViewModel {
     /**
      * The path to the information URL displayed when clicking the info button.
      */
-    public String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
+    public String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet#baccarat";
 
     /**
      * The key representing the player bet in the betting amounts map.

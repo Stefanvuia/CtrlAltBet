@@ -50,7 +50,7 @@ public class WarStartViewModel extends ViewModel {
     /**
      * The URL for additional information about the game.
      */
-    public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet";
+    public final String INFO_PATH = "https://github.com/Stefanvuia/CtrlAltBet#war";
     /**
      * The PropertyChangeSupport instance responsible for managing property change listeners.
      * It is initialized with the current instance of WarStartViewModel.
